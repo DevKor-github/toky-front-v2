@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import StyledComponentsRegistry from "@/lib/registry";
+import StyledComponentsRegistry from "@/libs/registry";
 
 export const metadata: Metadata = {
   title: "Create Next App",
