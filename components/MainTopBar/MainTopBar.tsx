@@ -34,5 +34,5 @@ const Wrapper = styled(motion.div)`
   position: fixed;
   color: white;
   box-shadow: 0px 4px 4px rgba(18, 18, 18, 0.25);
-  z-index: 3;
+  z-index: ${({ theme }) => theme.zIndex.MainTopBar};
 `;
