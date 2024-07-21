@@ -1,3 +1,4 @@
+'use client';
 import React, { createContext, PropsWithChildren, ReactNode, useCallback, useMemo, useState } from 'react';
 
 export const OverlayContext = createContext<{

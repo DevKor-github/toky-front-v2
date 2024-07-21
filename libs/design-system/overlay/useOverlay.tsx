@@ -1,3 +1,4 @@
+'use client';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { OverlayContext } from './OverlayProvider';
 import { OverlayController, OverlayControlRef } from './OverlayController';
