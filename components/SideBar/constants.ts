@@ -15,9 +15,9 @@ export const PAGE_INFO = {
     title: '경품응모',
     href: '/draw',
   },
-  DAILY_CHECK: {
+  ATTENDANCE: {
     title: '출석체크',
-    href: '/daily_check',
+    href: '/attendance',
   },
   USER_INFO: {
     title: '회원정보 관리',
