@@ -1,5 +1,6 @@
 export const colors = {
-  primary: "#000000",
+  primary: '#000000',
+  topBar: '#121212',
 } as const;
 
 export type Colors = keyof typeof colors;
