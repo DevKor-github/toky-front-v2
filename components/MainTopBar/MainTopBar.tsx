@@ -2,6 +2,7 @@ import { Icon } from '@/libs/design-system/icons';
 import { easeInOut, motion } from 'framer-motion';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { SideBar } from '../SideBar';
 
 export function MainTopBar() {
   return (
@@ -20,7 +21,7 @@ export function MainTopBar() {
       <Link href={'/bets'}>
         <Icon.TokyLogo />
       </Link>
-      <Icon.MenuIcon />
+      <SideBar />
     </Wrapper>
   );
 }
