@@ -1,8 +1,9 @@
-import { colors, zIndex } from '@/libs/design-system/styles';
+import { colors, zIndex, typography } from '@/libs/design-system/styles';
 
 export const theme = {
   colors,
   zIndex,
+  typography,
 };
 
 export type ThemeType = typeof theme;
