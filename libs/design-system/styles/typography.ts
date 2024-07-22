@@ -22,6 +22,15 @@ const font = {
     line-height: 20px;
     letter-spacing: -0.96px;
   `,
+  body2: css`
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.84px;
+  `,
+  headText: css`
+    font-size: 22px;
+    line-height: 28px;
+  `,
 };
 
 export const typography = {
@@ -36,5 +45,17 @@ export const typography = {
   body1Regular: css`
     font-weight: ${weight.regular};
     ${font.body1}
+  `,
+  body2Regular: css`
+    font-weight: ${weight.regular};
+    ${font.body2}
+  `,
+  body2Medium: css`
+    font-weight: ${weight.medium};
+    ${font.body2}
+  `,
+  headTextBold: css`
+    font-weight: ${weight.bold};
+    ${font.headText}
   `,
 };
