@@ -1,6 +1,7 @@
 'use client';
 
 import MainTopBar from '@/components/MainTopBar';
+import MainCarousel from '@/components/MainCarousel';
 import styled from 'styled-components';
 
 export default function Home() {
@@ -8,12 +9,12 @@ export default function Home() {
     <div>
       <MainTopBar />
       <Wrapper>
-        <div>test</div>
+        <MainCarousel />
       </Wrapper>
     </div>
   );
 }
 
 const Wrapper = styled.div`
-  padding-top: 68px;
+  padding-top: 66px;
 `;
