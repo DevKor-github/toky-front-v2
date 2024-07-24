@@ -133,3 +133,13 @@ a {
 div {
   box-sizing: border-box;
 }
+button {
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+html {
+  min-height: 100%;
+  background: #121212;
+}
