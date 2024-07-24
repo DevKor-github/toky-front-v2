@@ -6,3 +6,4 @@ export { Vs } from './Vs';
 export { ScoreBoard } from './ScoreBoard';
 export { Ticket } from './Ticket';
 export { Setting } from './Setting';
+export { Stamp } from './Stamp';
