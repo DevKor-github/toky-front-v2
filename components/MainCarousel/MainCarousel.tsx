@@ -47,37 +47,38 @@ const PaginationContainer = css`
   justify-content: center;
   align-items: center;
   border-radius: 99px;
-  background: rgba(0, 0, 0, 0.30);
+  background: rgba(0, 0, 0, 0.3);
 
   .swiper-pagination-current {
-  color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: 0.72px;
+    color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
+    font-family: 'Spoqa Han Sans Neo';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.72px;
   }
 
   .swiper-pagination-slash {
-  color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: 0.72px;
+    color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
+    font-family: 'Spoqa Han Sans Neo';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.72px;
   }
 
   .swiper-pagination-total {
-  color: var(--white-medium-emphasis-60, rgba(255, 255, 255, 0.60));
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: 0.72px;
-  `;
+    color: var(--white-medium-emphasis-60, rgba(255, 255, 255, 0.6));
+    font-family: 'Spoqa Han Sans Neo';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.72px;
+  }
+`;
 // TODO: 테마 색상 적용
 
 const Wrapper = styled.div`
