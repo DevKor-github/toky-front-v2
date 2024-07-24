@@ -1,6 +1,7 @@
 'use client';
 
 import { Flex } from '@/libs/design-system/flex';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 
@@ -9,11 +10,21 @@ export function NavigationBar() {
   return (
     <Wrapper>
       <Flex $justify="space-around">
-        <NavigationItem selected={pathname === '/'}>홈</NavigationItem>
-        <NavigationItem selected={pathname === '/bets'}>승부예측</NavigationItem>
-        <NavigationItem selected={pathname === '/analyze'}>전력분석</NavigationItem>
-        <NavigationItem selected={pathname === '/attendance'}>출석체크</NavigationItem>
-        <NavigationItem selected={pathname === '/draw'}>경품응모</NavigationItem>
+        <Link href="/">
+          <NavigationItem selected={pathname === '/'}>홈</NavigationItem>
+        </Link>
+        <Link href="/bets">
+          <NavigationItem selected={pathname === '/bets'}>승부예측</NavigationItem>
+        </Link>
+        <Link href="/analyze">
+          <NavigationItem selected={pathname === '/analyze'}>전력분석</NavigationItem>
+        </Link>
+        <Link href="/attendance">
+          <NavigationItem selected={pathname === '/attendance'}>출석체크</NavigationItem>
+        </Link>
+        <Link href="/draw">
+          <NavigationItem selected={pathname === '/draw'}>경품응모</NavigationItem>
+        </Link>
       </Flex>
     </Wrapper>
   );

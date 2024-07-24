@@ -13,7 +13,7 @@ export default function Home() {
       <MainTopBar />
       <Wrapper>
         <MainCarousel />
-        <Flex $justify="space-between" style={{ padding: '32px' }}>
+        <Flex $justify="space-between" style={{ padding: 32 }}>
           {ICON_INFO_LIST.map((iconInfo) => (
             <IconButton key={`${iconInfo.href}-${iconInfo.icon}`} {...iconInfo} />
           ))}
@@ -24,6 +24,6 @@ export default function Home() {
 }
 
 const Wrapper = styled.div`
-  padding-top: 66px;
+  padding-top: ${({ theme }) => theme.space.mainTopBarHeight}px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
