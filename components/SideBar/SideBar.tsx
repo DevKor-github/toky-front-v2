@@ -2,20 +2,25 @@ import { Icon } from '@/libs/design-system/icons';
 import SideBarBody from './SideBarBody';
 import { useOverlay } from '@/libs/design-system/overlay';
 import { OutsideClick } from '../OutsideClick/OutsideClick';
+import styled from 'styled-components';
+
 export function SideBar() {
   const overlay = useOverlay();
 
   const openSideBar = () => {
     return new Promise<boolean>((resolve) => {
       overlay.open(({ isOpen, close }) => (
-        <OutsideClick
-          callback={() => {
-            resolve(false);
-            close();
-          }}
-        >
-          <SideBarBody isBarOpen={isOpen} />
-        </OutsideClick>
+        <>
+          <SideBarBackgroundTouchPrevent isOpen={isOpen} />
+          <OutsideClick
+            callback={() => {
+              resolve(false);
+              close();
+            }}
+          >
+            <SideBarBody isBarOpen={isOpen} />
+          </OutsideClick>
+        </>
       ));
     });
   };
@@ -32,3 +37,14 @@ export function SideBar() {
     </>
   );
 }
+
+const SideBarBackgroundTouchPrevent = styled.div<{ isOpen: boolean }>`
+  background-color: transparent;
+  z-index: ${(props) => props.theme.zIndex.SideBar - 1};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: ${(props) => (props.isOpen ? 'block' : 'none')};
+`;
