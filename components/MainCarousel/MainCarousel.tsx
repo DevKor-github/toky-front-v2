@@ -9,6 +9,32 @@ import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+export function MainCarousel() {
+  const bannersList = [banner1, banner1, banner1]; // TODO: 서버에서 이미지 파일 가져와서 생성
+  return (
+    <Wrapper className="MainCarouselWrapper">
+      <Swiper
+        modules={[Pagination]}
+        spaceBetween={0}
+        slidesPerView={1}
+        pagination={{
+          type: 'fraction',
+          renderFraction: function (currentClass, totalClass) {
+            return `<span class="${currentClass}"></span> <span class="swiper-pagination-slash">/</span> <span class="${totalClass}"></span>`;
+          },
+        }}
+        loop
+      >
+        {bannersList.map((banner) => (
+          <SwiperSlide key={banner.src}>
+            <MainCarouselContent src={banner.src} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </Wrapper>
+  );
+}
+
 const PaginationContainer = css`
   width: 37px;
   height: 21px;
@@ -59,29 +85,3 @@ const Wrapper = styled.div`
     ${PaginationContainer}
   }
 `;
-
-export function MainCarousel() {
-  const bannersList = [banner1, banner1, banner1]; // TODO: 서버에서 이미지 파일 가져와서 생성
-  return (
-    <Wrapper className="MainCarouselWrapper">
-      <Swiper
-        modules={[Pagination]}
-        spaceBetween={0}
-        slidesPerView={1}
-        pagination={{
-          type: 'fraction',
-          renderFraction: function (currentClass, totalClass) {
-            return `<span class="${currentClass}"></span> <span class="swiper-pagination-slash">/</span> <span class="${totalClass}"></span>`;
-          },
-        }}
-        loop
-      >
-        {bannersList.map((banner) => (
-          <SwiperSlide key={banner.src}>
-            <MainCarouselContent src={banner.src} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </Wrapper>
-  );
-}

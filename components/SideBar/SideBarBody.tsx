@@ -7,6 +7,52 @@ import { Icon } from '@/libs/design-system/icons';
 import { usePathname } from 'next/navigation';
 import { PAGE_INFO_LIST } from './constants';
 
+function SideBarBody({ isBarOpen = true }) {
+  const inside = useRef<HTMLDivElement>(null);
+
+  // TODO: use userInfo from store or context
+  const userInfo = {
+    university: '고려대학교',
+    nickname: '김토키',
+    score: 100,
+    remain: 50,
+    phoneNumber: '010-1234-5678',
+  };
+  const nowPage = usePathname();
+
+  return (
+    <Wrapper className={isBarOpen ? 'open' : ''}>
+      <Flex $direction="column" $justify="center">
+        <Flex style={{ padding: '0px 8px' }}>
+          <Flex $gap={1} $direction="column">
+            <UnivName $university={userInfo.university}>{userInfo.university}</UnivName>
+            <Flex $gap={6} $align="flex-end">
+              <UserName>{userInfo.nickname}</UserName>
+              <SetIconWrapper href="/userInfo">
+                <Icon.Setting />
+              </SetIconWrapper>
+            </Flex>
+          </Flex>
+        </Flex>
+
+        <NavWrapper>
+          <Flex $direction="column" $gap={32}>
+            {PAGE_INFO_LIST.map((page) => {
+              return (
+                <Link key={page.title} href={page.href}>
+                  <NavItem selected={nowPage == page.href}>{page.title}</NavItem>
+                </Link>
+              );
+            })}
+            <NavItem selected={false}>문의하기</NavItem>
+            <NavItem selected={false}>로그아웃</NavItem>
+          </Flex>
+        </NavWrapper>
+      </Flex>
+    </Wrapper>
+  );
+}
+
 const Wrapper = styled.div`
   position: fixed;
   top: 0px;
@@ -89,51 +135,5 @@ const Img = styled(Image)<{ univ: string }>`
       ? 'linear-gradient(0deg, #f3233c 0%, #f95B6e 100%)'
       : 'linear-gradient(0deg, #5b84ff 0%, #2948ff 100%)'};
 `;
-
-function SideBarBody({ isBarOpen = true }) {
-  const inside = useRef<HTMLDivElement>(null);
-
-  // TODO: use userInfo from store or context
-  const userInfo = {
-    university: '고려대학교',
-    nickname: '김토키',
-    score: 100,
-    remain: 50,
-    phoneNumber: '010-1234-5678',
-  };
-  const nowPage = usePathname();
-
-  return (
-    <Wrapper className={isBarOpen ? 'open' : ''}>
-      <Flex $direction="column" $justify="center">
-        <Flex style={{ padding: '0px 8px' }}>
-          <Flex $gap={1} $direction="column">
-            <UnivName $university={userInfo.university}>{userInfo.university}</UnivName>
-            <Flex $gap={6} $align="flex-end">
-              <UserName>{userInfo.nickname}</UserName>
-              <SetIconWrapper href="/userInfo">
-                <Icon.Setting />
-              </SetIconWrapper>
-            </Flex>
-          </Flex>
-        </Flex>
-
-        <NavWrapper>
-          <Flex $direction="column" $gap={32}>
-            {PAGE_INFO_LIST.map((page) => {
-              return (
-                <Link key={page.title} href={page.href}>
-                  <NavItem selected={nowPage == page.href}>{page.title}</NavItem>
-                </Link>
-              );
-            })}
-            <NavItem selected={false}>문의하기</NavItem>
-            <NavItem selected={false}>로그아웃</NavItem>
-          </Flex>
-        </NavWrapper>
-      </Flex>
-    </Wrapper>
-  );
-}
 
 export default SideBarBody;
