@@ -7,3 +7,6 @@ export { ScoreBoard } from './ScoreBoard';
 export { Ticket } from './Ticket';
 export { Setting } from './Setting';
 export { Stamp } from './Stamp';
+export { Kakao } from './Kakao';
+export { ChevronForward } from './ChevronForward';
+export { TablerCopy } from './TablerCopy';
