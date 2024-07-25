@@ -1,4 +1,4 @@
 export const space = {
   mainTopBarHeight: 49,
-  navigationBarHeght: 46,
+  navigationBarHeight: 46,
 } as const;
