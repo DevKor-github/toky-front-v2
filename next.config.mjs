@@ -3,13 +3,30 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/bets',
+        source: '/api/image-proxy/:path*',
         headers: [
           {
-            key: 'Permissions-Policy',
-            value: 'web-share=(self https://192.168.1.35:3001))',
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value:
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
           },
         ],
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/image-proxy/:path*',
+        destination: 'https://toky-bucket-dev.s3.ap-northeast-2.amazonaws.com/:path*',
       },
     ];
   },
