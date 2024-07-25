@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   left: 0;
 
   width: 100%;
-  height: ${({ theme }) => theme.space.navigationBarHeght}px;
+  height: ${({ theme }) => theme.space.navigationBarHeight}px;
   background-color: ${({ theme }) => theme.colors.navigationBar};
 `;
 
