@@ -140,6 +140,10 @@ button {
   padding: 0;
 }
 html {
-  min-height: 100%;
   background: #121212;
+  position: relative;
+  height: 100%;
+}
+body {
+  min-height: 100%;
 }

@@ -15,7 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <StyledComponentsRegistry>
           <ThemeClient>
-            <OverlayProvider>{children}</OverlayProvider>
+            <OverlayProvider>
+              <main>{children}</main>
+            </OverlayProvider>
           </ThemeClient>
         </StyledComponentsRegistry>
       </body>
