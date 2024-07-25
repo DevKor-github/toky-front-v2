@@ -1,7 +1,11 @@
+import MainTopBar from '@/components/MainTopBar';
+import NavigationBar from '@/components/NavigationBar';
+
 export default function Analyze() {
   return (
     <div>
-      <h1>Analyze</h1>
+      <MainTopBar />
+      <NavigationBar />
     </div>
   );
 }
