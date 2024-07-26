@@ -26,7 +26,7 @@ const nextConfig = {
     return [
       {
         source: '/api/image-proxy/:path*',
-        destination: 'https://toky-bucket-dev.s3.ap-northeast-2.amazonaws.com/:path*',
+        destination: `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_REGION}.amazonaws.com/:path*`,
       },
     ];
   },
