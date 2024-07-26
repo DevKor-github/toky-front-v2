@@ -5,24 +5,30 @@ import PredictionCard from './PredictionCard';
 import styled from 'styled-components';
 import Backdrop from '../Backdrop';
 import { useCardShare } from './useCardShare';
-import { useRef } from 'react';
 
 interface ShareModalProps {
   isModalOpen: boolean;
   onClose: () => void;
 }
-
+// TODO loading spinner 추가 && 공유하기 버튼 클릭시 로딩 추가 && 버튼 위치 변경
 export function ShareModal({ isModalOpen = true, onClose }: ShareModalProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const { shareImage, shareRef, imageRef } = useCardShare();
 
-  const { downloadImage, shareImage } = useCardShare(ref);
   return (
     <>
       {isModalOpen && (
         <Wrapper>
           <Content>
             <Flex $direction="column" $gap={14} $align="center" style={{ height: '100%' }}>
-              <PredictionCard ref={ref} nickname="jone" numWinKorea={0} numWinYonsei={2} predictionImgSrc="" />
+              <div ref={imageRef}>
+                <PredictionCard
+                  ref={shareRef}
+                  nickname="jone"
+                  numWinKorea={0}
+                  numWinYonsei={2}
+                  predictionImgSrc="/api/image-proxy/test-5-0.png"
+                />
+              </div>
               <Flex $gap={11} style={{ marginTop: 2 }}>
                 <CancelButton onClick={onClose}>
                   <Icon.Cancel />
