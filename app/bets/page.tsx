@@ -1,8 +1,11 @@
 'use client';
+
+import styled from 'styled-components';
+
 import MainTopBar from '@/components/MainTopBar';
 import NavigationBar from '@/components/NavigationBar';
 import { useShareModal } from '@/components/ShareModal';
-import styled from 'styled-components';
+import PredictionBanner from '@/components/PredictionBanner';
 
 export default function Bets() {
   const { openShareModal } = useShareModal();
@@ -18,6 +21,7 @@ export default function Bets() {
         <button style={{ color: 'white', fontSize: '20px' }} onClick={openModal}>
           공유
         </button>
+        <PredictionBanner />
       </Wrapper>
     </div>
   );
