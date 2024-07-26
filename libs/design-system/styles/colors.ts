@@ -10,6 +10,8 @@ export const colors = {
   gradientButtonBlue: 'linear-gradient(180deg, #4C0EB0 0%, rgba(76, 14, 176, 0.60) 100%)',
   gradientButtonGray:
     'linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.05) 100%), #121212  ',
+  purple: '#4C0EB0',
+  black24: '#383838',
 } as const;
 
 export type Colors = keyof typeof colors;
