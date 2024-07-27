@@ -45,7 +45,7 @@ export function ShareModal({ isModalOpen = true, onClose }: ShareModalProps) {
               </ToolTip>
             </Flex>
           </Content>
-          <Backdrop $isModalOpen={isModalOpen} onClick={onClose} />
+          <Backdrop $isModalOpen={isModalOpen} onClick={onClose} $backgroundColor="transparent" />
         </Wrapper>
       )}
     </>

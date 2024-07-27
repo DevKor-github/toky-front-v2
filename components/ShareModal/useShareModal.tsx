@@ -6,7 +6,7 @@ export function useShareModal() {
   const overlay = useOverlay();
   const openShareModal = () => {
     return new Promise<boolean>((resolve) => {
-      overlay.open(({ isOpen, close }) => <ShareModal isModalOpen={isOpen} onClose={close} />);
+      overlay.open(({ isOpen, exit }) => <ShareModal isModalOpen={isOpen} onClose={exit} />);
     });
   };
 
