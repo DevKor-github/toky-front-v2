@@ -47,6 +47,7 @@ const ModalWrapper = styled.div`
 const Content = styled.div<{ $isModalOpen: boolean }>`
   display: ${({ $isModalOpen }) => ($isModalOpen ? 'flex' : 'none')};
   width: 350px;
+  max-width: 100%;
   padding: 64px 20px 24px 20px;
   flex-direction: column;
   align-items: center;
