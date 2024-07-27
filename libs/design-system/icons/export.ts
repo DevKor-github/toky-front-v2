@@ -1,5 +1,6 @@
 export type { IconProps } from './type';
 
+export { ArrowLeft } from './ArrowLeft';
 export { Cancel } from './Cancel';
 export { Share } from './Share';
 export { Divider } from './Divider';
