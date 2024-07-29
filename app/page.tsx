@@ -27,6 +27,7 @@ export default function Home() {
       borderRadius="99px"
       padding="8px 16px"
       fontSize="14px"
+      fontWeight="700"
     >
       <Icon.TablerCopy />내 초대링크
     </ActionButton>

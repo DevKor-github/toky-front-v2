@@ -12,6 +12,7 @@ interface ActionButtonProps {
   borderRadius?: string;
   href?: string;
   padding?: string;
+  fontWeight?: string;
 }
 
 export function ActionButton({
@@ -25,6 +26,7 @@ export function ActionButton({
   href,
   fontSize,
   padding,
+  fontWeight,
 }: ActionButtonProps) {
   return (
     <>
@@ -38,6 +40,7 @@ export function ActionButton({
             borderRadius={borderRadius}
             fontSize={fontSize}
             padding={padding}
+            fontWeight={fontWeight}
           >
             {children}
           </Wrapper>
@@ -52,6 +55,7 @@ export function ActionButton({
           fontSize={fontSize}
           onClick={onClick}
           padding={padding}
+          fontWeight={fontWeight}
         >
           {children}
         </Wrapper>
@@ -61,7 +65,7 @@ export function ActionButton({
 }
 
 const Wrapper = styled.div<ActionButtonProps>`
-  background-color: ${({ bgColor }) => bgColor || 'transparent'};
+  background: ${({ bgColor }) => bgColor || 'transparent'};
   color: ${({ color }) => color};
   display: flex;
   justify-content: center;
@@ -73,4 +77,5 @@ const Wrapper = styled.div<ActionButtonProps>`
   font-family: 'Spoqa Han Sans Neo';
   cursor: pointer;
   padding: ${({ padding }) => padding || '0'};
+  font-weight: ${({ fontWeight }) => fontWeight || '500'};
 `;
