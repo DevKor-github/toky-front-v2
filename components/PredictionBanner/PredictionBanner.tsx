@@ -4,7 +4,10 @@ import ActionButton from '@/components/ActionButton';
 import { Flex } from '@/libs/design-system/flex';
 import styled from 'styled-components';
 
-export function PredictionBanner() {
+interface PredictionBannerProps {
+  shareHandler: () => void;
+}
+export function PredictionBanner({ shareHandler }: PredictionBannerProps) {
   return (
     <Wrapper>
       <Title>
@@ -12,8 +15,8 @@ export function PredictionBanner() {
         <div style={{ fontSize: '16px' }}>2024 정기전 토키</div>
         <div style={{ fontSize: '43.5px' }}>승부예측</div>
       </Title>
-      {/* TODO: 버튼에 액션 적용 */}
       <Flex $gap="6px">
+        {/* TODO: 더 알아보기 버튼에 액션 적용 */}
         <ActionButton color="white" bgColor="#FFFFFF26" fontSize="14px" padding="8px 16px" borderRadius="99px">
           더 알아보기
         </ActionButton>
@@ -24,6 +27,7 @@ export function PredictionBanner() {
           padding="8px 16px"
           borderRadius="99px"
           fontWeight="700"
+          onClick={shareHandler}
         >
           내 예측 공유하기
         </ActionButton>

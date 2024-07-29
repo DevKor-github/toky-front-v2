@@ -18,10 +18,7 @@ export default function Bets() {
       <MainTopBar />
       <NavigationBar />
       <Wrapper>
-        <button style={{ color: 'white', fontSize: '20px' }} onClick={openModal}>
-          공유
-        </button>
-        <PredictionBanner />
+        <PredictionBanner shareHandler={openModal} />
       </Wrapper>
     </div>
   );
