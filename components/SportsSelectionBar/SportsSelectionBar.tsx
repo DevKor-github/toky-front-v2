@@ -10,7 +10,7 @@ interface SportsSelectionBarProps {
   curSelection: SelectionType;
   handleSelect: (selection: SelectionType) => void;
   bgColor?: string; // 커스텀 배경색
-  isAllNav?: boolean; // "전체" 항목의 표시 여부
+  showAll?: boolean; // "전체" 항목의 표시 여부
   hasUnderbar?: boolean; // 선택된 nav 항목 아래에 밑줄 표시 여부
   isSticky?: boolean; // position : sticky 여부
 }
@@ -18,13 +18,13 @@ export const SportsSelectionBar = memo(function SportsSelectionBar({
   curSelection,
   handleSelect,
   bgColor,
-  isAllNav = false,
+  showAll = false,
   hasUnderbar = true,
   isSticky = false,
 }: SportsSelectionBarProps) {
   return (
     <Wrapper $bgColor={bgColor} isSticky={isSticky}>
-      {isAllNav && (
+      {showAll && (
         <SportsButton isSelected={curSelection === 'All'} onClick={() => handleSelect('All')} hasUnderbar={hasUnderbar}>
           전체
         </SportsButton>
