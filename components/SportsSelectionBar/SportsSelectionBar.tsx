@@ -43,7 +43,7 @@ export const SportsSelectionBar = memo(function SportsSelectionBar({
   );
 });
 
-const Wrapper = styled.div<{ $bgColor?: string; isSticky: boolean }>`
+const Wrapper = styled.nav<{ $bgColor?: string; isSticky: boolean }>`
   top: ${(props) => props.theme.space.mainTopBarHeight + props.theme.space.navigationBarHeight}px;
   display: flex;
   justify-content: space-between;
