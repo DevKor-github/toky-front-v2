@@ -1,8 +1,7 @@
-import { useMotionGradient } from '@/libs/hooks/useMotionGradient';
 import { motion } from 'framer-motion';
-import { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 
+const motionVariant = { visible: { opacity: 1 }, hidden: { opacity: 0 } };
 interface OptionButtonProps {
   index: number;
   handleAnswer: (index: number) => void;
@@ -12,12 +11,8 @@ interface OptionButtonProps {
   myAnswer: number | null;
 }
 export function OptionButton({ index, handleAnswer, option, position, percentage, myAnswer }: OptionButtonProps) {
-  const { triggerAnimation, background } = useMotionGradient(position);
-
-  useEffect(() => {
-    const status = myAnswer === null ? 0 : myAnswer === index ? 1 : -1;
-    triggerAnimation(status);
-  }, [myAnswer, index, triggerAnimation]);
+  const isAnswered = myAnswer !== null;
+  const isMyAnswer = myAnswer === index;
 
   return (
     <Wrapper
@@ -26,27 +21,53 @@ export function OptionButton({ index, handleAnswer, option, position, percentage
         e.preventDefault();
         handleAnswer(index);
       }}
-      style={{ background }}
-      $isAnswered={myAnswer !== null}
+      $isAnswered={isAnswered}
       $position={position}
     >
       {option}
-      {myAnswer !== null && (
+      {isAnswered && (
         <Percentage>
           <span>{percentage}</span>
           <span>%</span>
         </Percentage>
       )}
+      {/* default gradient */}
+      <Gradient
+        initial={'visible'}
+        variants={motionVariant}
+        animate={isAnswered ? 'hidden' : 'visible'}
+        $type={'default'}
+        $position={position}
+      />
+      {/* selected gradient */}
+      <Gradient
+        initial={'hidden'}
+        variants={motionVariant}
+        animate={isMyAnswer ? 'visible' : 'hidden'}
+        $type={'selected'}
+        $position={position}
+      />
+      {/* nonselected gradient */}
+      <Gradient
+        initial={'hidden'}
+        variants={motionVariant}
+        animate={isMyAnswer ? 'hidden' : 'visible'}
+        $type={'nonselected'}
+        $position={position}
+      />
     </Wrapper>
   );
 }
 
-const Wrapper = styled(motion.button)<{
+const Wrapper = styled.button<{
   $position: 'left' | 'center' | 'right';
   $isAnswered: boolean;
 }>`
   flex: 1 0 0;
   height: 67px;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
 
   color: #ffffff;
   font-size: ${({ $isAnswered }) => ($isAnswered ? '12px' : '16px')};
@@ -84,4 +105,34 @@ const Percentage = styled.div`
     letter-spacing: -0.72px;
     font-size: 12px;
   }
+`;
+
+const Gradient = styled(motion.div)<{
+  $position: 'left' | 'center' | 'right';
+  $type: 'default' | 'selected' | 'nonselected';
+}>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+
+  background: ${({ $position, $type }) => {
+    switch ($type) {
+      case 'default':
+        return 'linear-gradient(0deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.14) 100%)';
+      case 'nonselected':
+        return 'linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.03) 100%)';
+      case 'selected':
+        switch ($position) {
+          case 'left':
+            return 'linear-gradient(90deg, #F3233C 0%, rgba(243, 35, 60, 0.25) 100%)';
+          case 'center':
+            return 'linear-gradient(90deg, rgba(76, 14, 176, 0.60) -12.75%, #4C0EB0 38.63%, #4C0EB0 60.71%, rgba(76, 14, 176, 0.60) 113.73%)';
+          case 'right':
+            return 'linear-gradient(90deg, rgba(41, 72, 255, 0.25) 0%, #2948FF 100%)';
+        }
+    }
+  }};
 `;
