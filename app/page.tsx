@@ -22,6 +22,7 @@ export default function Home() {
             <IconButton key={`${iconInfo.href}-${iconInfo.icon}`} {...iconInfo} />
           ))}
         </Flex>
+        {/*TODO: 정기전 일정, 자세히 보기 구현 */}
         <FreeModeCarousel padding="0px 20px" spaceBetween={0}>
           {Object.entries(SCHEDULE_INFO).map(([date, events]) => (
             <React.Fragment key={date}>

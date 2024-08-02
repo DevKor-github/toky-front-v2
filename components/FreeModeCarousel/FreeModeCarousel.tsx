@@ -26,5 +26,5 @@ export function FreeModeCarousel({
 }
 
 const Wrapper = styled.div<{ padding?: string }>`
-  padding: ${(props) => props.padding || '0'};
+  padding: ${(props) => props.padding ?? '0'};
 `;
