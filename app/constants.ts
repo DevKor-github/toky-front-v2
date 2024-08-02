@@ -4,6 +4,16 @@ interface IconInfo {
   [key: string]: IconButtonProps;
 }
 
+interface Event {
+  title: string;
+  time: string;
+  location: string;
+}
+
+interface ScheduleInfo {
+  [date: string]: Event[];
+}
+
 const ICON_INFO: IconInfo = {
   bets: {
     href: '/bets',
@@ -29,6 +39,45 @@ const ICON_INFO: IconInfo = {
     text: '경품응모',
     type: 'secondary',
   },
+};
+
+export const SCHEDULE_INFO: ScheduleInfo = {
+  '9/25 (수)': [
+    {
+      title: '합동응원전',
+      time: '18:00',
+      location: '고려대학교 화정체육관',
+    },
+  ],
+  '9/27 (금)': [
+    {
+      title: '야구',
+      time: '12:00',
+      location: '목동 야구장',
+    },
+    {
+      title: '농구',
+      time: '16:00',
+      location: '고양 농구장',
+    },
+    {
+      title: '아이스하키',
+      time: '16:00',
+      location: '목동 아이스링크',
+    },
+  ],
+  '9/28 (토)': [
+    {
+      title: '럭비',
+      time: '12:00',
+      location: '고양 운동장',
+    },
+    {
+      title: '축구',
+      time: '16:00',
+      location: '고양 운동장',
+    },
+  ],
 };
 
 export const ICON_INFO_LIST = Object.values(ICON_INFO);
