@@ -27,7 +27,7 @@ export function Vs() {
           y2="56"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#4C0EB0" />
+          <stop stopColor="#4C0EB0" />
           <stop offset="1" stopColor="#4C0EB0" stopOpacity="0.6" />
         </linearGradient>
         <linearGradient

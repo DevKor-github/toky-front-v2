@@ -1,3 +1,5 @@
+'use client';
+
 import { Icon } from '@/libs/design-system/icons';
 import { easeInOut, motion } from 'framer-motion';
 import Link from 'next/link';
@@ -27,8 +29,9 @@ export function MainTopBar() {
 }
 const Wrapper = styled(motion.div)`
   width: 100%;
+  height: ${({ theme }) => theme.space.mainTopBarHeight}px;
   background-color: ${({ theme }) => theme.colors.topBar};
-  padding: 20px 11px;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;

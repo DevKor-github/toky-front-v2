@@ -12,10 +12,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
+      <meta httpEquiv="Permissions-Policy" content="web-share=(self)" />
+
       <body>
         <StyledComponentsRegistry>
           <ThemeClient>
-            <OverlayProvider>{children}</OverlayProvider>
+            <OverlayProvider>
+              <main>{children}</main>
+            </OverlayProvider>
           </ThemeClient>
         </StyledComponentsRegistry>
       </body>
