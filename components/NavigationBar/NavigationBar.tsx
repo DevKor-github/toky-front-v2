@@ -38,6 +38,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: ${({ theme }) => theme.space.navigationBarHeight}px;
   background: ${({ theme }) => theme.colors.navigationBar};
+  z-index: ${({ theme }) => theme.zIndex.NavigationBar};
 `;
 
 const NavigationItem = styled.div<{ selected: boolean }>`

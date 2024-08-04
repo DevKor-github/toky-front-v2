@@ -27,7 +27,7 @@ const Wrapper = styled.button<{ $selected: boolean }>`
   font-size: 16px;
   transition: all 0.15s;
   color: ${({ $selected }) => {
-    return $selected ? '#FFFFFFDE' : '#ffffff61';
+    return $selected ? '#ffffffde' : '#ffffff61';
   }};
 `;
 
