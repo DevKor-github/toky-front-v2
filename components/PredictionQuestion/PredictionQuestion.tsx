@@ -23,7 +23,6 @@ export function PredictionQuestion({
 
   // TODO: handleAnswer 실제 API로 교체
   const handleAnswer = (index: number) => {
-    if (myAnswer === index) return;
     requestHandler(questionId, index);
   };
 

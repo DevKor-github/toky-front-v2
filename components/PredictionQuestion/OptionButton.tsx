@@ -19,6 +19,7 @@ export function OptionButton({ index, handleAnswer, option, position, percentage
       type="submit"
       onClick={(e) => {
         e.preventDefault();
+        if (index === myAnswer) return;
         handleAnswer(index);
       }}
       $isAnswered={isAnswered}

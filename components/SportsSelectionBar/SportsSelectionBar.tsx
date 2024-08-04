@@ -47,9 +47,10 @@ const Wrapper = styled.nav<{ $bgColor?: string; isSticky: boolean }>`
   top: ${(props) => props.theme.space.mainTopBarHeight + props.theme.space.navigationBarHeight}px;
   display: flex;
   justify-content: space-between;
+  z-index: ${({ theme }) => theme.zIndex.SportsSelectionBar};
   padding: 0 20px;
   ${({ isSticky }) => isSticky && 'position: sticky;'}
   background: ${({ $bgColor }) =>
     $bgColor ||
-    'linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)),linear-gradient(90deg, rgba(76, 14, 176, 0.4) -12.75%, rgba(76, 14, 176, 0.24) 113.73%);'};
+    'linear-gradient(90deg, rgba(76, 14, 176, 0.40) -12.75%, rgba(76, 14, 176, 0.24) 113.73%), linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%), #121212'};
 `;
