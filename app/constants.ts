@@ -12,6 +12,7 @@ interface Event {
 
 interface ScheduleInfo {
   [date: string]: Event[];
+}
 
 interface MessageInfo {
   [key: string]: string;
@@ -81,6 +82,7 @@ export const SCHEDULE_INFO: ScheduleInfo = {
       location: '고양 운동장',
     },
   ],
+};
 
 export const MESSAGE_INFO: MessageInfo = {
   kakaoLogin: '10초만에 로그인하고\n승부예측 참여하세요',

@@ -7,12 +7,11 @@ import ActionCard from '@/components/ActionCard';
 import styled from 'styled-components';
 import { Flex } from '@/libs/design-system/flex';
 import IconButton from '@/components/IconButton';
-import { ICON_INFO_LIST, SCHEDULE_INFO } from './constants';
+import { ICON_INFO_LIST, SCHEDULE_INFO, MESSAGE_INFO } from './constants';
 import FreeModeCarousel from '@/components/FreeModeCarousel';
 import ScheduleCard from '@/components/ScheduleCard';
 import Baseball from '@/public/baseball.png';
 import ActionButton from '@/components/ActionButton';
-import { ICON_INFO_LIST, MESSAGE_INFO } from './constants';
 import { Icon } from '@/libs/design-system/icons';
 
 export default function Home() {
@@ -105,6 +104,7 @@ const Date = styled.div`
   line-height: 150%;
   letter-spacing: -0.28px;
   margin-bottom: 8px;
+`;
 
 const ActionCardWrapper = styled.div`
   padding: 0px 20px;
