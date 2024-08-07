@@ -7,3 +7,11 @@ export const SelectionArray = [
 ] as const;
 
 export type SelectionType = (typeof SelectionArray)[number]['type'] | 'All';
+
+export const SelectionMap: { [key in Exclude<SelectionType, 'All'>]: number } = {
+  Baseball: 0,
+  Soccer: 1,
+  Basketball: 2,
+  Rugby: 3,
+  Hockey: 4,
+};

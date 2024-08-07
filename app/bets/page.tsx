@@ -1,28 +1,31 @@
 'use client';
 
+import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
+import { SelectionType } from '@/libs/constants/sports';
 import MainTopBar from '@/components/MainTopBar';
 import NavigationBar from '@/components/NavigationBar';
 import { useShareModal } from '@/components/ShareModal';
 import PredictionBanner from '@/components/PredictionBanner';
 import SportsSelectionBar from '@/components/SportsSelectionBar';
-import { useCallback, useState } from 'react';
-import { SelectionType } from '@/components/SportsSelectionBar/constants';
 import PredictionQuestion from '@/components/PredictionQuestion';
+import PredictionBottomBar from '@/components/PredictionBottomBar';
 
 export default function Bets() {
   const { openShareModal } = useShareModal();
 
   // "Baseball" | "Soccer" | "Basketball" | "Rugby" | "Hockey"로 관리
-  const [curNav, setCurNav] = useState<SelectionType>('Baseball');
+  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'All'>>('Baseball');
 
   async function openModal() {
     await openShareModal();
   }
 
   const handleNav = useCallback((selection: SelectionType) => {
-    setCurNav(selection);
+    if (selection !== 'All') {
+      setCurNav(selection);
+    }
   }, []);
 
   // TODO: API 또는 Constant로 대체
@@ -71,6 +74,7 @@ export default function Bets() {
             />
           ))}
         </QuestionsWrapper>
+        <PredictionBottomBar curSelection={curNav} handleNav={handleNav} />
       </Wrapper>
     </div>
   );
