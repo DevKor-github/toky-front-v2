@@ -51,10 +51,13 @@ export default function Draw() {
           $gap="32px"
           $justify="center"
           $align="center"
-          style={{ background: 'linear-gradient(90deg, #c33def -12.75%, #672bf3 113.73%)' }}
+          style={{ background: 'linear-gradient(90deg, #c33def -12.75%, #672bf3 113.73%)', paddingTop: 32 }}
         >
-          <Flex>
-            <Flex></Flex>
+          <Flex $direction="column" $align="center" $gap={20}>
+            <Flex $direction="column" $align="center" $gap={1}>
+              <Subtitle>2024 토키 경품응모</Subtitle>
+              <Title>여러번 응모할수록, 높아지는 당첨확률!</Title>
+            </Flex>
             <Flex $direction="column" $align="center" $gap={12}>
               <DrawBoard />
               <Flex $gap={3} $align="center">
@@ -94,4 +97,30 @@ const InfoText = styled.p`
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.48px;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  text-shadow: 0px 2px 10px rgba(166, 20, 255, 0.5);
+  font-family: 'HS-Regular';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.96px;
+  color: white;
+  /* background: linear-gradient(180deg, #fff 30%, #f4ddff 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+`;
+
+const Subtitle = styled.h2`
+  color: ${({ theme }) => theme.colors.white60};
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 21px */
+  letter-spacing: -0.56px;
 `;
