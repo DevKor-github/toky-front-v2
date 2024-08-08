@@ -1,9 +1,9 @@
 'use client';
 
+import { memo } from 'react';
 import styled from 'styled-components';
 
-import { SelectionArray, SelectionType } from '@/components/SportsSelectionBar/constants';
-import { memo } from 'react';
+import { SelectionArray, SelectionType } from '@/libs/constants/sports';
 import { SportsButton } from '@/components/SportsSelectionBar/SportsButton';
 
 interface SportsSelectionBarProps {

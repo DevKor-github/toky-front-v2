@@ -14,3 +14,4 @@ export { Stamp } from './Stamp';
 export { Kakao } from './Kakao';
 export { ChevronForward } from './ChevronForward';
 export { TablerCopy } from './TablerCopy';
+export { ArrowRight } from './ArrowRight';
