@@ -1,23 +1,36 @@
 'use client';
 
 import { Icon } from '@/libs/design-system/icons';
-import { easeInOut, motion } from 'framer-motion';
+import { easeInOut, motion, useAnimation } from 'framer-motion';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { SideBar } from '../SideBar';
+import { usePathname } from 'next/navigation';
+import { useCallback, useEffect } from 'react';
 
 export function MainTopBar() {
+  const pathname = usePathname();
+  const navControls = useAnimation();
+
+  const navigationAnimation = useCallback(async () => {
+    await navControls.start({
+      y: 0,
+      opacity: 1,
+      transition: { duration: 1.2, ease: 'easeInOut' },
+    });
+  }, [navControls]);
+
+  useEffect(() => {
+    if (pathname === '/') {
+      navigationAnimation();
+    }
+  }, [navigationAnimation, pathname]);
+
   return (
     <Wrapper
       className="MainTopBarWrapper"
-      initial={{
-        opacity: 0,
-        y: -90,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
+      initial={pathname === '/' ? { opacity: 0, y: -90 } : { opacity: 1, y: 0 }}
+      animate={navControls}
       transition={{ duration: 1.2, ease: easeInOut }}
     >
       <Link href={'/bets'}>
