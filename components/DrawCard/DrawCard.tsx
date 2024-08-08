@@ -4,15 +4,19 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { Icon } from '@/libs/design-system/icons';
+import { useToast } from '../Toast';
 
 interface DrawCardProps {
   onDraw: () => void;
   totalDraw: number;
   productName: string;
+  productAlias?: string;
 }
 
-export function DrawCard({ onDraw, totalDraw, productName }: DrawCardProps) {
+export function DrawCard({ onDraw, totalDraw, productName, productAlias }: DrawCardProps) {
   const [isClicked, setIsClicked] = useState(false);
+  const { openToast } = useToast();
+
   const ticketControls = useAnimation();
 
   async function ticketAnimation() {
@@ -28,12 +32,13 @@ export function DrawCard({ onDraw, totalDraw, productName }: DrawCardProps) {
     });
   }
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setIsClicked(true);
     ticketAnimation();
     //TODO: 응모 API 호출
     onDraw();
-    console.log('응모');
+    //성공 시에만 보이게 수정
+    openToast({ message: `${productAlias ?? productName}응모권 1장 획득!` });
     setTimeout(() => {
       setIsClicked(false);
     }, 400); // 버튼 크기 복원 시간과 동일하게 설정  };
