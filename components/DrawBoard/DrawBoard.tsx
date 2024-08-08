@@ -58,13 +58,15 @@ const Wrapper = styled.div`
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   padding: 16px;
-  width: 348px;
+  width: 100%;
+  position: relative;
 `;
 
 const CarouselWrapper = styled.div`
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.1);
   margin-top: 8px;
+  width: 100%;
 `;
 
 const Title = styled.h5`

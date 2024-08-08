@@ -10,15 +10,15 @@ export function MainTopBar() {
   return (
     <Wrapper
       className="MainTopBarWrapper"
-      initial={{
-        opacity: 0,
-        y: -90,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{ duration: 1.2, ease: easeInOut }}
+      // initial={{
+      //   opacity: 0,
+      //   y: -90,
+      // }}
+      // animate={{
+      //   opacity: 1,
+      //   y: 0,
+      // }}
+      // transition={{ duration: 1.2, ease: easeInOut }}
     >
       <Link href={'/bets'}>
         <Icon.TokyLogo />

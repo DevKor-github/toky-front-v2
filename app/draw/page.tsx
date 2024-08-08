@@ -51,14 +51,18 @@ export default function Draw() {
           $gap="32px"
           $justify="center"
           $align="center"
-          style={{ background: 'linear-gradient(90deg, #c33def -12.75%, #672bf3 113.73%)', paddingTop: 32 }}
+          style={{
+            background: 'linear-gradient(90deg, #c33def -12.75%, #672bf3 113.73%)',
+            padding: '32px 20px 0px 20px',
+            position: 'relative',
+          }}
         >
-          <Flex $direction="column" $align="center" $gap={20}>
+          <Flex $direction="column" $align="center" $gap={20} style={{ width: '100%' }}>
             <Flex $direction="column" $align="center" $gap={1}>
               <Subtitle>2024 토키 경품응모</Subtitle>
               <Title>여러번 응모할수록, 높아지는 당첨확률!</Title>
             </Flex>
-            <Flex $direction="column" $align="center" $gap={12}>
+            <Flex $direction="column" $align="center" $gap={12} style={{ width: '100%' }}>
               <DrawBoard />
               <Flex $gap={3} $align="center">
                 <Icon.Question />
@@ -68,7 +72,7 @@ export default function Draw() {
           </Flex>
           <Flex
             $gap="28px 12px"
-            style={{ paddingBottom: 32, paddingTop: 10 }}
+            style={{ paddingBottom: 32, paddingTop: 10, width: '100%' }}
             $wrap="wrap"
             $justify="center"
             $align="center"
@@ -86,8 +90,6 @@ export default function Draw() {
 const Wrapper = styled.div`
   padding-top: ${(props) => props.theme.space.mainTopBarHeight + props.theme.space.navigationBarHeight}px;
 `;
-
-const MyDrawBoard = styled.div``;
 
 const InfoText = styled.p`
   color: ${({ theme }) => theme.colors.white87};
@@ -109,10 +111,6 @@ const Title = styled.h1`
   line-height: normal;
   letter-spacing: -0.96px;
   color: white;
-  /* background: linear-gradient(180deg, #fff 30%, #f4ddff 90%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
 `;
 
 const Subtitle = styled.h2`

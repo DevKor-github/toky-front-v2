@@ -38,7 +38,7 @@ export function DrawCard({ onDraw, totalDraw, productName, productAlias }: DrawC
     //TODO: 응모 API 호출
     onDraw();
     //성공 시에만 보이게 수정
-    openToast({ message: `${productAlias ?? productName}응모권 1장 획득!` });
+    openToast({ message: `${productAlias ?? productName} 응모권 1장 획득!` });
     setTimeout(() => {
       setIsClicked(false);
     }, 400); // 버튼 크기 복원 시간과 동일하게 설정  };
@@ -53,15 +53,15 @@ export function DrawCard({ onDraw, totalDraw, productName, productAlias }: DrawC
       <ProductName>{productName}</ProductName>
       <DrawButton
         onClick={handleClick}
-        initial={{ width: 149 }}
-        animate={{ width: isClicked ? 139 : 149 }}
+        initial={{ width: '100%' }}
+        animate={{ width: isClicked ? '93%' : '100%' }}
         transition={{ duration: 0.2 }}
       >
         <AnimatePresence>
           {isClicked && (
             <Wave
-              initial={{ width: 149, height: 46, opacity: 1 }}
-              animate={{ width: 169, height: 66, opacity: 0 }}
+              initial={{ width: '100%', height: 46, opacity: 1 }}
+              animate={{ width: '113%', height: 66, opacity: 0 }}
               transition={{ duration: 0.2, opacity: { duration: 0.2, delay: 0.1 } }}
             />
           )}
@@ -78,7 +78,7 @@ export function DrawCard({ onDraw, totalDraw, productName, productAlias }: DrawC
 const Wrapper = styled.div`
   position: relative;
   display: flex;
-  width: 169px;
+  width: 48%;
   height: 228px;
   padding: 30px 10px 10px 10px;
   flex-direction: column;
@@ -92,7 +92,9 @@ const Wrapper = styled.div`
 const ProductImage = styled(Image)`
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 100%;
 `;
 
 const DrawBoard = styled.div`
@@ -142,7 +144,7 @@ const ProductName = styled.h5`
 const DrawButton = styled(motion.button)`
   display: flex;
   height: 46px;
-  padding: 12px 20px;
+  padding: 12px 0px;
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -174,6 +176,6 @@ const Wave = styled(motion.div)`
   height: 100%;
   background: var(--white-disabled-38, rgba(255, 255, 255, 0.38));
   border-radius: 10px;
-  width: 149px;
+  width: 100%;
   height: 46px;
 `;
