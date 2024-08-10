@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { SelectionType } from '@/libs/constants/sports';
@@ -11,6 +11,7 @@ import PredictionBanner from '@/components/PredictionBanner';
 import SportsSelectionBar from '@/components/SportsSelectionBar';
 import PredictionQuestion from '@/components/PredictionQuestion';
 import PredictionBottomBar from '@/components/PredictionBottomBar';
+import { NavScrollProvider } from '@/app/bets/NavScrollProvider';
 
 export default function Bets() {
   const { openShareModal } = useShareModal();
@@ -55,6 +56,7 @@ export default function Bets() {
 
   return (
     <div>
+      <NavScrollProvider<Exclude<SelectionType, 'All'>> target={curNav} />
       <MainTopBar />
       <NavigationBar />
       <Wrapper>
