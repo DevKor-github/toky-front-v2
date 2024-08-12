@@ -28,7 +28,7 @@ export function PredictionQuestion({
     if (myAnswer === null) {
       openToast({ message: '응모권 1장 획득!' });
     }
-    requestHandler(questionId, index);
+    requestHandler(questionIndex, index);
   };
 
   const totalOptionNumber = options.length - 1;

@@ -1,7 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useCallback, useEffect, useState } from 'react';
 
 import { SelectionType } from '@/libs/constants/sports';
 import MainTopBar from '@/components/MainTopBar';
@@ -12,6 +12,7 @@ import SportsSelectionBar from '@/components/SportsSelectionBar';
 import PredictionQuestion from '@/components/PredictionQuestion';
 import PredictionBottomBar from '@/components/PredictionBottomBar';
 import { NavScrollProvider } from '@/app/bets/NavScrollProvider';
+import { DUMMY_QUESTIONS_API } from '@/app/bets/dummy';
 
 export default function Bets() {
   const { openShareModal } = useShareModal();
@@ -30,13 +31,7 @@ export default function Bets() {
   }, []);
 
   // TODO: API 또는 Constant로 대체
-  const DUMMY_QUESTION = [
-    { text: '우승할 팀을 예측해주세요.', option: ['고려대학교', '연세대학교'] },
-    { text: '점유율이 더 높을 것 같은 팀을 선택해주세요.', option: ['고려대학교', '연세대학교'] },
-    { text: '몇 점 차이로 승리할지 예측해주세요.', option: ['0~2점차', '3~4점차', '5점차 이상'] },
-    { text: '첫 골을 선점할 팀을 예측해주세요.', option: ['고려대학교', '연세대학교'] },
-    { text: '먼저 득점에 성공할 팀을 선택해주세요.', option: ['고려대학교', '연세대학교'] },
-  ];
+  const questions = DUMMY_QUESTIONS_API[curNav];
 
   // TODO: 실제 API로 변경
   const [myAnswers, setMyAnswers] = useState<{ [key in number]: number | null }>({
@@ -46,6 +41,17 @@ export default function Bets() {
     3: null,
     4: null,
   });
+  useEffect(
+    () =>
+      setMyAnswers({
+        0: null,
+        1: null,
+        2: null,
+        3: null,
+        4: null,
+      }),
+    [curNav],
+  );
   const requestHandler = (qid: number, answer: number) => {
     setMyAnswers((p) => {
       const newObj = { ...p };
@@ -63,15 +69,15 @@ export default function Bets() {
         <PredictionBanner shareHandler={openModal} />
         <SportsSelectionBar curSelection={curNav} handleSelect={handleNav} isSticky />
         <QuestionsWrapper>
-          {DUMMY_QUESTION.map((question, index) => (
+          {questions.map((question, index) => (
             <PredictionQuestion
               key={`${curNav}-${index}`}
-              questionId={index}
+              questionId={question.questionId}
               questionIndex={index}
-              questionDescription={question.text}
-              options={question.option}
+              questionDescription={question.description}
+              options={question.choices}
               myAnswer={myAnswers[index]}
-              percentage={question.option.map(() => 50)}
+              percentage={question.percentage}
               requestHandler={requestHandler}
             />
           ))}
