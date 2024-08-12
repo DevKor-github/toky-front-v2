@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 import { useCallback, useEffect, useState } from 'react';
 
-import { SelectionType } from '@/libs/constants/sports';
+import { SelectionArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
 import MainTopBar from '@/components/MainTopBar';
 import NavigationBar from '@/components/NavigationBar';
 import { useShareModal } from '@/components/ShareModal';
@@ -59,6 +59,20 @@ export default function Bets() {
       return newObj;
     });
   };
+
+  useEffect(() => {
+    let isDone = true;
+    for (let key in myAnswers) {
+      if (myAnswers[key] === null) {
+        isDone = false;
+        break;
+      }
+    }
+
+    if (isDone && curNav !== SelectionArray[SelectionArray.length - 1].type) {
+      setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
+    }
+  }, [myAnswers, curNav]);
 
   return (
     <div>
