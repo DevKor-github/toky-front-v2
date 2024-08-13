@@ -1,7 +1,9 @@
 'use client';
 
+import 'swiper/css';
 import styled from 'styled-components';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 import { SelectionArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
 import MainTopBar from '@/components/MainTopBar';
@@ -19,6 +21,11 @@ export default function Bets() {
 
   // "Baseball" | "Soccer" | "Basketball" | "Rugby" | "Hockey"로 관리
   const [curNav, setCurNav] = useState<Exclude<SelectionType, 'All'>>('Baseball');
+  const swiperRef = useRef<SwiperRef>(null);
+  useEffect(() => {
+    // 스와이퍼와 curNav 동기화
+    swiperRef.current?.swiper.slideTo(SelectionMap[curNav]);
+  }, [curNav]);
 
   async function openModal() {
     await openShareModal();
@@ -30,49 +37,36 @@ export default function Bets() {
     }
   }, []);
 
-  // TODO: API 또는 Constant로 대체
-  const questions = DUMMY_QUESTIONS_API[curNav];
-
   // TODO: 실제 API로 변경
-  const [myAnswers, setMyAnswers] = useState<{ [key in number]: number | null }>({
-    0: null,
-    1: null,
-    2: null,
-    3: null,
-    4: null,
-  });
-  useEffect(
-    () =>
-      setMyAnswers({
-        0: null,
-        1: null,
-        2: null,
-        3: null,
-        4: null,
-      }),
-    [curNav],
-  );
+  const [questionData, setQuestionData] = useState(DUMMY_QUESTIONS_API);
   const requestHandler = (qid: number, answer: number) => {
-    setMyAnswers((p) => {
-      const newObj = { ...p };
-      newObj[qid] = answer;
-      return newObj;
+    setQuestionData((prev) => {
+      const newData = {
+        ...prev,
+        [curNav]: prev[curNav].map((quesition) => {
+          if (quesition.questionId === qid) {
+            return { ...quesition, answer };
+          }
+          return { ...quesition };
+        }),
+      };
+      return newData;
     });
   };
 
-  useEffect(() => {
-    let isDone = true;
-    for (let key in myAnswers) {
-      if (myAnswers[key] === null) {
-        isDone = false;
-        break;
-      }
-    }
+  // const checkIsDones = useCallback(() => {
+  //   let isDone = true;
+  //   for (let key in questionData[curNav]) {
+  //     if (questionData[curNav][key].answer === null) {
+  //       isDone = false;
+  //       break;
+  //     }
+  //   }
 
-    if (isDone && curNav !== SelectionArray[SelectionArray.length - 1].type) {
-      setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
-    }
-  }, [myAnswers, curNav]);
+  //   if (isDone && curNav !== SelectionArray[SelectionArray.length - 1].type) {
+  //     setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
+  //   }
+  // }, [)
 
   return (
     <div>
@@ -82,20 +76,28 @@ export default function Bets() {
       <Wrapper>
         <PredictionBanner shareHandler={openModal} />
         <SportsSelectionBar curSelection={curNav} handleSelect={handleNav} isSticky />
-        <QuestionsWrapper>
-          {questions.map((question, index) => (
-            <PredictionQuestion
-              key={`${curNav}-${index}`}
-              questionId={question.questionId}
-              questionIndex={index}
-              questionDescription={question.description}
-              options={question.choices}
-              myAnswer={myAnswers[index]}
-              percentage={question.percentage}
-              requestHandler={requestHandler}
-            />
+        <Swiper slidesPerView={1} allowTouchMove={false} ref={swiperRef}>
+          {Object.entries(questionData).map(([sportsName, questions]) => (
+            <SwiperSlide key={sportsName}>
+              <QuestionsWrapper>
+                {questions.map((question, index) => {
+                  return (
+                    <PredictionQuestion
+                      key={`${sportsName}-${index}`}
+                      questionId={question.questionId}
+                      questionIndex={index}
+                      questionDescription={question.description}
+                      options={question.choices}
+                      myAnswer={question.answer}
+                      percentage={question.percentage}
+                      requestHandler={requestHandler}
+                    />
+                  );
+                })}
+              </QuestionsWrapper>
+            </SwiperSlide>
           ))}
-        </QuestionsWrapper>
+        </Swiper>
         <PredictionBottomBar curSelection={curNav} handleNav={handleNav} />
       </Wrapper>
     </div>
