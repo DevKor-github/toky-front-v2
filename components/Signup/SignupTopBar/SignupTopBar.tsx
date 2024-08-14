@@ -1,14 +1,15 @@
-import { ArrowLeft } from '@/libs/design-system/icons/ArrowLeft';
-import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
-export function SignupTopBar() {
-  const router = useRouter();
+import { ArrowLeft } from '@/libs/design-system/icons/ArrowLeft';
 
+interface SignupTopBarProps {
+  handlePrevButton: () => void;
+}
+export function SignupTopBar({ handlePrevButton }: SignupTopBarProps) {
   return (
     <Wrapper>
       <FlexItems>
-        <button onClick={() => router.back()}>
+        <button onClick={handlePrevButton}>
           <ArrowLeft />
         </button>
       </FlexItems>
