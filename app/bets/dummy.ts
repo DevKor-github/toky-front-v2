@@ -6,7 +6,7 @@ export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'All'>]: Ques
   Baseball: [
     {
       questionId: 0,
-      description: '승리할 팀을 예측해주세요',
+      description: '야구 승리할 팀을 예측해주세요',
       choices: ['고려대', '무승부', '연세대'],
       percentage: [60, 20, 20],
       answer: null,
@@ -43,7 +43,7 @@ export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'All'>]: Ques
   Soccer: [
     {
       questionId: 20,
-      description: '승리할 팀을 예측해주세요',
+      description: '축구 승리할 팀을 예측해주세요',
       choices: ['고려대', '무승부', '연세대'],
       percentage: [60, 20, 20],
       answer: null,
@@ -80,7 +80,7 @@ export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'All'>]: Ques
   Basketball: [
     {
       questionId: 5,
-      description: '승리할 팀을 예측해주세요',
+      description: '농구 승리할 팀을 예측해주세요',
       choices: ['고려대', '무승부', '연세대'],
       percentage: [60, 20, 20],
       answer: null,
@@ -117,7 +117,7 @@ export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'All'>]: Ques
   Rugby: [
     {
       questionId: 15,
-      description: '승리할 팀을 예측해주세요',
+      description: '럭비 승리할 팀을 예측해주세요',
       choices: ['고려대', '무승부', '연세대'],
       percentage: [60, 20, 20],
       answer: null,
@@ -154,7 +154,7 @@ export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'All'>]: Ques
   Hockey: [
     {
       questionId: 10,
-      description: '승리할 팀을 예측해주세요',
+      description: '빙구 승리할 팀을 예측해주세요',
       choices: ['고려대', '무승부', '연세대'],
       percentage: [60, 20, 20],
       answer: null,

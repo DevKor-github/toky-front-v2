@@ -15,6 +15,7 @@ import PredictionQuestion from '@/components/PredictionQuestion';
 import PredictionBottomBar from '@/components/PredictionBottomBar';
 import { NavScrollProvider } from '@/app/bets/NavScrollProvider';
 import { DUMMY_QUESTIONS_API } from '@/app/bets/dummy';
+import { QuestionType } from '@/libs/types/bets';
 
 export default function Bets() {
   const { openShareModal } = useShareModal();
@@ -40,33 +41,41 @@ export default function Bets() {
   // TODO: 실제 API로 변경
   const [questionData, setQuestionData] = useState(DUMMY_QUESTIONS_API);
   const requestHandler = (qid: number, answer: number) => {
-    setQuestionData((prev) => {
-      const newData = {
-        ...prev,
-        [curNav]: prev[curNav].map((quesition) => {
-          if (quesition.questionId === qid) {
-            return { ...quesition, answer };
-          }
-          return { ...quesition };
-        }),
-      };
-      return newData;
-    });
+    const newData = {
+      ...questionData,
+      [curNav]: questionData[curNav].map((quesition) => {
+        if (quesition.questionId === qid) {
+          return { ...quesition, answer };
+        }
+        return { ...quesition };
+      }),
+    };
+    setQuestionData(newData);
+    checkIsDones(newData);
   };
 
-  // const checkIsDones = useCallback(() => {
-  //   let isDone = true;
-  //   for (let key in questionData[curNav]) {
-  //     if (questionData[curNav][key].answer === null) {
-  //       isDone = false;
-  //       break;
-  //     }
-  //   }
+  const checkIsDones = useCallback(
+    (data: {
+      Baseball: QuestionType[];
+      Soccer: QuestionType[];
+      Basketball: QuestionType[];
+      Rugby: QuestionType[];
+      Hockey: QuestionType[];
+    }) => {
+      let isDone = true;
+      for (let key in data[curNav]) {
+        if (data[curNav][key].answer === null) {
+          isDone = false;
+          break;
+        }
+      }
 
-  //   if (isDone && curNav !== SelectionArray[SelectionArray.length - 1].type) {
-  //     setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
-  //   }
-  // }, [)
+      if (isDone && curNav !== SelectionArray[SelectionArray.length - 1].type) {
+        setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
+      }
+    },
+    [curNav],
+  );
 
   return (
     <div>
