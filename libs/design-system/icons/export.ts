@@ -23,3 +23,6 @@ export { AttendanceQuizResultBadgeTopStroke } from './AttendanceQuizResultBadgeT
 export { AttendanceQuizResultBadgeBottomStroke } from './AttendanceQuizResultBadgeBottomStroke';
 export { AttendanceQuizArrow } from './AttendanceQuizArrow';
 export { AttendanceQuizTitleStroke } from './AttendanceQuizTitleStroke';
+export { ArrowRight } from './ArrowRight';
+export { Question } from './Question';
+

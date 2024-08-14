@@ -1,5 +1,7 @@
-import { OptionButton } from '@/components/PredictionQuestion/OptionButton';
 import styled from 'styled-components';
+import { useToast } from '@/components/Toast';
+
+import { OptionButton } from '@/components/PredictionQuestion/OptionButton';
 
 interface PredictionQuestionProps {
   questionId: number;
@@ -19,10 +21,13 @@ export function PredictionQuestion({
   percentage,
   requestHandler,
 }: PredictionQuestionProps) {
-  const isAnswered = myAnswer !== null;
+  const { openToast } = useToast();
 
   // TODO: handleAnswer 실제 API로 교체
   const handleAnswer = (index: number) => {
+    if (myAnswer === null) {
+      openToast({ message: '응모권 1장 획득!' });
+    }
     requestHandler(questionId, index);
   };
 
