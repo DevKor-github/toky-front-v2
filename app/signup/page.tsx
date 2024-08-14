@@ -1,7 +1,11 @@
+'use client';
+
+import SignupTopBar from '@/components/\bSignupTopBar';
+
 export default function SignUp() {
   return (
     <div>
-      <h1>Sign Up</h1>
+      <SignupTopBar />
     </div>
   );
 }
