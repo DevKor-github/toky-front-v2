@@ -1,4 +1,4 @@
-export function AttendanceQuizIcon() {
+export function AttendanceQuizBadge() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="225" height="55" viewBox="0 0 225 55" fill="none">
       <path

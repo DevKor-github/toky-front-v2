@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import MainTopBar from '@/components/MainTopBar';
 import NavigationBar from '@/components/NavigationBar';
 import AttendanceCalendar from '@/components/AttendanceCalendar';
+import DailyAttendanceQuiz from '@/components/DailyAttendanceQuiz';
 import { Icon } from '@/libs/design-system/icons';
 
 export default function Attendance() {
@@ -15,7 +16,7 @@ export default function Attendance() {
       <Wrapper>
         <AttendanceBanner>
           매일매일 쏟아지는 응모권!
-          <Icon.AttendanceQuizIcon />
+          <Icon.AttendanceQuizBadge />
         </AttendanceBanner>
         <AttendanceStamp>
           <Icon.AttendanceStamp />
@@ -24,6 +25,7 @@ export default function Attendance() {
           <Icon.AttendanceTicket />
         </AttendanceTicket>
         <AttendanceCalendar />
+        <DailyAttendanceQuiz />
       </Wrapper>
     </div>
   );
@@ -35,7 +37,7 @@ const Wrapper = styled.div`
 `;
 
 const AttendanceBanner = styled.div`
-  padding: 48px 83px 28px 82px;
+  margin: 48px calc((100% - 225px) / 2) 28px calc((100% - 225px) / 2);
   align-items: center;
   color: rgba(255, 255, 255, 0.87);
   text-align: center;
@@ -50,11 +52,11 @@ const AttendanceBanner = styled.div`
 const AttendanceStamp = styled.div`
   position: absolute;
   top: ${(props) => props.theme.space.mainTopBarHeight + props.theme.space.navigationBarHeight + 17}px;
-  left: 25px;
+  left: calc((100% - 255px) / 2 - 55px);
 `;
 
 const AttendanceTicket = styled.div`
   position: absolute;
   top: ${(props) => props.theme.space.mainTopBarHeight + props.theme.space.navigationBarHeight + 92}px;
-  right: 25px;
+  right: calc((100% - 255px) / 2 - 55px);
 `;
