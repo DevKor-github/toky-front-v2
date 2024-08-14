@@ -29,6 +29,8 @@ const ToastLayout = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
+
+  z-index: ${({ theme }) => theme.zIndex.toast};
 `;
 
 const ToastContainer = styled(motion.div)`
