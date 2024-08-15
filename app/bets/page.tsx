@@ -51,7 +51,13 @@ export default function Bets() {
       }),
     };
     setQuestionData(newData);
-    checkIsDones(newData);
+    if (
+      !checkIsDones(questionData) &&
+      checkIsDones(newData) &&
+      curNav !== SelectionArray[SelectionArray.length - 1].type
+    ) {
+      setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
+    }
   };
 
   const checkIsDones = useCallback(
@@ -69,10 +75,7 @@ export default function Bets() {
           break;
         }
       }
-
-      if (isDone && curNav !== SelectionArray[SelectionArray.length - 1].type) {
-        setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
-      }
+      return isDone;
     },
     [curNav],
   );
