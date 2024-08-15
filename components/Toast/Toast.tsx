@@ -24,9 +24,8 @@ export function Toast({ isOpen, message }: ToastProps) {
 const ToastLayout = styled.div`
   position: fixed;
   bottom: 0;
-  left: 0;
-  display: flex;
-  width: 100vw;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
   display: flex;
   justify-content: center;
 
