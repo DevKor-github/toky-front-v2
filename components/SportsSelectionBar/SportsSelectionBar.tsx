@@ -23,7 +23,7 @@ export const SportsSelectionBar = memo(function SportsSelectionBar({
   isSticky = false,
 }: SportsSelectionBarProps) {
   return (
-    <Wrapper $bgColor={bgColor} isSticky={isSticky}>
+    <Wrapper $bgColor={bgColor} $isSticky={isSticky}>
       {showAll && (
         <SportsButton isSelected={curSelection === 'All'} onClick={() => handleSelect('All')} hasUnderbar={hasUnderbar}>
           전체
@@ -43,13 +43,13 @@ export const SportsSelectionBar = memo(function SportsSelectionBar({
   );
 });
 
-const Wrapper = styled.nav<{ $bgColor?: string; isSticky: boolean }>`
+const Wrapper = styled.nav<{ $bgColor?: string; $isSticky: boolean }>`
   top: ${(props) => props.theme.space.mainTopBarHeight + props.theme.space.navigationBarHeight}px;
   display: flex;
   justify-content: space-between;
   z-index: ${({ theme }) => theme.zIndex.SportsSelectionBar};
   padding: 0 20px;
-  ${({ isSticky }) => isSticky && 'position: sticky;'}
+  ${({ $isSticky }) => $isSticky && 'position: sticky;'}
   background: ${({ $bgColor }) =>
     $bgColor ||
     'linear-gradient(90deg, rgba(76, 14, 176, 0.40) -12.75%, rgba(76, 14, 176, 0.24) 113.73%), linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%), #121212'};
