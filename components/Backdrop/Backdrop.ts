@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Backdrop = styled.div<{ $isModalOpen: boolean; $backgroundColor?: string }>`
+export const Backdrop = styled.div<{ $isModalOpen: boolean; $backgroundColor?: string; $backdropBlur: boolean }>`
   z-index: ${(props) => props.theme.zIndex.modalBackdrop};
   position: fixed;
   top: 0;
@@ -8,7 +8,11 @@ export const Backdrop = styled.div<{ $isModalOpen: boolean; $backgroundColor?: s
   width: 100%;
   height: 100%;
   background: ${(props) => props.$backgroundColor ?? 'rgba(0, 0, 0, 0.3)'};
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  ${(props) =>
+    props.$backdropBlur &&
+    css`
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+    `}
   display: ${(props) => (props.$isModalOpen ? 'block' : 'none')};
 `;
