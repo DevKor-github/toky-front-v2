@@ -1,22 +1,30 @@
 import 'swiper/css';
 import styled from 'styled-components';
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import { forwardRef } from 'react';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
-export const SignupContents = forwardRef<SwiperRef>(function SignupContents(props, ref) {
+import { SelectUniv } from '@/components/Signup/SignupContents/SelectUniv';
+import { SetNickname } from '@/components/Signup/SignupContents/SetNickname';
+import { SetPhoneNumber } from '@/components/Signup/SignupContents/SetPhoneNumber';
+
+interface SignupContentsProps {}
+export const SignupContents = forwardRef<SwiperRef, SignupContentsProps>(function SignupContents({}, ref) {
   return (
     <SwiperWrapper slidesPerView={1} allowTouchMove={false} ref={ref}>
       <SwiperSlide>
-        <Contents>1페이지</Contents>
+        <Contents>
+          <SelectUniv />
+        </Contents>
       </SwiperSlide>
       <SwiperSlide>
-        <Contents>2페이지</Contents>
+        <Contents>
+          <SetNickname />
+        </Contents>
       </SwiperSlide>
       <SwiperSlide>
-        <Contents>3페이지</Contents>
-      </SwiperSlide>
-      <SwiperSlide>
-        <Contents>4페이지</Contents>
+        <Contents>
+          <SetPhoneNumber />
+        </Contents>
       </SwiperSlide>
     </SwiperWrapper>
   );
@@ -24,6 +32,8 @@ export const SignupContents = forwardRef<SwiperRef>(function SignupContents(prop
 
 const SwiperWrapper = styled(Swiper)`
   padding-top: ${({ theme }) => theme.space.signupTopBarHeight + theme.space.signupStatusBarHeight}px;
+
+  font-family: 'Spoqa Han Sans Neo';
 `;
 
 const Contents = styled.section`
