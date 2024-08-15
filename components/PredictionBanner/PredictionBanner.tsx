@@ -38,7 +38,7 @@ export function PredictionBanner({ shareHandler }: PredictionBannerProps) {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 170px;
+  height: ${({ theme }) => theme.space.predictionBannerHeight}px;
   background: linear-gradient(90deg, rgba(76, 14, 176, 0.4) 0%, rgba(76, 14, 176, 0.24) 100%),
     linear-gradient(0deg, rgba(18, 18, 18, 0.15) 0%, rgba(18, 18, 18, 0) 100%);
   padding-top: 30px;
