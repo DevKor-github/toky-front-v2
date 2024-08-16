@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 interface ActionButtonProps {
   bgColor?: string;
-  color: string;
+  color?: string;
   fontSize?: string;
   children: React.ReactNode;
   onClick?: () => void;
@@ -66,7 +66,7 @@ export function ActionButton({
 
 const Wrapper = styled.div<ActionButtonProps>`
   background: ${({ bgColor }) => bgColor || 'transparent'};
-  color: ${({ color }) => color};
+  color: ${({ color }) => color || 'black'};
   display: flex;
   justify-content: center;
   align-items: center;
