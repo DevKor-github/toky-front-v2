@@ -6,7 +6,7 @@ files:
     overwrite: yes
 permissions:
   - object: /home/ec2-user/app/
-    pattern: '**'
+    pattern: "**"
     owner: root
     group: root
 hooks:
