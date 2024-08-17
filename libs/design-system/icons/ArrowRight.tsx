@@ -1,4 +1,4 @@
-export function ArrowRight({ color, rotate }: { color: string; rotate: number }) {
+export function ArrowRight({ color = '#FFFFFFDE', rotate = 0 }: { color?: string; rotate?: number }) {
   return (
     <svg
       width="20"
