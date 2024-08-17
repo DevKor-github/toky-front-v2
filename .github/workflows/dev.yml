@@ -37,8 +37,10 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
       - name: Create Zip file for AWS CodeDeploy
-        run: mkdir ${{env.AWS_CODE_DEPLOY_NAME}} && cp -r appspec.yml image.txt ${{ env.AWS_CODE_DEPLOY_NAME }}
-
+        run: |
+          mkdir -p ${{ env.AWS_CODE_DEPLOY_NAME }}
+          cp -r appspec.yml scripts image.txt ${{ env.AWS_CODE_DEPLOY_NAME }}
+          cd ${{ env.AWS_CODE_DEPLOY_NAME }} && zip -r ../${{ github.sha }}.zip .
       # AWS S3로 파일 업로드
       - name: Upload to AWS S3
         run: |
