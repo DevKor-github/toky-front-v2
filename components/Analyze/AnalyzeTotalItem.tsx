@@ -9,8 +9,8 @@ export default function AnalyzeTotalItem({ matchName, koreaWin, yonseiWin }: Ana
     <Wrapper>
       <MatchNameContainer>{matchName}</MatchNameContainer>
       <BarContainer>
-        <KoreaBar ratio={koreaWin / (koreaWin + yonseiWin)} />
-        <YonseiBar ratio={yonseiWin / (koreaWin + yonseiWin)} />
+        <KoreaBar $ratio={koreaWin / (koreaWin + yonseiWin)} />
+        <YonseiBar $ratio={yonseiWin / (koreaWin + yonseiWin)} />
       </BarContainer>
       <InfoContainer>
         <Flex $direction="column">
@@ -53,15 +53,15 @@ const BarContainer = styled.div`
   display: flex;
 `;
 
-const KoreaBar = styled.div<{ ratio: number }>`
-  width: ${({ ratio }) => ratio * 100}%;
+const KoreaBar = styled.div<{ $ratio: number }>`
+  width: ${({ $ratio }) => $ratio * 100}%;
   height: 100%;
   background: linear-gradient(270deg, #f3233c 0%, rgba(243, 35, 60, 0.25) 100%);
   border-radius: 34px 0px 0px 34px;
 `;
 
-const YonseiBar = styled.div<{ ratio: number }>`
-  width: ${({ ratio }) => ratio * 100}%;
+const YonseiBar = styled.div<{ $ratio: number }>`
+  width: ${({ $ratio }) => $ratio * 100}%;
   height: 100%;
   background: linear-gradient(270deg, rgba(41, 72, 255, 0.25) 0%, #2948ff 100%);
   border-radius: 0px 34px 34px 0px;
