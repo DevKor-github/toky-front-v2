@@ -34,6 +34,8 @@ export function Timer({ expiryTimestamp }: TimerProps) {
 
 const TimerWrapper = styled.div`
   white-space: nowrap;
+  color: white;
+  width: 220px;
   h5 {
     ${(prop) => prop.theme.typography.body2Regular}
   }
