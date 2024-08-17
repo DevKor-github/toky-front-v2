@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+import path from 'path';
+
+const __dirname = path.resolve();
 
 const nextConfig = {
   output: 'standalone',
@@ -37,7 +40,10 @@ const nextConfig = {
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
-
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, ''),
+    };
     return config;
   },
   compiler: {
