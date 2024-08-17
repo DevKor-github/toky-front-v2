@@ -1,25 +1,28 @@
-import { SelectionType } from '@/libs/constants/sports';
+import { SelectionMap, SelectionType } from '@/libs/constants/sports';
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
 import Image from 'next/image';
 import styled from 'styled-components';
+import { MATCH_INFO } from './constants';
 
 interface MatchInfoProps {
-  match: SelectionType;
+  match: Exclude<SelectionType, 'All'>;
 }
 
 export function MatchInfo({ match }: MatchInfoProps) {
-  //TODO : match 정보를 받아와서 렌더링
+  const matchInfo = MATCH_INFO[SelectionMap[match]];
+  const isOver = new Date() > matchInfo.startDate;
+
   return (
     <Flex $direction="column" $justify="center" $align="center" $gap={19}>
       <ProgressInfo>
         <Icon.Dot />
-        예측 진행 중
+        {isOver ? '예측 마감' : '예측 진행 중'}
       </ProgressInfo>
       <Flex $gap={12} $align="center">
         <Flex $gap={4} $align="center">
           <Text>고려대학교</Text>
-          <Image src="/api/image-proxy/test-5-0.png" alt="고려대학교" width={42} height={42} />
+          <Image src={matchInfo.bannerImageUrl} alt="고려대학교" width={42} height={42} />
         </Flex>
         <Flex $align="center" $justify="center" $direction="column">
           <Text
@@ -29,7 +32,7 @@ export function MatchInfo({ match }: MatchInfoProps) {
               letterSpacing: '-0.72px',
             }}
           >
-            9/27 (금)
+            {matchInfo.day}
           </Text>
           <Text
             style={{
@@ -38,7 +41,7 @@ export function MatchInfo({ match }: MatchInfoProps) {
               letterSpacing: 0,
             }}
           >
-            14:30
+            {matchInfo.time}
           </Text>
         </Flex>
         <Flex $gap={4} $align="center">

@@ -1,17 +1,13 @@
 'use client';
 
 import styled from 'styled-components';
-import AnalyzeItem, { AnalyzeItemProps } from './AnalyzeTotalItem';
+import AnalyzeItem from './AnalyzeTotalItem';
 import Image from 'next/image';
+import { TOTAL_MATCH_LIST } from './constants';
 
 export default function AnalyzeTotalList() {
-  const matchList: Array<AnalyzeItemProps> = [
-    { matchName: '야구', koreaWin: 25, yonseiWin: 19 },
-    { matchName: '빙구', koreaWin: 17, yonseiWin: 24 },
-    { matchName: '농구', koreaWin: 24, yonseiWin: 22 },
-    { matchName: '럭비', koreaWin: 21, yonseiWin: 25 },
-    { matchName: '축구', koreaWin: 21, yonseiWin: 17 },
-  ];
+  const matchList = TOTAL_MATCH_LIST;
+
   return (
     <Wrapper>
       <BackgroundImageWrapper>

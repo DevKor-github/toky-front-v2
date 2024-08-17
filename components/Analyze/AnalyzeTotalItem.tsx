@@ -2,12 +2,7 @@
 
 import { Flex } from '@/libs/design-system/flex';
 import styled from 'styled-components';
-
-export interface AnalyzeItemProps {
-  matchName: string;
-  koreaWin: number;
-  yonseiWin: number;
-}
+import { AnalyzeItemProps } from './constants';
 
 export default function AnalyzeTotalItem({ matchName, koreaWin, yonseiWin }: AnalyzeItemProps) {
   return (
