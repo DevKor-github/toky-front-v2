@@ -33,7 +33,7 @@ jobs:
         # 생성된 이미지 이름 및 태그 정보 입력 및 ecr에 이미지 배포
         run: |
           echo "${{env.REGISTRY}}/${{env.REPOSITORY}}:${{env.IMAGE_TAG}}"  > image.txt 
-          docker build . --file ./.docker/DockerFile --tag $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker build . --file ./DockerFile --tag $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
       - name: Create Zip file for AWS CodeDeploy
