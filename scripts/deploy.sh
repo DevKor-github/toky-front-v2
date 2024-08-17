@@ -20,11 +20,8 @@ else
 fi
 
 echo "> login to ECR"
+echo "> ecr registry name: $ECR_REGISTRY_NAME"
 aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY_NAME
-if [ $? -ne 0 ]; then
-  echo "ECR 로그인 실패"
-  exit 1
-fi
 
 echo "> docker pull $IMAGE_NAME"
 docker pull $IMAGE_NAME
