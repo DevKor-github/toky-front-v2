@@ -32,7 +32,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         # 생성된 이미지 이름 및 태그 정보 입력 및 ecr에 이미지 배포
         run: |
-          echo "ECR_REGISTRY_NAME=${{env.REGISTRY}}.dkr.ecr.ap-northeast-2.amazonaws.com" >> $GITHUB_ENV
+          echo "${{env.REGISTRY}}.dkr.ecr.ap-northeast-2.amazonaws.com" > registry.txt
           echo "${{env.REGISTRY}}/${{env.REPOSITORY}}:${{env.IMAGE_TAG}}"  > image.txt 
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG ./
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -40,7 +40,7 @@ jobs:
       - name: Create Zip file for AWS CodeDeploy
         run: |
           mkdir -p ${{ env.AWS_CODE_DEPLOY_NAME }}
-          cp -r appspec.yml scripts image.txt ${{ env.AWS_CODE_DEPLOY_NAME }}
+          cp -r appspec.yml scripts image.txt registry.txt ${{ env.AWS_CODE_DEPLOY_NAME }}
           cd ${{ env.AWS_CODE_DEPLOY_NAME }} && zip -r ../${{ github.sha }}.zip .
       # AWS S3로 파일 업로드
       - name: Upload to AWS S3
