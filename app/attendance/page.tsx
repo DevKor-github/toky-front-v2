@@ -2,11 +2,11 @@
 
 import styled from 'styled-components';
 
-import MainTopBar from '../../components/MainTopBar';
-import NavigationBar from '../../components/NavigationBar';
-import AttendanceCalendar from '../../components/AttendanceCalendar';
-import DailyAttendanceQuiz from '../../components/DailyAttendanceQuiz';
-import { Icon } from '../../libs/design-system/icons';
+import MainTopBar from '@/components/MainTopBar';
+import NavigationBar from '@/components/NavigationBar';
+import AttendanceCalendar from '@/components/AttendanceCalendar';
+import DailyAttendanceQuiz from '@/components/DailyAttendanceQuiz';
+import { Icon } from '@/libs/design-system/icons';
 
 export default function Attendance() {
   return (
