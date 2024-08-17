@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* ./
 # TODO ignore scripts 안하는 방법
-RUN yarn --frozen-lockfile --ignore-scripts --production;
+RUN yarn install --frozen-lockfile --ignore-scripts --production;
 RUN rm -rf ./.next/cache
 
 
