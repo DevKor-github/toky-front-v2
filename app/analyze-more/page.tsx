@@ -1,6 +1,6 @@
 'use client';
-import PlayerCarousel from '@/components/PlayerCarousel';
-import PlayerCard from '@/components/PlayerCard';
+import PlayerCarousel from '../../components/PlayerCarousel';
+import PlayerCard from '../../components/PlayerCard';
 
 export default function Analyze() {
   // TODO: 선수 데이터 contants나 서버에서 가져와서 패칭해야함

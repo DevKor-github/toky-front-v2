@@ -5,17 +5,17 @@ import styled from 'styled-components';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
-import { SelectionArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
-import MainTopBar from '@/components/MainTopBar';
-import NavigationBar from '@/components/NavigationBar';
-import { useShareModal } from '@/components/ShareModal';
-import PredictionBanner from '@/components/PredictionBanner';
-import SportsSelectionBar from '@/components/SportsSelectionBar';
-import PredictionQuestion from '@/components/PredictionQuestion';
-import PredictionBottomBar from '@/components/PredictionBottomBar';
-import { NavScrollProvider } from '@/app/bets/NavScrollProvider';
-import { DUMMY_QUESTIONS_API } from '@/app/bets/dummy';
-import { QuestionType } from '@/libs/types/bets';
+import { SelectionArray, SelectionMap, SelectionType } from '../../libs/constants/sports';
+import MainTopBar from '../../components/MainTopBar';
+import NavigationBar from '../../components/NavigationBar';
+import { useShareModal } from '../../components/ShareModal';
+import PredictionBanner from '../../components/PredictionBanner';
+import SportsSelectionBar from '../../components/SportsSelectionBar';
+import PredictionQuestion from '../../components/PredictionQuestion';
+import PredictionBottomBar from '../../components/PredictionBottomBar';
+import { NavScrollProvider } from '../../app/bets/NavScrollProvider';
+import { DUMMY_QUESTIONS_API } from '../../app/bets/dummy';
+import { QuestionType } from '../../libs/types/bets';
 
 export default function Bets() {
   const { openShareModal } = useShareModal();

@@ -1,11 +1,11 @@
 'use client';
 
-import { DrawBoard } from '@/components/DrawBoard';
-import DrawCard from '@/components/DrawCard';
-import MainTopBar from '@/components/MainTopBar';
-import NavigationBar from '@/components/NavigationBar';
-import { Flex } from '@/libs/design-system/flex';
-import { Icon } from '@/libs/design-system/icons';
+import { DrawBoard } from '../../components/DrawBoard';
+import DrawCard from '../../components/DrawCard';
+import MainTopBar from '../../components/MainTopBar';
+import NavigationBar from '../../components/NavigationBar';
+import { Flex } from '../../libs/design-system/flex';
+import { Icon } from '../../libs/design-system/icons';
 import styled from 'styled-components';
 
 export default function Draw() {

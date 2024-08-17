@@ -1,12 +1,12 @@
 'use client';
 
 import ActionButton from '../../components/ActionButton';
-import { AnalyzeTotal, AnalyzeMatch, MatchInfo } from '@/components/Analyze';
-import MainTopBar from '@/components/MainTopBar';
-import NavigationBar from '@/components/NavigationBar';
-import SportsSelectionBar from '@/components/SportsSelectionBar';
-import { Timer } from '@/components/Timer/Timer';
-import { LastDate, SelectionType } from '@/libs/constants/sports';
+import { AnalyzeTotal, AnalyzeMatch, MatchInfo } from '../../components/Analyze';
+import MainTopBar from '../..//components/MainTopBar';
+import NavigationBar from '../..//components/NavigationBar';
+import SportsSelectionBar from '../..//components/SportsSelectionBar';
+import { Timer } from '../..//components/Timer/Timer';
+import { LastDate, SelectionType } from '../..//libs/constants/sports';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
