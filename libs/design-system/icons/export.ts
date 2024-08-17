@@ -25,4 +25,4 @@ export { AttendanceQuizArrow } from './AttendanceQuizArrow';
 export { AttendanceQuizTitleStroke } from './AttendanceQuizTitleStroke';
 export { ArrowRight } from './ArrowRight';
 export { Question } from './Question';
-
+export { Dot } from './Dot';

@@ -28,12 +28,13 @@ export function Header({ title, onBack, withSideBar = false }: HeaderProps) {
 const HeaderWrapper = styled.div`
   width: 100%;
   height: ${({ theme }) => theme.space.mainTopBarHeight}px;
-  background-color: ${({ theme }) => theme.colors.header};
+  background-color: ${({ theme }) => theme.colors.primary};
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: fixed;
   padding: 10px 20px;
+  z-index: ${({ theme }) => theme.zIndex.MainTopBar};
 `;
 const Title = styled.div`
   color: ${({ theme }) => theme.colors.white87};
