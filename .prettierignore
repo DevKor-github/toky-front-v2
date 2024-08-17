@@ -3,3 +3,4 @@
 /dist
 /coverage
 /.github/workflows/dev.yml
+/appspec.yml

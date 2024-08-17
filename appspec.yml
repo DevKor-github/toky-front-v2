@@ -2,9 +2,8 @@ version: 0.0
 os: linux
 files:
   - source: /
-		destination: /home/ec2-user/app/
+    destination: /home/ec2-user/app/
     overwrite: yes
-
 permissions:
   - object: /home/ec2-user/app/
     pattern: "**"
