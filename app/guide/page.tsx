@@ -1,13 +1,13 @@
 'use client';
-import { GuideSelectionBar } from '@/components/GuideSelectionBar';
-import Header from '@/components/Header';
-import { Flex } from '@/libs/design-system/flex';
-import { Icon } from '@/libs/design-system/icons';
+import { GuideSelectionBar } from '../../components/GuideSelectionBar';
+import Header from '../../components/Header';
+import { Flex } from '../../libs/design-system/flex';
+import { Icon } from '../../libs/design-system/icons';
 import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { GUIDE_INFO } from './constants';
-import { ScheduleSmallCard } from '@/components/ScheduleCard';
+import { ScheduleSmallCard } from '../../components/ScheduleCard';
 
 export default function Guide() {
   const [guideType, setGuideType] = useState<'period' | 'service'>('period');
