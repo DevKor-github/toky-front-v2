@@ -29,18 +29,22 @@ export default function BestPlayerItem({ player }: PlayerProps) {
             </Flex>
           </Flex>
           <PlayerInfoTable $isKorea={isKorea}>
-            <tr>
-              <th>포지션</th>
-              <td>{position}</td>
-              <th>신장/체중</th>
-              <td>{body}</td>
-            </tr>
-            <tr>
-              <th>백넘버</th>
-              <td>{backNumber}</td>
-              <th>지난 성적</th>
-              <td>{stat}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>포지션</th>
+                <td>{position}</td>
+                <th>신장/체중</th>
+                <td>{body}</td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <th>백넘버</th>
+                <td>{backNumber}</td>
+                <th>지난 성적</th>
+                <td>{stat}</td>
+              </tr>
+            </tbody>
           </PlayerInfoTable>
         </Flex>
       </TextInfo>
