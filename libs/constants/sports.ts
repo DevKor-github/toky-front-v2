@@ -17,3 +17,31 @@ export const SelectionMap: { [key in Exclude<SelectionType, 'All'>]: number } = 
 };
 
 export const LastDate = new Date('2024-09-28T23:59:59+09:00');
+
+export const MATCH_SCHEDULE = [
+  {
+    day: '9/27 (금)',
+    time: '14:30',
+    startDate: new Date('2024-09-27T14:30:00'),
+  },
+  {
+    day: '9/27 (금)',
+    time: '14:30',
+    startDate: new Date('2024-09-27T14:30:00'),
+  },
+  {
+    day: '9/27 (금)',
+    time: '14:30',
+    startDate: new Date('2024-09-27T14:30:00'),
+  },
+  {
+    day: '9/27 (금)',
+    time: '14:30',
+    startDate: new Date('2024-09-27T14:30:00'),
+  },
+  {
+    day: '9/27 (금)',
+    time: '14:30',
+    startDate: new Date('2024-09-27T14:30:00'),
+  },
+];

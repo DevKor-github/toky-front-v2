@@ -1,4 +1,4 @@
-import { SelectionType } from '@/libs/constants/sports';
+import { MATCH_SCHEDULE, SelectionType } from '@/libs/constants/sports';
 
 export interface AnalyzeItemProps {
   matchName: string;
@@ -14,43 +14,33 @@ export const TOTAL_MATCH_LIST: AnalyzeItemProps[] = [
   { matchName: '빙구', koreaWin: 17, yonseiWin: 24 },
 ];
 
-export const MATCH_INFO = [
+const BANNER_INFO = [
   {
-    day: '9/27 (금)',
-    time: '14:30',
     bannerImageUrl: '/api/image-proxy/test-5-0.png',
     recordImageUrl: '/api/image-proxy/test-5-0.png',
-    startDate: new Date('2024-09-27T14:30:00'),
   },
   {
-    day: '9/27 (금)',
-    time: '14:30',
     bannerImageUrl: '/api/image-proxy/test-5-0.png',
     recordImageUrl: '/api/image-proxy/test-5-0.png',
-    startDate: new Date('2024-09-27T14:30:00'),
   },
   {
-    day: '9/27 (금)',
-    time: '14:30',
     bannerImageUrl: '/api/image-proxy/test-5-0.png',
     recordImageUrl: '/api/image-proxy/test-5-0.png',
-    startDate: new Date('2024-09-27T14:30:00'),
   },
   {
-    day: '9/27 (금)',
-    time: '14:30',
     bannerImageUrl: '/api/image-proxy/test-5-0.png',
     recordImageUrl: '/api/image-proxy/test-5-0.png',
-    startDate: new Date('2024-09-27T14:30:00'),
   },
   {
-    day: '9/27 (금)',
-    time: '14:30',
     bannerImageUrl: '/api/image-proxy/test-5-0.png',
     recordImageUrl: '/api/image-proxy/test-5-0.png',
-    startDate: new Date('2024-09-27T14:30:00'),
   },
 ];
+
+export const MATCH_INFO = MATCH_SCHEDULE.map((match, index) => ({
+  ...match,
+  ...BANNER_INFO[index],
+}));
 
 export interface BestPlayerInfo {
   alias: string;
