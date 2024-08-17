@@ -15,3 +15,5 @@ export const SelectionMap: { [key in Exclude<SelectionType, 'All'>]: number } = 
   Rugby: 3,
   Hockey: 4,
 };
+
+export const LastDate = new Date('2024-09-28T23:59:59+09:00');
