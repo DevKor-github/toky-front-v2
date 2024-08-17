@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import Link from 'next/link';
+import { PropsWithChildren } from 'react';
 
-interface ActionButtonProps {
+interface ActionButtonProps extends PropsWithChildren {
   bgColor?: string;
   color?: string;
   fontSize?: string;
-  children: React.ReactNode;
   onClick?: () => void;
   width?: string;
   height?: string;
