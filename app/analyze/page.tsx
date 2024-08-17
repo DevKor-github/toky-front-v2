@@ -1,6 +1,6 @@
 'use client';
 
-import ActionButton from '@/components/ActionButton';
+import ActionButton from '../../components/ActionButton';
 import { AnalyzeTotal, AnalyzeMatch, MatchInfo } from '@/components/Analyze';
 import MainTopBar from '@/components/MainTopBar';
 import NavigationBar from '@/components/NavigationBar';
