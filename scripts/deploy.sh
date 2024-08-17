@@ -14,7 +14,7 @@ else
 fi
 
 echo "> login to ECR"
-aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin [ECR_REGISTRY__NAME]
+aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin [ECR_REGISTRY__NAME]
 
 echo "> docker pull $IMAGE_NAME"
 docker pull $IMAGE_NAME

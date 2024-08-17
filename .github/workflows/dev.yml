@@ -28,7 +28,7 @@ jobs:
       - name: Build, tag, and push docker image to Amazon ECR
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: toky-dev
+          REPOSITORY: toky-docker
           IMAGE_TAG: ${{ github.sha }}
         # 생성된 이미지 이름 및 태그 정보 입력 및 ecr에 이미지 배포
         run: |
