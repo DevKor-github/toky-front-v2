@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSignupError, useSignupForm } from '@/app/signup/store';
 
-import { InputBox } from '@/components/Signup/SignupContents/InputBox';
+import InputBox from '@/components/Signup/InputBox';
 
 export function SetPhoneNumber() {
   const phoneNumber = useSignupForm((state) => state.phoneNumber);

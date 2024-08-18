@@ -1,6 +1,6 @@
 import { SignupElements } from '@/app/signup/constants';
 import { useSignupError } from '@/app/signup/store';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 type StatusType = 'default' | 'focus' | 'filled';

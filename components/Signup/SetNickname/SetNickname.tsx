@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSignupError, useSignupForm } from '@/app/signup/store';
 
-import { InputBox } from '@/components/Signup/SignupContents/InputBox';
+import InputBox from '@/components/Signup/InputBox';
 
 export function SetNickname() {
   const nickname = useSignupForm((state) => state.nickname);

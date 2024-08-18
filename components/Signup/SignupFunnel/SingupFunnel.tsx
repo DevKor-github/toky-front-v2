@@ -3,17 +3,17 @@ import styled from 'styled-components';
 import { forwardRef } from 'react';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
-import { SelectUniv } from '@/components/Signup/SignupContents/SelectUniv';
-import { SetNickname } from '@/components/Signup/SignupContents/SetNickname';
-import { SetPhoneNumber } from '@/components/Signup/SignupContents/SetPhoneNumber';
+import SetUniv from '@/components/Signup/SetUniv';
+import SetNickname from '@/components/Signup/SetNickname';
+import SetPhoneNumber from '@/components/Signup/SetPhoneNumber';
 
-interface SignupContentsProps {}
-export const SignupContents = forwardRef<SwiperRef, SignupContentsProps>(function SignupContents({}, ref) {
+interface SignupFunnelProps {}
+export const SignupFunnel = forwardRef<SwiperRef, SignupFunnelProps>(function SignupContents({}, ref) {
   return (
     <SwiperWrapper slidesPerView={1} allowTouchMove={false} ref={ref}>
       <SwiperSlide>
         <Contents>
-          <SelectUniv />
+          <SetUniv />
         </Contents>
       </SwiperSlide>
       <SwiperSlide>

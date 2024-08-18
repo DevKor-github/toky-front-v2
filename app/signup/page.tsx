@@ -9,7 +9,7 @@ import { useSignupError, useSignupForm } from '@/app/signup/store';
 import { TOTAL_PROGRESS } from '@/app/signup/constants';
 import SignupTopBar from '@/components/Signup/SignupTopBar';
 import SignupProgress from '@/components/Signup/SignupProgress';
-import SignupContents from '@/components/Signup/SignupContents';
+import SignupFunnel from '@/components/Signup/SignupFunnel';
 
 export default function SignUp() {
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function SignUp() {
     if (false) {
       router.push('/');
     }
-  }, []);
+  }, [router]);
 
   const handlePrevButton = useCallback(() => {
     if (progress === 0) {
@@ -91,7 +91,7 @@ export default function SignUp() {
     <div>
       <SignupTopBar handlePrevButton={handlePrevButton} />
       <SignupProgress curProgress={progress} totalProgress={totalProgress} />
-      <SignupContents ref={swiperRef} />
+      <SignupFunnel ref={swiperRef} />
       <SignupFooter $isDone={clickable} onClick={handleNextButton}>
         {progress === totalProgress ? '토키 시작하기' : '다음'}
       </SignupFooter>
