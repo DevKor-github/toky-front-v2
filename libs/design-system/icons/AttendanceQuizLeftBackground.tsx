@@ -22,7 +22,7 @@ export function AttendanceQuizLeftBackground() {
           filterUnits="userSpaceOnUse"
           colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
           <feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_1672_3296" />
         </filter>
@@ -34,8 +34,8 @@ export function AttendanceQuizLeftBackground() {
           y2="96.3575"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#58009E" />
-          <stop offset="1" stop-color="#9100D5" />
+          <stop stopColor="#58009E" />
+          <stop offset="1" stopColor="#9100D5" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_1672_3296"

@@ -35,7 +35,7 @@ export function AttendanceQuizRightBackground() {
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor="#58009E" stopOpacity="0.8" />
-          <stop offset="1" stop-color="#9100D5" />
+          <stop offset="1" stopColor="#9100D5" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_1672_3295"
@@ -45,9 +45,9 @@ export function AttendanceQuizRightBackground() {
           y2="42.6499"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white" stop-opacity="0.15" />
-          <stop offset="0.5" stop-color="white" stopOpacity="0" />
-          <stop offset="1" stop-color="white" stopOpacity="0.15" />
+          <stop stopColor="white" stopOpacity="0.15" />
+          <stop offset="0.5" stopColor="white" stopOpacity="0" />
+          <stop offset="1" stopColor="white" stopOpacity="0.15" />
         </linearGradient>
       </defs>
     </svg>

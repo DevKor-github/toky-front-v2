@@ -41,6 +41,7 @@ export default function Guide() {
                 <Title>&</Title>
                 <Title>운영기간안내</Title>
               </Flex>
+              <Text>토키와 함께 더 즐거운 정기전을!</Text>
             </Flex>
           </Flex>
         </Banner>
@@ -101,4 +102,16 @@ const Title = styled.h2`
   font-weight: 400;
   line-height: normal;
   letter-spacing: -1.464px;
+`;
+
+const Text = styled.h4`
+  color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
+  text-align: center;
+  font-family: 'Happiness Sans';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: -0.56px;
+  margin-top: 10px;
 `;
