@@ -52,7 +52,6 @@ export default function Guide() {
 }
 const Wrapper = styled.div`
   padding-top: ${({ theme }) => theme.space.mainTopBarHeight}px;
-  overflow-x: hidden;
 `;
 const Banner = styled.div`
   width: 100%;

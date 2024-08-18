@@ -47,6 +47,7 @@ export function QuizInfo() {
 
 const Wrapper = styled.div`
   position: relative;
+  overflow-x: hidden;
 `;
 const SectionTitle = styled.h2`
   text-align: center;

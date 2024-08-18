@@ -51,6 +51,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding: 40px 20px 50px 20px;
   gap: 30px;
+  overflow-x: hidden;
 `;
 const SectionTitle = styled.h2`
   text-align: center;
