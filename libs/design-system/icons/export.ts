@@ -16,3 +16,4 @@ export { ChevronForward } from './ChevronForward';
 export { TablerCopy } from './TablerCopy';
 export { ArrowRight } from './ArrowRight';
 export { Question } from './Question';
+export { Check } from './Check';

@@ -41,6 +41,27 @@ export default function SignUp() {
     }
   }, [router, progress]);
 
+  // 다음 버튼 활성화 로직
+  useEffect(() => {
+    switch (progress) {
+      case 0:
+        setClickable(formState.school !== null);
+        break;
+      case 1:
+        setClickable(formState.nickname !== '');
+        break;
+      case 2:
+        setClickable(
+          formState.phoneNumber.length === 11 &&
+            /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/.test(formState.phoneNumber),
+        );
+        break;
+      case 3:
+        setClickable(formState.agreement);
+        break;
+    }
+  }, [progress, formState]);
+
   const handleNextButton = () => {
     if (clickable) {
       switch (progress) {
@@ -56,36 +77,20 @@ export default function SignUp() {
           }
           break;
         case 2:
-          // TODO: PhoneNumber Validation Check
+          setProgress((prev) => prev + 1);
+          break;
+        case 3:
+          setProgress((prev) => prev + 1);
           // TODO: Sign-up Form Submit
-          if (formState.phoneNumber !== '01035025374') {
-            console.log('Sign Up');
-            console.log(formState.nickname, formState.school, formState.phoneNumber);
-          } else {
-            errorState.setError('phoneNumber');
-          }
+          console.log(formState);
+          break;
+        case 4:
+          // 토키 시작하기
+          router.push('/');
           break;
       }
     }
   };
-
-  // 버튼 활성화
-  useEffect(() => {
-    switch (progress) {
-      case 0:
-        if (formState.school !== null) setClickable(true);
-        else setClickable(false);
-        break;
-      case 1:
-        if (formState.nickname !== '') setClickable(true);
-        else setClickable(false);
-        break;
-      case 2:
-        if (formState.phoneNumber !== '') setClickable(true);
-        else setClickable(false);
-        break;
-    }
-  }, [progress, formState]);
 
   return (
     <div>

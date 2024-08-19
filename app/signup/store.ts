@@ -5,14 +5,17 @@ interface SignupFormStore extends SignupFormType {
   setSchool: (select: SchoolType) => void;
   setNickname: (input: string) => void;
   setPhoneNumber: (input: string) => void;
+  setAgreement: (input: boolean) => void;
 }
 export const useSignupForm = create<SignupFormStore>((set) => ({
   school: null,
   nickname: '',
   phoneNumber: '',
+  agreement: false,
   setSchool: (select: SchoolType) => set({ school: select }),
   setNickname: (input: string) => set({ nickname: input }),
   setPhoneNumber: (input: string) => set({ phoneNumber: input }),
+  setAgreement: (input: boolean) => set({ agreement: input }),
 }));
 
 interface ErrorStore {

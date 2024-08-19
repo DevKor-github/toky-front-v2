@@ -6,6 +6,8 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import SetUniv from '@/components/Signup/SetUniv';
 import SetNickname from '@/components/Signup/SetNickname';
 import SetPhoneNumber from '@/components/Signup/SetPhoneNumber';
+import TermsAgreement from '@/components/Signup/TermsAgreement';
+import { Welcome } from '@/components/Signup/Welcome/Welcome';
 
 interface SignupFunnelProps {}
 export const SignupFunnel = forwardRef<SwiperRef, SignupFunnelProps>(function SignupContents({}, ref) {
@@ -24,6 +26,16 @@ export const SignupFunnel = forwardRef<SwiperRef, SignupFunnelProps>(function Si
       <SwiperSlide>
         <Contents>
           <SetPhoneNumber />
+        </Contents>
+      </SwiperSlide>
+      <SwiperSlide>
+        <Contents>
+          <TermsAgreement />
+        </Contents>
+      </SwiperSlide>
+      <SwiperSlide>
+        <Contents>
+          <Welcome />
         </Contents>
       </SwiperSlide>
     </SwiperWrapper>
