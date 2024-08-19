@@ -4,11 +4,7 @@ export const refresh = async (instance: AxiosInstance) => {
   const refreshToken = localStorage.getItem('refreshToken');
 
   try {
-    const res = await instance.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
-      {},
-      { headers: { Authorization: `Bearer ${refreshToken}` } },
-    );
+    const res = await instance.post(`/auth/refresh`, {}, { headers: { Authorization: `Bearer ${refreshToken}` } });
     if (res.data.accessToken && res.data.refreshToken) {
       localStorage.setItem('accessToken', res.data.accessToken);
       localStorage.setItem('refreshToken', res.data.refreshToken);
