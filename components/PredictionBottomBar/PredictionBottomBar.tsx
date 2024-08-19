@@ -13,20 +13,18 @@ export function PredictionBottomBar({ curSelection, handleNav }: PredictionBotto
   return (
     <BottomBar>
       <NavButton
-        type="prev"
         onClick={() => {
           handleNav(SelectionArray[SelectionMap[curSelection] - 1].type);
         }}
       >
         {curSelection !== SelectionArray[0].type && (
           <>
-            <Icon.ArrowRight color="#FFFFFF61" rotate={180} />
+            <Icon.ArrowRight color="#FFFFFFDE" rotate={180} />
             <span>{SelectionArray[SelectionMap[curSelection] - 1].title}</span>
           </>
         )}
       </NavButton>
       <NavButton
-        type="next"
         onClick={() => {
           handleNav(SelectionArray[SelectionMap[curSelection] + 1].type);
         }}
@@ -54,14 +52,14 @@ const BottomBar = styled.div`
   );
 `;
 
-const NavButton = styled.button<{ type: 'prev' | 'next' }>`
+const NavButton = styled.button`
   display: flex;
   gap: 8px;
   cursor: pointer;
   align-items: center;
 
   & span {
-    color: ${({ type }) => (type === 'prev' ? '#FFFFFF61' : '#FFFFFFDE')};
+    color: #ffffffde;
     font-size: 15px;
     font-weight: 700;
     letter-spacing: -0.6px;

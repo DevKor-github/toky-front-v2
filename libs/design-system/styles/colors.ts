@@ -19,3 +19,7 @@ export const colors = {
 export type Colors = keyof typeof colors;
 
 export const colorValues = Object.keys(colors);
+
+export function getColor(color: Colors) {
+  return colors[color];
+}

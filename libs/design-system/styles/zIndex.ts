@@ -1,4 +1,5 @@
 export const zIndex = {
+  toast: 400,
   modal: 300,
   modalBackdrop: 299,
   // 이름 camelCase로 변경

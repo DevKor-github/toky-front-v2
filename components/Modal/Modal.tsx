@@ -9,6 +9,7 @@ interface ModalProps extends PropsWithChildren {
   onConfirm?: () => void;
   confirmText?: string;
   withBackdrop?: boolean;
+  backdropBlur?: boolean;
 }
 export function Modal({
   isModalOpen,
@@ -17,12 +18,13 @@ export function Modal({
   confirmText = '확인',
   withBackdrop = true,
   children,
+  backdropBlur = false,
 }: ModalProps) {
   const onClickConfirm = onConfirm || onClose;
 
   return (
     <div>
-      {withBackdrop && <Backdrop $isModalOpen={isModalOpen} onClick={onClose} />}
+      {withBackdrop && <Backdrop $backdropBlur={backdropBlur} $isModalOpen={isModalOpen} onClick={onClose} />}
       <ModalWrapper>
         <Content $isModalOpen={isModalOpen}>
           {children}

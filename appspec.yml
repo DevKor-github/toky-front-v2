@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/app/
+    overwrite: yes
+permissions:
+  - object: /home/ec2-user/app/
+    pattern: "**"
+    owner: root
+    group: root
+hooks:
+  ApplicationStart:
+    - location: scripts/deploy.sh
+      timeout: 120
+      runas: root

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import Link from 'next/link';
+import { PropsWithChildren } from 'react';
 
-interface ActionButtonProps {
+interface ActionButtonProps extends PropsWithChildren {
   bgColor?: string;
-  color: string;
+  color?: string;
   fontSize?: string;
-  children: React.ReactNode;
   onClick?: () => void;
   width?: string;
   height?: string;
@@ -66,7 +66,7 @@ export function ActionButton({
 
 const Wrapper = styled.div<ActionButtonProps>`
   background: ${({ bgColor }) => bgColor || 'transparent'};
-  color: ${({ color }) => color};
+  color: ${({ color }) => color || 'black'};
   display: flex;
   justify-content: center;
   align-items: center;
