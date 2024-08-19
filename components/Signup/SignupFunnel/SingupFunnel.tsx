@@ -7,7 +7,7 @@ import SetUniv from '@/components/Signup/SetUniv';
 import SetNickname from '@/components/Signup/SetNickname';
 import SetPhoneNumber from '@/components/Signup/SetPhoneNumber';
 import TermsAgreement from '@/components/Signup/TermsAgreement';
-import { Welcome } from '@/components/Signup/Welcome/Welcome';
+import Welcome from '@/components/Signup/Welcome';
 
 interface SignupFunnelProps {}
 export const SignupFunnel = forwardRef<SwiperRef, SignupFunnelProps>(function SignupContents({}, ref) {

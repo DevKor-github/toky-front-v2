@@ -82,7 +82,7 @@ const ContentsWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-const FoldHandler = styled.button`
+const FoldHandler = styled.div`
   color: var(--white-disabled-38, rgba(255, 255, 255, 0.38));
   font-size: 13px;
   font-weight: 400;
