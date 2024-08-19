@@ -1,7 +1,9 @@
+import UserInfoTopBar from '@/components/UserInfoTopBar';
+
 export default function UserInfo() {
   return (
     <div>
-      <h1>User Info</h1>
+      <UserInfoTopBar />
     </div>
   );
 }
