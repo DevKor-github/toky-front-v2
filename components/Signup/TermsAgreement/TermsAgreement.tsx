@@ -19,6 +19,7 @@ export function TermsAgreement() {
         allChecked = false;
       }
     });
+
     if (allChecked) {
       setAgreement(true);
     } else {
@@ -27,10 +28,7 @@ export function TermsAgreement() {
   }, [terms, setAgreement]);
 
   const handleTermAgree = useCallback((target: TermsType) => {
-    setTerms((prev) => {
-      console.log({ ...prev, [target]: !prev[target] });
-      return { ...prev, [target]: !prev[target] };
-    });
+    setTerms((prev) => ({ ...prev, [target]: !prev[target] }));
   }, []);
 
   return (
@@ -46,7 +44,6 @@ export function TermsAgreement() {
           $selected={agreement}
           onClick={() => {
             if (agreement) {
-              // 전체 동의 되어 있었음
               setAgreement(false);
               setTerms({ PersonalInfoTerm: false, ServiceTerm: false });
             } else {
@@ -64,6 +61,7 @@ export function TermsAgreement() {
             <TermButton
               key={term.key}
               text={term.text}
+              details={term.details}
               selected={terms[term.key]}
               onClick={() => handleTermAgree(term.key)}
             />
