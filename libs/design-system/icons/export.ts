@@ -27,6 +27,7 @@ export { AttendanceQuizArrow } from './AttendanceQuizArrow';
 export { AttendanceQuizTitleStroke } from './AttendanceQuizTitleStroke';
 export { ArrowRight } from './ArrowRight';
 export { Question } from './Question';
+export { Check } from './Check';
 export { Dot } from './Dot';
 export { AttendanceQuizRightBackground } from './AttendanceQuizRightBackground';
 export { AttendanceQuizLeftBackground } from './AttendanceQuizLeftBackground';
