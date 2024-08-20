@@ -1,10 +1,14 @@
-import type { AxiosInstance } from 'axios';
+import axios from 'axios';
 
-export const refresh = async (instance: AxiosInstance) => {
+export const refresh = async (baseURL: string) => {
   const refreshToken = localStorage.getItem('refreshToken');
 
   try {
-    const res = await instance.post(`/auth/refresh`, {}, { headers: { Authorization: `Bearer ${refreshToken}` } });
+    const res = await axios.post(
+      `${baseURL}/auth/refresh`,
+      {},
+      { headers: { Authorization: `Bearer ${refreshToken}` } },
+    );
     if (res.data.accessToken && res.data.refreshToken) {
       localStorage.setItem('accessToken', res.data.accessToken);
       localStorage.setItem('refreshToken', res.data.refreshToken);
