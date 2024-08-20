@@ -30,7 +30,7 @@ export function createAxiosInstance(baseURL: string, headers?: RawAxiosRequestHe
       //TODO 로깅 달기
       if (error.response && error.response.status === 401) {
         localStorage.removeItem('accessToken');
-        const refreshSuccess = await refresh(instance);
+        const refreshSuccess = await refresh(baseURL);
         if (refreshSuccess) {
           const originalRequest = error.config;
           originalRequest.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
