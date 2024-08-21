@@ -2,21 +2,19 @@
 
 import { refresh } from '@/libs/clients/refresh';
 import { useAuthStore } from '@/libs/store/useAuthStore';
+import { getCookieValue } from '@/libs/utils/getCookieValue';
 import { useCallback, useEffect } from 'react';
 
 export function AuthProvider() {
   const { accessToken, refreshToken, clearTokens, setTokens } = useAuthStore();
 
   const setTokenFromCookie = useCallback(() => {
-    let accessTokenFromCookie = null,
-      refreshTokenFromCookie = null;
+    const accessTokenFromCookie = getCookieValue('access-toke'),
+      refreshTokenFromCookie = getCookieValue('refresh-token');
 
-    document.cookie.split(';').forEach((c) => {
-      if (c.trim().startsWith('access-token=')) accessTokenFromCookie = c.split('=')[1];
-      if (c.trim().startsWith('refresh-token=')) refreshTokenFromCookie = c.split('=')[1];
-    });
     console.log(`access: ${accessTokenFromCookie}`);
     console.log(`refresh: ${refreshTokenFromCookie}`);
+
     if (!accessTokenFromCookie || !refreshTokenFromCookie) {
       clearTokens();
       return false;
