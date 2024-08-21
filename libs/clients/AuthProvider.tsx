@@ -9,7 +9,7 @@ export function AuthProvider() {
   const { accessToken, refreshToken, clearTokens, setTokens } = useAuthStore();
 
   const setTokenFromCookie = useCallback(() => {
-    const accessTokenFromCookie = getCookieValue('access-toke'),
+    const accessTokenFromCookie = getCookieValue('access-token'),
       refreshTokenFromCookie = getCookieValue('refresh-token');
 
     console.log(`access: ${accessTokenFromCookie}`);
