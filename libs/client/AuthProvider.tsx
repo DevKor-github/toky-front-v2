@@ -2,7 +2,6 @@
 
 import client from '@/libs/client/client';
 import { useAuthStore } from '@/libs/store/useAuthStore';
-import { getCookie } from '@/libs/utils/getCookie';
 import axios, { InternalAxiosRequestConfig } from 'axios';
 import { useEffect } from 'react';
 
@@ -64,8 +63,13 @@ export function AuthProvider() {
     console.log(accessToken, refreshToken);
     if (accessToken === null) {
       if (refreshToken === null) {
-        const accessTokenFromCookie = getCookie('access-token');
-        const refreshTokenFromCookie = getCookie('refresh-token');
+        let accessTokenFromCookie = null;
+        let refreshTokenFromCookie = null;
+        document.cookie.split(';').forEach((c) => {
+          if (c.trim().startsWith('access-token=')) accessTokenFromCookie = c.split('=')[1];
+          if (c.trim().startsWith('refresh-token=')) refreshTokenFromCookie = c.split('=')[1];
+        });
+
         console.log('token from cookie');
         console.log(accessTokenFromCookie, refreshTokenFromCookie);
 
