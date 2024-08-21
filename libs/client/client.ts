@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const client = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  withCredentials: true, // 쿠키를 자동으로 포함하도록 설정
+  withCredentials: true,
 });
 
 client.interceptors.request.use(
