@@ -1,16 +1,20 @@
+import { useRefresh } from '@/libs/client/refresh';
 import { useAuthStore } from '@/libs/store/useAuthStore';
 import axios from 'axios';
 
 const client = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL ?? '',
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 client.interceptors.request.use(
   (config) => {
     const { accessToken } = useAuthStore();
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    if (accessToken && config.headers) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -22,30 +26,13 @@ client.interceptors.response.use(
   async (error) => {
     const { config, response } = error;
     const originalRequest = config;
+    if (response?.status === 401) {
+      const { refresh } = useRefresh();
+      const newAccessToken = await refresh();
 
-    if (response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      const { refreshToken, setTokens, clearTokens } = useAuthStore();
-      try {
-        const { data } = await axios.post<{ accessToken: string; refreshToken: string }>(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${refreshToken}`,
-            },
-            withCredentials: true,
-          },
-        );
-
-        setTokens(data.accessToken, data.refreshToken);
-
-        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
-        return client(originalRequest);
-      } catch (err) {
-        clearTokens();
-        // 필요시 로그아웃 처리
-        return Promise.reject(err);
+      if (newAccessToken !== null) {
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return client.request(originalRequest);
       }
     }
 

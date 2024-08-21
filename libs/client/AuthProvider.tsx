@@ -8,10 +8,13 @@ export function AuthProvider() {
   const { accessToken, refreshToken, setTokens, clearTokens } = useAuthStore((state) => state);
 
   useEffect(() => {
+    console.log('zustand 저장 값');
+    console.log(accessToken, refreshToken);
     if (accessToken === null) {
       if (refreshToken === null) {
         const accessTokenFromCookie = getCookie('access-token');
         const refreshTokenFromCookie = getCookie('refresh-token');
+        console.log('쿠키 저장 값');
         console.log(accessTokenFromCookie, refreshTokenFromCookie);
 
         if (accessTokenFromCookie === null || refreshTokenFromCookie === null) {
