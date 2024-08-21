@@ -8,16 +8,16 @@ export function AuthProvider() {
   const { accessToken, refreshToken, clearTokens, setTokens } = useAuthStore();
 
   const setTokenFromCookie = useCallback(() => {
-    let accessToken = null,
-      refreshToken = null;
+    let accessTokenFromCookie = null,
+      refreshTokenFromCookie = null;
 
     document.cookie.split(';').forEach((c) => {
-      if (c.trim().startsWith('access-token=')) accessToken = c.split('=')[1];
-      if (c.trim().startsWith('refresh-token=')) refreshToken = c.split('=')[1];
+      if (c.trim().startsWith('access-token=')) accessTokenFromCookie = c.split('=')[1];
+      if (c.trim().startsWith('refresh-token=')) refreshTokenFromCookie = c.split('=')[1];
     });
-    console.log(`access: ${accessToken}`);
-    console.log(`refresh: ${refreshToken}`);
-    if (!accessToken || !refreshToken) {
+    console.log(`access: ${accessTokenFromCookie}`);
+    console.log(`refresh: ${refreshTokenFromCookie}`);
+    if (!accessTokenFromCookie || !refreshTokenFromCookie) {
       clearTokens();
       return false;
     }
@@ -25,7 +25,7 @@ export function AuthProvider() {
     document.cookie = 'access-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     document.cookie = 'refresh-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-    setTokens(accessToken, refreshToken);
+    setTokens(accessTokenFromCookie, refreshTokenFromCookie);
 
     return true;
   }, [clearTokens, setTokens]);
