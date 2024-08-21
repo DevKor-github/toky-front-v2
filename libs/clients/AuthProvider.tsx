@@ -15,6 +15,8 @@ export function AuthProvider() {
       if (c.trim().startsWith('access-token=')) accessToken = c.split('=')[1];
       if (c.trim().startsWith('refresh-token=')) refreshToken = c.split('=')[1];
     });
+    console.log(`access: ${accessToken}`);
+    console.log(`refresh: ${refreshToken}`);
     if (!accessToken || !refreshToken) {
       clearTokens();
       return false;
