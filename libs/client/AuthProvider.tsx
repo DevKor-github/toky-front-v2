@@ -22,7 +22,6 @@ export function AuthProvider() {
             headers: {
               Authorization: `Bearer ${refreshToken}`,
             },
-            withCredentials: true,
           },
         );
 
@@ -70,6 +69,7 @@ export function AuthProvider() {
           if (c.trim().startsWith('refresh-token=')) refreshTokenFromCookie = c.split('=')[1];
         });
 
+        console.log(document.cookie);
         console.log('token from cookie');
         console.log(accessTokenFromCookie, refreshTokenFromCookie);
 
