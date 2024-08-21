@@ -3,36 +3,42 @@
 import client from '@/libs/client/client';
 import { useAuthStore } from '@/libs/store/useAuthStore';
 import axios, { InternalAxiosRequestConfig } from 'axios';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 export function AuthProvider() {
   const { accessToken, refreshToken, setTokens, clearTokens } = useAuthStore((state) => state);
+
+  const refresh = useCallback(async () => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
+        {},
+        { headers: { Authorization: `Bearer ${refreshToken}` } },
+      );
+      if (data.accessToken && data.refreshToken) {
+        setTokens(data.accessToken, data.refreshToken);
+        return data.accessToken as string;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    clearTokens();
+
+    return null;
+  }, [clearTokens, setTokens, refreshToken]);
 
   const errorHandler = async (error: any) => {
     const { config, response } = error;
     const originalRequest = config;
 
-    if (response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        const { data } = await axios.post<{ accessToken: string; refreshToken: string }>(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${refreshToken}`,
-            },
-          },
-        );
+    if (response?.status === 401) {
+      const newAccessToken = await refresh();
 
-        setTokens(data.accessToken, data.refreshToken);
-
-        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+      if (newAccessToken) {
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return client(originalRequest);
-      } catch (err) {
-        clearTokens();
-        // 필요시 로그아웃 처리
-        return Promise.reject(err);
+      } else {
+        return Promise.reject(error);
       }
     }
 
@@ -84,11 +90,10 @@ export function AuthProvider() {
 
         setTokens(accessTokenFromCookie, refreshTokenFromCookie);
       } else {
-        // refresh
-        console.log('refresh!');
+        refresh();
       }
     }
-  }, [accessToken, refreshToken, setTokens, clearTokens]);
+  }, [accessToken, refreshToken, setTokens, clearTokens, refresh]);
 
   return <></>;
 }
