@@ -13,14 +13,16 @@ import ScheduleCard from '@/components/ScheduleCard';
 import Baseball from '@/public/baseball.png';
 import ActionButton from '@/components/ActionButton';
 import { Icon } from '@/libs/design-system/icons';
-import { useAuth } from '@/libs/queries/useAuth';
 
 export default function Home() {
   const isLogin = false; // TODO: userInfo 정보 가져오기
-  const { clickLogin } = useAuth();
+
+  const kakaoLogin = async () => {
+    window.location.href = process.env.NEXT_PUBLIC_API_URL + '/auth/kakao';
+  };
 
   const kakaoLoginContents = (
-    <ActionButton color="#FEE500" fontSize="14px" onClick={clickLogin}>
+    <ActionButton color="#FEE500" fontSize="14px" onClick={() => kakaoLogin()}>
       <Icon.Kakao />
       카카오 로그인
       <Icon.ChevronForward />
