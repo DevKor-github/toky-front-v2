@@ -27,10 +27,10 @@ export default function SignUp() {
     swiperRef.current?.swiper.slideTo(progress);
   }, [progress]);
 
-  useEffect(() => {
-    // TODO: Auth Check
-    client.get<boolean>('/auth/need-signup').then((response) => response.data && router.push('/'));
-  }, [router]);
+  // useEffect(() => {
+  //   // TODO: Auth Check
+  //   client.get<boolean>('/auth/need-signup').then((response) => response.data && router.push('/'));
+  // }, [router]);
 
   const handlePrevButton = useCallback(() => {
     if (progress === 0) {
