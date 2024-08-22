@@ -32,6 +32,10 @@ const nextConfig = {
         source: '/api/image-proxy/:path*',
         destination: `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_REGION}.amazonaws.com/:path*`,
       },
+      {
+        source: `/api/:path*`,
+        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
+      },
     ];
   },
   webpack: (config) => {
