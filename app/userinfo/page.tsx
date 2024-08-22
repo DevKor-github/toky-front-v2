@@ -6,12 +6,27 @@ import Image from 'next/image';
 import TODO_DUMMY_IMAGE from '@/public/banner1.png';
 import UserInfoTopBar from '@/components/UserInfoTopBar';
 import InputBox from '@/components/InputBox';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function UserInfo() {
-  const [nickname, setNickname] = useState<string>('halion'); // TODO: API로 user name으로 초기값 설정
+  const prevNickname = 'halion'; // TODO: API로 user name으로 초기값 설정
+  const prevPhoneNumber = '01012345678'; // TODO: API로 user number로 초기값 설정
+  const [nickname, setNickname] = useState<string>(prevNickname);
   const [error, setError] = useState<string | null>(null);
-  const [phoneNumber, setPhoneNumber] = useState<string>('01012345678'); // TODO: API로 user number로 초기값 설정
+  const [phoneNumber, setPhoneNumber] = useState<string>(prevPhoneNumber);
+
+  const [isAvailableNickname, setIsAvailableNickname] = useState(true);
+  const canEdit =
+    isAvailableNickname &&
+    (nickname !== prevNickname ||
+      (phoneNumber !== prevPhoneNumber &&
+        phoneNumber.length === 11 &&
+        /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/.test(phoneNumber)));
+
+  const handleNickname = useCallback((input: string) => {
+    setNickname(input);
+    setIsAvailableNickname(false);
+  }, []);
 
   const handlePhoneNumber = useCallback((input: string) => {
     const reg = /\D/g;
@@ -21,17 +36,25 @@ export default function UserInfo() {
 
   const handleNicknameValidation = useCallback(() => {
     // input Validation Check
-    if (nickname === 'halion') {
+    if (nickname === prevNickname) {
       setError('기존 닉네임과 동일합니다.');
     } else if (nickname === 'error') {
       setError('이미 존재하는 닉네임입니다.');
+    } else {
+      setIsAvailableNickname(true);
     }
-    return true;
   }, [nickname]);
 
   const clearError = useCallback(() => {
     setError(null);
   }, []);
+
+  const handleEditButton = useCallback(() => {
+    if (canEdit) {
+      // Edit 로직
+      console.log(nickname, phoneNumber);
+    }
+  }, [canEdit, nickname, phoneNumber]);
 
   return (
     <div>
@@ -48,7 +71,7 @@ export default function UserInfo() {
                 type="edit"
                 placeholder="닉네임"
                 value={nickname}
-                setValue={setNickname}
+                setValue={handleNickname}
                 maxLength={10}
                 validationButton={{ text: '중복확인', onClick: handleNicknameValidation }}
                 error={error !== null}
@@ -81,6 +104,9 @@ export default function UserInfo() {
           </FixedValue>
         </FormList>
       </Wrapper>
+      <EditButton $available={canEdit} onClick={handleEditButton}>
+        수정하기
+      </EditButton>
     </div>
   );
 }
@@ -167,4 +193,32 @@ const FixedValue = styled.div`
     font-weight: 500;
     letter-spacing: -0.6px;
   }
+`;
+
+const EditButton = styled.button<{ $available: boolean }>`
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+  height: 64px;
+  padding: 20px 0;
+  background: var(
+    --Background-5,
+    linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%),
+    #121212
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.8px;
+  color: ${({ $available }) =>
+    $available
+      ? 'var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87))'
+      : 'var(--white-15, rgba(255, 255, 255, 0.15))'};
+
+  transition: all 0.2s;
 `;
