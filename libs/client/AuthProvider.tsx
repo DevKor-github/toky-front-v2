@@ -13,7 +13,7 @@ export function AuthProvider() {
       const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
         {},
-        { headers: { Authorization: `Bearer ${refreshToken}` } },
+        { headers: { Authorization: `Bearer ${refreshToken}` }, withCredentials: true },
       );
       if (data.accessToken && data.refreshToken) {
         setTokens(data.accessToken, data.refreshToken);
