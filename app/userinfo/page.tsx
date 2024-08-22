@@ -98,10 +98,6 @@ export default function UserInfo() {
             {/* TODO: API로 User 학교 패칭  */}
             {'고려대학교'}
           </FixedValue>
-          <FixedValue>
-            <h2>간편 로그인 연결</h2>
-            카카오톡
-          </FixedValue>
         </FormList>
       </Wrapper>
       <EditButton $available={canEdit} onClick={handleEditButton}>
@@ -177,7 +173,6 @@ const ErrorMessage = styled.span`
 `;
 
 const FixedValue = styled.div`
-  margin-bottom: 46px;
   display: flex;
   flex-direction: column;
   gap: 16px;
