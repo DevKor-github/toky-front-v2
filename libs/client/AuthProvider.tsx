@@ -10,11 +10,7 @@ export function AuthProvider() {
 
   const refresh = useCallback(async () => {
     try {
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
-        {},
-        { headers: { Authorization: `Bearer ${refreshToken}` } },
-      );
+      const { data } = await client.post(`/auth/refresh`, {}, { headers: { Authorization: `Bearer ${refreshToken}` } });
       if (data.accessToken && data.refreshToken) {
         setTokens(data.accessToken, data.refreshToken);
         return data.accessToken as string;

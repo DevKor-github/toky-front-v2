@@ -31,6 +31,7 @@ export default function Home() {
   const onClick = async () => {
     try {
       const data = await client.get('/auth');
+      console.log(document.cookie);
     } catch (e) {
       console.log(e);
     }
