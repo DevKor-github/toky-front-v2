@@ -13,21 +13,28 @@ import ScheduleCard from '@/components/ScheduleCard';
 import Baseball from '@/public/baseball.png';
 import ActionButton from '@/components/ActionButton';
 import { Icon } from '@/libs/design-system/icons';
+import client from '@/libs/client/client';
 
 export default function Home() {
   const isLogin = false; // TODO: userInfo 정보 가져오기
-
   const kakaoLogin = async () => {
     window.location.href = process.env.NEXT_PUBLIC_API_URL + '/auth/kakao';
   };
-
   const kakaoLoginContents = (
-    <ActionButton color="#FEE500" fontSize="14px" onClick={() => kakaoLogin()}>
+    <ActionButton color="#FEE500" fontSize="14px" onClick={kakaoLogin}>
       <Icon.Kakao />
       카카오 로그인
       <Icon.ChevronForward />
     </ActionButton>
   ); // TODO: 간격 설정 필요, 카카오 로그인 링크 연결 필요
+
+  const onClick = async () => {
+    try {
+      const data = await client.get('/auth');
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const inviteFriendsContents = (
     <ActionButton
@@ -82,6 +89,9 @@ export default function Home() {
             </React.Fragment>
           ))}
         </FreeModeCarousel>
+        <ActionButton color="white" onClick={onClick}>
+          test
+        </ActionButton>
       </Wrapper>
     </div>
   );
