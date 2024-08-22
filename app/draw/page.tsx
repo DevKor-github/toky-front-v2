@@ -2,6 +2,7 @@
 
 import { DrawBoard } from '@/components/DrawBoard';
 import DrawCard from '@/components/DrawCard';
+import { DrawPolicy } from '@/components/DrawPolicy/DrawPolicy';
 import MainTopBar from '@/components/MainTopBar';
 import NavigationBar from '@/components/NavigationBar';
 import { Flex } from '@/libs/design-system/flex';
@@ -82,6 +83,7 @@ export default function Draw() {
             ))}
           </Flex>
         </Flex>
+        <DrawPolicy />
       </Wrapper>
     </div>
   );
