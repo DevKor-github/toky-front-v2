@@ -47,7 +47,7 @@ export const usePostSignup = () => {
 };
 
 export const usePostLogout = () => {
-  const { clearTokens } = useAuthStore();
+  const clearTokens = useAuthStore((state) => state.clearTokens);
   return useMutation({ mutationFn: postLogout, onSuccess: clearTokens });
 };
 
