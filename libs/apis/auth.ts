@@ -28,7 +28,7 @@ const postLogout = async () => {
   return response;
 };
 
-const getCheckName = async (params: GetCheckNameRequest) => {
+export const getCheckName = async (params: GetCheckNameRequest) => {
   const response = await client.get<boolean>('/auth/check-name', {
     params,
   });
@@ -49,12 +49,6 @@ export const usePostSignup = () => {
 export const usePostLogout = () => {
   const { clearTokens } = useAuthStore();
   return useMutation({ mutationFn: postLogout, onSuccess: clearTokens });
-};
-
-export const useGetCheckName = () => {
-  return useMutation({
-    mutationFn: getCheckName,
-  });
 };
 
 export const useGetNeedSignup = () => {
