@@ -14,9 +14,11 @@ import Baseball from '@/public/baseball.png';
 import ActionButton from '@/components/ActionButton';
 import { Icon } from '@/libs/design-system/icons';
 import client from '@/libs/client/client';
+import { useAuthStore } from '@/libs/store/useAuthStore';
 
 export default function Home() {
-  const isLogin = false; // TODO: userInfo 정보 가져오기
+  const isLogin = useAuthStore((state) => state.isLogin);
+
   const kakaoLogin = async () => {
     window.location.href = process.env.NEXT_PUBLIC_API_URL + '/auth/kakao';
   };
