@@ -27,7 +27,8 @@ export function AuthProvider() {
     const { config, response } = error;
     const originalRequest = config;
 
-    if (response?.status === 401) {
+    if (response?.status === 401 && config.url !== '/auth/refresh' && !config.sent) {
+      config.sent = true;
       const newAccessToken = await refresh();
 
       if (newAccessToken) {
