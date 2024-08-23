@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react';
 import { InternalAxiosRequestConfig } from 'axios';
 import client from '@/libs/client/client';
 import { useAuthStore } from '@/libs/store/useAuthStore';
-import { getProfile } from '@/libs/apis/users';
+import { useGetProfile } from '@/libs/apis/users';
 
 const REFRESH_URL = '/auth/refresh';
 
@@ -12,6 +12,7 @@ export function AuthProvider() {
   const { accessToken, refreshToken, setTokens, clearTokens, isLogin, profile, setProfile } = useAuthStore(
     (state) => state,
   );
+  const { data: updateProfile, refetch, isSuccess } = useGetProfile();
 
   const refresh = useCallback(async () => {
     try {
@@ -95,11 +96,15 @@ export function AuthProvider() {
   }, [accessToken, refreshToken, setTokens, clearTokens, refresh]);
 
   useEffect(() => {
-    if (isLogin && profile === null) {
-      // 프로필 없을 시 fetch
-      getProfile().then((newProfile) => setProfile(newProfile));
+    if (isLogin) {
+      // 로그인 시 profile fetch
+      refetch();
     }
-  }, [isLogin, profile, setProfile]);
+  }, [isLogin, refetch]);
+
+  useEffect(() => {
+    if (isSuccess) setProfile(updateProfile);
+  }, [updateProfile, isSuccess, setProfile]);
 
   return <></>;
 }

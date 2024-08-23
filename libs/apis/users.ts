@@ -1,5 +1,6 @@
 import client from '@/libs/client/client';
 import { Profile } from '@/libs/store/useAuthStore';
+import { useQuery } from '@tanstack/react-query';
 
 // Request Interfaces
 
@@ -7,9 +8,17 @@ import { Profile } from '@/libs/store/useAuthStore';
 
 // Axios Async Func
 
-export const getProfile = async () => {
+const getProfile = async () => {
   const response = await client.get<Profile>('/users/profile');
   return response.data;
 };
 
 // Query Hook
+
+export const useGetProfile = () => {
+  return useQuery({
+    queryKey: ['profile'],
+    queryFn: getProfile,
+    enabled: false,
+  });
+};
