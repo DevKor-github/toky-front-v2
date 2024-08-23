@@ -10,10 +10,12 @@ import { TOTAL_PROGRESS } from '@/app/signup/constants';
 import SignupTopBar from '@/components/Signup/SignupTopBar';
 import SignupProgress from '@/components/Signup/SignupProgress';
 import SignupFunnel from '@/components/Signup/SignupFunnel';
-import client from '@/libs/client/client';
+import { useGetNeedSignup } from '@/libs/apis/auth';
 
 export default function SignUp() {
   const router = useRouter();
+
+  const { data: isAlreadySignup, isSuccess } = useGetNeedSignup();
 
   const formState = useSignupForm();
   const errorState = useSignupError();
@@ -27,10 +29,12 @@ export default function SignUp() {
     swiperRef.current?.swiper.slideTo(progress);
   }, [progress]);
 
-  // useEffect(() => {
-  //   // TODO: Auth Check
-  //   client.get<boolean>('/auth/need-signup').then((response) => response.data && router.push('/'));
-  // }, [router]);
+  useEffect(() => {
+    // TODO: Auth Check
+    if (isSuccess && isAlreadySignup) {
+      router.push('/');
+    }
+  }, [isSuccess, router, isAlreadySignup]);
 
   const handlePrevButton = useCallback(() => {
     if (progress === 0) {
