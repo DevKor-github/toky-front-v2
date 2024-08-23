@@ -5,13 +5,13 @@ import { InternalAxiosRequestConfig } from 'axios';
 import client from '@/libs/client/client';
 import { useAuthStore } from '@/libs/store/useAuthStore';
 import { useGetProfile } from '@/libs/apis/users';
+import { useProfileStore } from '@/libs/store/useProfileStore';
 
 const REFRESH_URL = '/auth/refresh';
 
 export function AuthProvider() {
-  const { accessToken, refreshToken, setTokens, clearTokens, isLogin, profile, setProfile } = useAuthStore(
-    (state) => state,
-  );
+  const { accessToken, refreshToken, setTokens, clearTokens, isLogin } = useAuthStore((state) => state);
+  const { profile, setProfile } = useProfileStore();
   const { data: updateProfile, refetch, isSuccess } = useGetProfile();
 
   const refresh = useCallback(async () => {

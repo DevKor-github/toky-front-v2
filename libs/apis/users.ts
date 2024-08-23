@@ -1,5 +1,5 @@
 import client from '@/libs/client/client';
-import { Profile } from '@/libs/store/useAuthStore';
+import { Profile } from '@/libs/store/useProfileStore';
 import { useQuery } from '@tanstack/react-query';
 
 // Request Interfaces
