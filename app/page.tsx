@@ -16,6 +16,7 @@ import Baseball from '@/public/baseball.png';
 import ActionButton from '@/components/ActionButton';
 import { ICON_INFO_LIST, SCHEDULE_INFO, MESSAGE_INFO } from './constants';
 import client from '@/libs/client/client';
+import { CopyInviteCode } from '@/components/CopyInviteCode/CopyInviteCode';
 
 export default function Home() {
   const isLogin = useAuthStore((state) => state.isLogin);
@@ -23,6 +24,7 @@ export default function Home() {
   const kakaoLogin = async () => {
     window.location.href = process.env.NEXT_PUBLIC_API_URL + '/auth/kakao';
   };
+
   const kakaoLoginContents = (
     <ActionButton color="#FEE500" fontSize="14px" onClick={kakaoLogin}>
       <Icon.Kakao />
@@ -40,19 +42,6 @@ export default function Home() {
     }
   };
 
-  const inviteFriendsContents = (
-    <ActionButton
-      bgColor="var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87))"
-      color="#121212"
-      borderRadius="99px"
-      padding="8px 16px"
-      fontSize="14px"
-      fontWeight="700"
-    >
-      <Icon.TablerCopy />내 초대링크
-    </ActionButton>
-  ); // TODO: 간격 설정 필요, 초대링크 복사 기능 추가 필요
-
   return (
     <div>
       <MainTopBar />
@@ -67,7 +56,7 @@ export default function Home() {
           {isLogin ? (
             <ActionCard
               message={MESSAGE_INFO.inviteFriends}
-              contents={inviteFriendsContents}
+              contents={<CopyInviteCode />}
               padding="16px 16px 16px 20px"
             />
           ) : (
