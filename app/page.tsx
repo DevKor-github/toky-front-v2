@@ -15,8 +15,11 @@ import ActionButton from '@/components/ActionButton';
 import { Icon } from '@/libs/design-system/icons';
 import client from '@/libs/client/client';
 import { useAuthStore } from '@/libs/store/useAuthStore';
+import { useRefreshForTest } from '@/libs/client/AuthProvider';
 
 export default function Home() {
+  const { refresh } = useRefreshForTest();
+
   const isLogin = useAuthStore((state) => state.isLogin);
 
   const kakaoLogin = async () => {
@@ -32,8 +35,7 @@ export default function Home() {
 
   const onClick = async () => {
     try {
-      const data = await client.get('/auth');
-      console.log(document.cookie);
+      refresh().then((res) => console.log(res));
     } catch (e) {
       console.log(e);
     }

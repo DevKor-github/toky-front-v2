@@ -5,6 +5,27 @@ import { useAuthStore } from '@/libs/store/useAuthStore';
 import { InternalAxiosRequestConfig } from 'axios';
 import { useCallback, useEffect } from 'react';
 
+export const useRefreshForTest = () => {
+  const { refreshToken, setTokens, clearTokens } = useAuthStore((state) => state);
+
+  const refresh = useCallback(async () => {
+    try {
+      const { data } = await client.post(`/auth/refresh`, {}, { headers: { Authorization: `Bearer ${refreshToken}` } });
+      if (data.accessToken && data.refreshToken) {
+        setTokens(data.accessToken, data.refreshToken);
+        return data.accessToken as string;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    clearTokens();
+
+    return null;
+  }, [clearTokens, setTokens, refreshToken]);
+
+  return { refresh };
+};
+
 export function AuthProvider() {
   const { accessToken, refreshToken, setTokens, clearTokens } = useAuthStore((state) => state);
 
