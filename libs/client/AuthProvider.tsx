@@ -5,33 +5,14 @@ import { useAuthStore } from '@/libs/store/useAuthStore';
 import { InternalAxiosRequestConfig } from 'axios';
 import { useCallback, useEffect } from 'react';
 
-export const useRefreshForTest = () => {
-  const { refreshToken, setTokens, clearTokens } = useAuthStore((state) => state);
-
-  const refresh = useCallback(async () => {
-    try {
-      const { data } = await client.post(`/auth/refresh`, {}, { headers: { Authorization: `Bearer ${refreshToken}` } });
-      if (data.accessToken && data.refreshToken) {
-        setTokens(data.accessToken, data.refreshToken);
-        return data.accessToken as string;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    clearTokens();
-
-    return null;
-  }, [clearTokens, setTokens, refreshToken]);
-
-  return { refresh };
-};
+const REFRESH_URL = '/auth/refresh';
 
 export function AuthProvider() {
   const { accessToken, refreshToken, setTokens, clearTokens } = useAuthStore((state) => state);
 
   const refresh = useCallback(async () => {
     try {
-      const { data } = await client.post(`/auth/refresh`, {}, { headers: { Authorization: `Bearer ${refreshToken}` } });
+      const { data } = await client.post(REFRESH_URL);
       if (data.accessToken && data.refreshToken) {
         setTokens(data.accessToken, data.refreshToken);
         return data.accessToken as string;
@@ -42,13 +23,13 @@ export function AuthProvider() {
     clearTokens();
 
     return null;
-  }, [clearTokens, setTokens, refreshToken]);
+  }, [clearTokens, setTokens]);
 
   const errorHandler = async (error: any) => {
     const { config, response } = error;
     const originalRequest = config;
 
-    if (response?.status === 401 && config.url !== '/auth/refresh' && !config.sent) {
+    if (response?.status === 401 && config.url !== REFRESH_URL && !config.sent) {
       config.sent = true;
       const newAccessToken = await refresh();
 
@@ -64,8 +45,12 @@ export function AuthProvider() {
   };
 
   const requestHandler = (config: InternalAxiosRequestConfig) => {
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    if (config.url === REFRESH_URL) {
+      config.headers.Authorization = `Bearer ${refreshToken}`;
+    } else {
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
     }
     return config;
   };

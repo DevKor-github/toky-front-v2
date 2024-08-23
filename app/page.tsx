@@ -1,25 +1,23 @@
 'use client';
 
 import React from 'react';
+import styled from 'styled-components';
+import { useAuthStore } from '@/libs/store/useAuthStore';
+
+import { Flex } from '@/libs/design-system/flex';
+import { Icon } from '@/libs/design-system/icons';
 import MainTopBar from '@/components/MainTopBar';
 import MainCarousel from '@/components/MainCarousel';
 import ActionCard from '@/components/ActionCard';
-import styled from 'styled-components';
-import { Flex } from '@/libs/design-system/flex';
 import IconButton from '@/components/IconButton';
-import { ICON_INFO_LIST, SCHEDULE_INFO, MESSAGE_INFO } from './constants';
 import FreeModeCarousel from '@/components/FreeModeCarousel';
 import ScheduleCard from '@/components/ScheduleCard';
 import Baseball from '@/public/baseball.png';
 import ActionButton from '@/components/ActionButton';
-import { Icon } from '@/libs/design-system/icons';
+import { ICON_INFO_LIST, SCHEDULE_INFO, MESSAGE_INFO } from './constants';
 import client from '@/libs/client/client';
-import { useAuthStore } from '@/libs/store/useAuthStore';
-import { useRefreshForTest } from '@/libs/client/AuthProvider';
 
 export default function Home() {
-  const { refresh } = useRefreshForTest();
-
   const isLogin = useAuthStore((state) => state.isLogin);
 
   const kakaoLogin = async () => {
@@ -35,7 +33,8 @@ export default function Home() {
 
   const onClick = async () => {
     try {
-      refresh().then((res) => console.log(res));
+      const response = await client.get<boolean>('/auth/need-signup');
+      console.log(response.data);
     } catch (e) {
       console.log(e);
     }
