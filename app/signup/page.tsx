@@ -31,7 +31,6 @@ export default function SignUp() {
   }, [progress]);
 
   useEffect(() => {
-    // TODO: Auth Check
     if (isSuccess && isAlreadySignup) {
       router.push('/');
     }
