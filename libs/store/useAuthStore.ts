@@ -18,6 +18,6 @@ export const useAuthStore = create<AuthStore>()(
       setTokens: (accessToken, refreshToken) => set({ accessToken, refreshToken, isLogin: true }),
       clearTokens: () => set({ accessToken: null, refreshToken: null, isLogin: false }),
     }),
-    { name: 'user-auth' },
+    { name: 'user-auth', getStorage: () => localStorage },
   ),
 );
