@@ -2,7 +2,7 @@
 
 import client from '@/libs/client/client';
 import { useAuthStore } from '@/libs/store/useAuthStore';
-import axios, { InternalAxiosRequestConfig } from 'axios';
+import { InternalAxiosRequestConfig } from 'axios';
 import { useCallback, useEffect } from 'react';
 
 export function AuthProvider() {
@@ -60,8 +60,6 @@ export function AuthProvider() {
   }, [responseInterceptor, requestInterceptor]);
 
   useEffect(() => {
-    console.log('token from zustand');
-    console.log(accessToken, refreshToken);
     if (accessToken === null) {
       if (refreshToken === null) {
         let accessTokenFromCookie = null;
@@ -71,16 +69,11 @@ export function AuthProvider() {
           if (c.trim().startsWith('refresh-token=')) refreshTokenFromCookie = c.split('=')[1];
         });
 
-        console.log(document.cookie);
-        console.log('token from cookie');
-        console.log(accessTokenFromCookie, refreshTokenFromCookie);
-
         if (accessTokenFromCookie === null || refreshTokenFromCookie === null) {
           clearTokens();
           return;
         }
 
-        console.log('쿠키 지우기');
         document.cookie = 'access-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         document.cookie = 'refresh-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
