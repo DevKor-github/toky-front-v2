@@ -17,21 +17,10 @@ import ActionButton from '@/components/ActionButton';
 import { ICON_INFO_LIST, SCHEDULE_INFO, MESSAGE_INFO } from './constants';
 import client from '@/libs/client/client';
 import { CopyInviteCode } from '@/components/CopyInviteCode/CopyInviteCode';
+import { KakaoLogin } from '@/components/KakaoLogin';
 
 export default function Home() {
   const isLogin = useAuthStore((state) => state.isLogin);
-
-  const kakaoLogin = async () => {
-    window.location.href = process.env.NEXT_PUBLIC_API_URL + '/auth/kakao';
-  };
-
-  const kakaoLoginContents = (
-    <ActionButton color="#FEE500" fontSize="14px" onClick={kakaoLogin}>
-      <Icon.Kakao />
-      카카오 로그인
-      <Icon.ChevronForward />
-    </ActionButton>
-  ); // TODO: 간격 설정 필요, 카카오 로그인 링크 연결 필요
 
   const onClick = async () => {
     try {
@@ -60,7 +49,7 @@ export default function Home() {
               padding="16px 16px 16px 20px"
             />
           ) : (
-            <ActionCard message={MESSAGE_INFO.kakaoLogin} contents={kakaoLoginContents} padding="16px 8px 16px 20px" />
+            <ActionCard message={MESSAGE_INFO.kakaoLogin} contents={<KakaoLogin />} padding="16px 20px" />
           )}
         </ActionCardWrapper>
         {/*TODO: 정기전 일정, 자세히 보기 구현 */}
