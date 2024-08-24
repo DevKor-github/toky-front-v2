@@ -9,6 +9,7 @@ import { PAGE_INFO_LIST } from './constants';
 import { useAuthStore } from '@/libs/store/useAuthStore';
 import { useTicketStore } from '@/libs/store/useTicketStore';
 import { CopyInviteCode } from '../CopyInviteCode/CopyInviteCode';
+import { KakaoLogin } from '../KakaoLogin';
 
 function SideBarBody({ isBarOpen = true }) {
   // TODO: use userInfo from store or context
@@ -55,8 +56,12 @@ function SideBarBody({ isBarOpen = true }) {
             </InfoWrapper>
           </Flex>
         ) : (
-          // TODO: 로그인 버튼 추가
-          <></>
+          <LoginWrapper>
+            10초만에 로그인하고
+            <br />
+            승부예측 참여하세요
+            <KakaoLogin />
+          </LoginWrapper>
         )}
 
         <NavWrapper>
@@ -196,6 +201,25 @@ const MyTicket = styled.p`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+`;
+const LoginWrapper = styled.div`
+  display: flex;
+  padding: 18px 20px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 10px;
+  background: var(
+    --Background-14,
+    linear-gradient(0deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.14) 100%),
+    #121212
+  );
+  color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.64px;
 `;
 
 export default SideBarBody;

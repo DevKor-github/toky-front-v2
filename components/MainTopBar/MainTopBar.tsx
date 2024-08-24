@@ -10,12 +10,13 @@ import { useCallback, useEffect } from 'react';
 import { Flex } from '@/libs/design-system/flex';
 import { TicketInfo } from './TicketInfo';
 import { useAuthStore } from '@/libs/store/useAuthStore';
+import { KakaoLogin } from '../KakaoLogin';
 
 export function MainTopBar() {
   const pathname = usePathname();
   const navControls = useAnimation();
   const { isLogin } = useAuthStore();
-
+  const isHome = pathname === '/';
   const navigationAnimation = useCallback(async () => {
     await navControls.start({
       y: 0,
@@ -25,7 +26,7 @@ export function MainTopBar() {
   }, [navControls]);
 
   useEffect(() => {
-    if (pathname === '/') {
+    if (isHome) {
       navigationAnimation();
     }
   }, [navigationAnimation, pathname]);
@@ -41,8 +42,7 @@ export function MainTopBar() {
         <Icon.TokyLogo />
       </Link>
       <Flex $gap={12} $align="center">
-        {/* TODO 로그인 추가 */}
-        {isLogin ? <TicketInfo /> : <></>}
+        {isLogin ? <TicketInfo /> : !isHome && <KakaoLogin />}
         <SideBar />
       </Flex>
     </Wrapper>
