@@ -38,7 +38,7 @@ function SideBarBody({ isBarOpen = true }) {
                 <UnivName $university={userInfo.university}>{userInfo.university}</UnivName>
                 <Flex $gap={6} $align="flex-end">
                   <UserName>{userInfo.nickname}</UserName>
-                  <SetIconWrapper href="/userInfo">
+                  <SetIconWrapper href="/userinfo">
                     <Icon.Setting />
                   </SetIconWrapper>
                 </Flex>
