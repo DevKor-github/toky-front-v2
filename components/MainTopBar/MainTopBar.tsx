@@ -7,10 +7,14 @@ import styled from 'styled-components';
 import { SideBar } from '../SideBar';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
+import { Flex } from '@/libs/design-system/flex';
+import { TicketInfo } from './TicketInfo';
+import { useAuthStore } from '@/libs/store/useAuthStore';
 
 export function MainTopBar() {
   const pathname = usePathname();
   const navControls = useAnimation();
+  const { isLogin } = useAuthStore();
 
   const navigationAnimation = useCallback(async () => {
     await navControls.start({
@@ -33,10 +37,14 @@ export function MainTopBar() {
       animate={navControls}
       transition={{ duration: 1.2, ease: easeInOut }}
     >
-      <Link href={'/bets'}>
+      <Link href={'/'}>
         <Icon.TokyLogo />
       </Link>
-      <SideBar />
+      <Flex $gap={12} $align="center">
+        {/* TODO 로그인 추가 */}
+        {isLogin ? <TicketInfo /> : <></>}
+        <SideBar />
+      </Flex>
     </Wrapper>
   );
 }

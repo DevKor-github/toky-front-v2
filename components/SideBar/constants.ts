@@ -19,10 +19,6 @@ export const PAGE_INFO = {
     title: '출석체크',
     href: '/attendance',
   },
-  USER_INFO: {
-    title: '회원정보 관리',
-    href: '/userinfo',
-  },
 };
 
 export const PAGE_INFO_LIST = Object.values(PAGE_INFO);
