@@ -10,10 +10,13 @@ import { TOTAL_PROGRESS } from '@/app/signup/constants';
 import SignupTopBar from '@/components/Signup/SignupTopBar';
 import SignupProgress from '@/components/Signup/SignupProgress';
 import SignupFunnel from '@/components/Signup/SignupFunnel';
-import client from '@/libs/client/client';
+import { getCheckName, useGetNeedSignup, usePostSignup } from '@/libs/apis/auth';
 
 export default function SignUp() {
   const router = useRouter();
+
+  const { data: isAlreadySignup, isSuccess } = useGetNeedSignup();
+  const { mutate: singup } = usePostSignup();
 
   const formState = useSignupForm();
   const errorState = useSignupError();
@@ -27,10 +30,11 @@ export default function SignUp() {
     swiperRef.current?.swiper.slideTo(progress);
   }, [progress]);
 
-  // useEffect(() => {
-  //   // TODO: Auth Check
-  //   client.get<boolean>('/auth/need-signup').then((response) => response.data && router.push('/'));
-  // }, [router]);
+  useEffect(() => {
+    if (isSuccess && isAlreadySignup) {
+      router.push('/');
+    }
+  }, [isSuccess, router, isAlreadySignup]);
 
   const handlePrevButton = useCallback(() => {
     if (progress === 0) {
@@ -68,20 +72,28 @@ export default function SignUp() {
           setProgress((prev) => prev + 1);
           break;
         case 1:
-          // TODO: Nickname Validation Check
-          if (formState.nickname !== 'error' && formState.nickname !== '에러') {
-            setProgress((prev) => prev + 1);
-          } else {
-            errorState.setError('nickname');
-          }
+          getCheckName({ name: formState.nickname }).then((val) => {
+            if (val) {
+              setProgress((prev) => prev + 1);
+            } else {
+              errorState.setError('nickname');
+            }
+          });
           break;
         case 2:
           setProgress((prev) => prev + 1);
           break;
         case 3:
-          setProgress((prev) => prev + 1);
-          // TODO: Sign-up Form Submit
-          console.log(formState);
+          singup(
+            {
+              name: formState.nickname,
+              phoneNumber: formState.phoneNumber,
+              university: formState.school === 'korea' ? 0 : 1,
+            },
+            {
+              onSuccess: () => setProgress((prev) => prev + 1),
+            },
+          );
           break;
         case 4:
           // 토키 시작하기

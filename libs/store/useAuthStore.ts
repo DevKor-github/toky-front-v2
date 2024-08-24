@@ -6,6 +6,7 @@ interface AuthStore {
   refreshToken: string | null;
   isLogin: boolean;
   setTokens: (accessToken: string, refreshToken: string) => void;
+
   clearTokens: () => void;
 }
 
