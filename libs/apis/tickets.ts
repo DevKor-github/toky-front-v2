@@ -22,25 +22,18 @@ const postTicketsDraw = async (draws: DrawGift[]) => {
 
 // 현재는 응모권 하나씩, 한 상품에만 응모 가능
 const drawOneGift = async (giftId: number) => {
+  const { tickets } = useTicketStore();
+  if (tickets < 1) {
+    throw new Error('응모권이 부족합니다.');
+  }
   return postTicketsDraw([{ count: 1, giftId }]);
 };
 
-// TODO 로그인시 응모권 정보 가져오기
-const useGetTickets = () => {
-  const { setTickets } = useTicketStore();
-  const query = useQuery({
+export const useGetTickets = () => {
+  return useQuery({
     queryKey: ['tickets'],
     queryFn: getTickets,
   });
-  const { data } = query;
-
-  useEffect(() => {
-    if (data) {
-      setTickets(data);
-    }
-  }, [data, setTickets]);
-
-  return query;
 };
 
 const useDrawOneGift = () => {
@@ -51,6 +44,7 @@ const useDrawOneGift = () => {
     onSuccess: () => {
       decreaseTickets(1);
     },
+    // TODO 에러 처리
   });
 };
 
