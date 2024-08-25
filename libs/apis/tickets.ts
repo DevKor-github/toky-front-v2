@@ -33,6 +33,7 @@ export const useGetTickets = () => {
   return useQuery({
     queryKey: ['tickets'],
     queryFn: getTickets,
+    enabled: false,
   });
 };
 
