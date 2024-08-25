@@ -10,17 +10,12 @@ import { useAuthStore } from '@/libs/store/useAuthStore';
 import { useTicketStore } from '@/libs/store/useTicketStore';
 import { CopyInviteCode } from '../CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '../KakaoLogin';
+import { useProfileStore } from '@/libs/store/useProfileStore';
 
 function SideBarBody({ isBarOpen = true }) {
   // TODO: use userInfo from store or context
-  const userInfo = {
-    university: '고려대학교',
-    nickname: '김토키',
-    score: 100,
-    remain: 50,
-    phoneNumber: '010-1234-5678',
-  };
-
+  const { profile: userInfo } = useProfileStore();
+  const university = userInfo?.university == 0 ? '고려대학교' : '연세대학교';
   const nowPage = usePathname();
   const { isLogin } = useAuthStore();
   const { tickets } = useTicketStore();
@@ -36,9 +31,9 @@ function SideBarBody({ isBarOpen = true }) {
           <Flex $direction="column" $justify="center" $gap={17} style={{ width: '100%' }}>
             <Flex style={{ padding: '0px 8px' }}>
               <Flex $gap={1} $direction="column">
-                <UnivName $university={userInfo.university}>{userInfo.university}</UnivName>
+                <UnivName $university={university}>{university}</UnivName>
                 <Flex $gap={6} $align="flex-end">
-                  <UserName>{userInfo.nickname}</UserName>
+                  <UserName>{userInfo?.name}</UserName>
                   <SetIconWrapper href="/userinfo">
                     <Icon.Setting />
                   </SetIconWrapper>
