@@ -6,13 +6,18 @@ import client from '@/libs/client/client';
 import { useAuthStore } from '@/libs/store/useAuthStore';
 import { useGetProfile } from '@/libs/apis/users';
 import { useProfileStore } from '@/libs/store/useProfileStore';
+import { useGetTickets } from '../apis/tickets';
+import { useTicketStore } from '../store/useTicketStore';
 
 const REFRESH_URL = '/auth/refresh';
 
 export function AuthProvider() {
   const { accessToken, refreshToken, setTokens, clearTokens, isLogin } = useAuthStore((state) => state);
-  const { profile, setProfile } = useProfileStore();
-  const { data: updateProfile, refetch, isSuccess } = useGetProfile();
+  const { setProfile } = useProfileStore();
+  const { setTickets } = useTicketStore();
+
+  const { data: updateProfile, refetch: getProfile, isSuccess: isGetProfileSuccess } = useGetProfile();
+  const { data: tickets, refetch: getTickets, isSuccess: isGetTicketsSuccess } = useGetTickets();
 
   const refresh = useCallback(async () => {
     try {
@@ -60,7 +65,6 @@ export function AuthProvider() {
   };
 
   const requestInterceptor = client.interceptors.request.use(requestHandler, (error) => Promise.reject(error));
-
   const responseInterceptor = client.interceptors.response.use((response) => response, errorHandler);
 
   useEffect(() => {
@@ -97,14 +101,19 @@ export function AuthProvider() {
 
   useEffect(() => {
     if (isLogin) {
-      // 로그인 시 profile fetch
-      refetch();
+      // 로그인 시 fetch
+      getProfile();
+      getTickets();
     }
-  }, [isLogin, refetch]);
+  }, [isLogin, getProfile]);
 
   useEffect(() => {
-    if (isSuccess) setProfile(updateProfile);
-  }, [updateProfile, isSuccess, setProfile]);
+    if (isGetProfileSuccess) setProfile(updateProfile);
+  }, [updateProfile, isGetProfileSuccess, setProfile]);
+
+  useEffect(() => {
+    if (isGetTicketsSuccess) setTickets(tickets);
+  }, [tickets, isGetTicketsSuccess, setTickets]);
 
   return <></>;
 }

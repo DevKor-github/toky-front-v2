@@ -6,10 +6,12 @@ import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
 import { usePathname } from 'next/navigation';
 import { PAGE_INFO_LIST } from './constants';
+import { useAuthStore } from '@/libs/store/useAuthStore';
+import { useTicketStore } from '@/libs/store/useTicketStore';
+import { CopyInviteCode } from '../CopyInviteCode/CopyInviteCode';
+import { KakaoLogin } from '../KakaoLogin';
 
 function SideBarBody({ isBarOpen = true }) {
-  const inside = useRef<HTMLDivElement>(null);
-
   // TODO: use userInfo from store or context
   const userInfo = {
     university: '고려대학교',
@@ -18,34 +20,69 @@ function SideBarBody({ isBarOpen = true }) {
     remain: 50,
     phoneNumber: '010-1234-5678',
   };
+
   const nowPage = usePathname();
+  const { isLogin } = useAuthStore();
+  const { tickets } = useTicketStore();
+
+  function openTokyInstagram() {
+    window.open('https://instagram.com/official.toky?igshid=NjIwNzIyMDk2Mg==');
+  }
 
   return (
     <Wrapper className={isBarOpen ? 'open' : ''}>
-      <Flex $direction="column" $justify="center">
-        <Flex style={{ padding: '0px 8px' }}>
-          <Flex $gap={1} $direction="column">
-            <UnivName $university={userInfo.university}>{userInfo.university}</UnivName>
-            <Flex $gap={6} $align="flex-end">
-              <UserName>{userInfo.nickname}</UserName>
-              <SetIconWrapper href="/userInfo">
-                <Icon.Setting />
-              </SetIconWrapper>
+      <Flex $direction="column" $justify="center" $gap={32}>
+        {isLogin ? (
+          <Flex $direction="column" $justify="center" $gap={17} style={{ width: '100%' }}>
+            <Flex style={{ padding: '0px 8px' }}>
+              <Flex $gap={1} $direction="column">
+                <UnivName $university={userInfo.university}>{userInfo.university}</UnivName>
+                <Flex $gap={6} $align="flex-end">
+                  <UserName>{userInfo.nickname}</UserName>
+                  <SetIconWrapper href="/userinfo">
+                    <Icon.Setting />
+                  </SetIconWrapper>
+                </Flex>
+              </Flex>
             </Flex>
+            <InfoWrapper>
+              <Flex $direction="column" $gap={6}>
+                <MyTicketCaption>내 응모권</MyTicketCaption>
+                <Flex $gap={4}>
+                  <Icon.Ticket size={22} /> <MyTicket>{tickets}장</MyTicket>
+                </Flex>
+              </Flex>
+              <CopyInviteCode />
+            </InfoWrapper>
           </Flex>
-        </Flex>
+        ) : (
+          <LoginWrapper>
+            10초만에 로그인하고
+            <br />
+            승부예측 참여하세요
+            <KakaoLogin />
+          </LoginWrapper>
+        )}
 
         <NavWrapper>
           <Flex $direction="column" $gap={32}>
             {PAGE_INFO_LIST.map((page) => {
               return (
                 <Link key={page.title} href={page.href}>
-                  <NavItem selected={nowPage == page.href}>{page.title}</NavItem>
+                  <NavItem $selected={nowPage == page.href}>{page.title}</NavItem>
                 </Link>
               );
             })}
-            <NavItem selected={false}>문의하기</NavItem>
-            <NavItem selected={false}>로그아웃</NavItem>
+            {isLogin && (
+              <Link href="/userinfo">
+                <NavItem $selected={nowPage == '/userinfo'}>회원 정보 관리</NavItem>
+              </Link>
+            )}
+            <NavItem $selected={false} onClick={openTokyInstagram}>
+              문의하기
+            </NavItem>
+            {/* TODO LOGOUT달기 */}
+            {isLogin && <NavItem $selected={false}>로그아웃</NavItem>}
           </Flex>
         </NavWrapper>
       </Flex>
@@ -60,7 +97,7 @@ const Wrapper = styled.div`
   height: 100%;
   width: 331px;
   background-color: #222222;
-  padding: 24px 20px 0 20px;
+  padding: 72px 20px 0 20px;
 
   transition: 1s ease;
   z-index: ${(props) => props.theme.zIndex.SideBar};
@@ -86,12 +123,11 @@ const SetIconWrapper = styled(Link)`
 `;
 const NavWrapper = styled.div`
   padding-left: 8px;
-  margin-top: 32px;
 `;
-const NavItem = styled.div<{ selected: boolean }>`
+const NavItem = styled.div<{ $selected: boolean }>`
   ${(props) => props.theme.typography.body1Regular};
 
-  color: ${(props) => (props.selected ? '#ffffff' : 'rgba(255, 255, 255, 0.87)')};
+  color: ${(props) => (props.$selected ? '#ffffff' : 'rgba(255, 255, 255, 0.87)')};
   cursor: pointer;
   position: relative;
 
@@ -108,7 +144,7 @@ const NavItem = styled.div<{ selected: boolean }>`
   }
 
   &:hover::after,
-  ${(props) => props.selected && `&::after`} {
+  ${(props) => props.$selected && `&::after`} {
     opacity: 1;
   }
 `;
@@ -134,6 +170,56 @@ const Img = styled(Image)<{ univ: string }>`
     univ === '고려대학교'
       ? 'linear-gradient(0deg, #f3233c 0%, #f95B6e 100%)'
       : 'linear-gradient(0deg, #5b84ff 0%, #2948ff 100%)'};
+`;
+
+const InfoWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 21px 16px 21px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  background: var(
+    --Background-14,
+    linear-gradient(0deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.14) 100%),
+    #121212
+  );
+`;
+const MyTicketCaption = styled.p`
+  color: var(--_60, rgba(255, 255, 255, 0.6));
+  font-family: 'Spoqa Han Sans Neo';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.48px;
+`;
+const MyTicket = styled.p`
+  color: var(--_87, rgba(255, 255, 255, 0.87));
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+const LoginWrapper = styled.div`
+  display: flex;
+  padding: 18px 20px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 10px;
+  background: var(
+    --Background-14,
+    linear-gradient(0deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.14) 100%),
+    #121212
+  );
+  color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.64px;
 `;
 
 export default SideBarBody;

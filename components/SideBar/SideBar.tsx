@@ -11,7 +11,7 @@ export function SideBar() {
     return new Promise<boolean>((resolve) => {
       overlay.open(({ isOpen, close }) => (
         <>
-          <SideBarBackgroundTouchPrevent isOpen={isOpen} />
+          <SideBarBackgroundTouchPrevent $isOpen={isOpen} />
           <OutsideClick
             callback={() => {
               resolve(false);
@@ -38,7 +38,7 @@ export function SideBar() {
   );
 }
 
-const SideBarBackgroundTouchPrevent = styled.div<{ isOpen: boolean }>`
+const SideBarBackgroundTouchPrevent = styled.div<{ $isOpen: boolean }>`
   background-color: transparent;
   z-index: ${(props) => props.theme.zIndex.SideBar - 1};
   position: fixed;
@@ -46,5 +46,5 @@ const SideBarBackgroundTouchPrevent = styled.div<{ isOpen: boolean }>`
   left: 0;
   width: 100%;
   height: 100%;
-  display: ${(props) => (props.isOpen ? 'block' : 'none')};
+  display: ${(props) => (props.$isOpen ? 'block' : 'none')};
 `;

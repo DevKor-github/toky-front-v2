@@ -3,7 +3,6 @@ import { create } from 'zustand';
 export interface Profile {
   name: string;
   university: number;
-  ticket: number;
   phoneNumber: string;
   inviteCode: string;
 }

@@ -15,6 +15,10 @@ interface ActionButtonProps extends PropsWithChildren {
   fontWeight?: string;
 }
 
+type StyledProps<T> = {
+  [K in keyof T as `$${string & K}`]: T[K];
+};
+
 export function ActionButton({
   bgColor,
   color,
@@ -33,29 +37,29 @@ export function ActionButton({
       {href !== undefined ? (
         <Link href={href}>
           <Wrapper
-            bgColor={bgColor}
-            color={color}
-            width={width}
-            height={height}
-            borderRadius={borderRadius}
-            fontSize={fontSize}
-            padding={padding}
-            fontWeight={fontWeight}
+            $bgColor={bgColor}
+            $color={color}
+            $width={width}
+            $height={height}
+            $borderRadius={borderRadius}
+            $fontSize={fontSize}
+            $padding={padding}
+            $fontWeight={fontWeight}
           >
             {children}
           </Wrapper>
         </Link>
       ) : (
         <Wrapper
-          bgColor={bgColor}
-          color={color}
-          width={width}
-          height={height}
-          borderRadius={borderRadius}
-          fontSize={fontSize}
+          $bgColor={bgColor}
+          $color={color}
+          $width={width}
+          $height={height}
+          $borderRadius={borderRadius}
+          $fontSize={fontSize}
+          $padding={padding}
+          $fontWeight={fontWeight}
           onClick={onClick}
-          padding={padding}
-          fontWeight={fontWeight}
         >
           {children}
         </Wrapper>
@@ -64,18 +68,18 @@ export function ActionButton({
   );
 }
 
-const Wrapper = styled.div<ActionButtonProps>`
-  background: ${({ bgColor }) => bgColor || 'transparent'};
-  color: ${({ color }) => color || 'black'};
+const Wrapper = styled.div<StyledProps<ActionButtonProps>>`
+  background: ${({ $bgColor }) => $bgColor || 'transparent'};
+  color: ${({ $color }) => $color || 'black'};
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ width }) => width || 'auto'};
-  height: ${({ height }) => height || 'auto'};
-  border-radius: ${({ borderRadius }) => borderRadius || '0px'};
-  font-size: ${({ fontSize }) => fontSize || '14px'};
+  width: ${({ $width }) => $width || 'auto'};
+  height: ${({ $height }) => $height || 'auto'};
+  border-radius: ${({ $borderRadius }) => $borderRadius || '0px'};
+  font-size: ${({ $fontSize }) => $fontSize || '14px'};
   font-family: 'Spoqa Han Sans Neo';
   cursor: pointer;
-  padding: ${({ padding }) => padding || '0'};
-  font-weight: ${({ fontWeight }) => fontWeight || '500'};
+  padding: ${({ $padding }) => $padding || '0'};
+  font-weight: ${({ $fontWeight }) => $fontWeight || '500'};
 `;
