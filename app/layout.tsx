@@ -18,12 +18,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <StyledComponentsRegistry>
           <ThemeClient>
-            <OverlayProvider>
-              <QueryProvider>
+            <QueryProvider>
+              <OverlayProvider>
                 <AuthProvider />
                 <main>{children}</main>
-              </QueryProvider>
-            </OverlayProvider>
+              </OverlayProvider>
+            </QueryProvider>
           </ThemeClient>
         </StyledComponentsRegistry>
       </body>

@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import client from '../client/client';
 import { useTicketStore } from '../store/useTicketStore';
-import { useEffect } from 'react';
 
 const getTickets = async () => {
   const response = await client.get<number>('/ticket');

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { useAuthStore } from '@/libs/store/useAuthStore';
 
 import { Flex } from '@/libs/design-system/flex';
-import { Icon } from '@/libs/design-system/icons';
 import MainTopBar from '@/components/MainTopBar';
 import MainCarousel from '@/components/MainCarousel';
 import ActionCard from '@/components/ActionCard';
@@ -41,6 +40,7 @@ export default function Home() {
             <IconButton key={`${iconInfo.href}-${iconInfo.icon}`} {...iconInfo} />
           ))}
         </Flex>
+
         <ActionCardWrapper>
           {isLogin ? (
             <ActionCard
