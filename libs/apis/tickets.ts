@@ -4,7 +4,7 @@ import { useTicketStore } from '../store/useTicketStore';
 import { useEffect } from 'react';
 
 const getTickets = async () => {
-  const response = await client.get<number>('/tickets');
+  const response = await client.get<number>('/ticket');
   return response.data;
 };
 
@@ -14,7 +14,7 @@ interface DrawGift {
 }
 
 const postTicketsDraw = async (draws: DrawGift[]) => {
-  const response = await client.post('/tickets', {
+  const response = await client.post('/ticket', {
     draws,
   });
   return response;
