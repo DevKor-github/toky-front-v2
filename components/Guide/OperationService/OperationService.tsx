@@ -6,7 +6,7 @@ export function OperationService() {
   return (
     <>
       <Wrapper $isOdd={true} style={{ padding: '50px 30px 0px 0px' }}>
-        <BackgroudImage src="/api/image-proxy/test-5-0.png" $isOdd={true} width={230} height={241} alt="승부예측하기" />
+        <BackgroudImage src="/image-proxy/test-5-0.png" $isOdd={true} width={230} height={241} alt="승부예측하기" />
         <Content $isOdd>
           <Flex $direction="column" $gap={20}>
             <Title>승부예측하기</Title>
@@ -18,13 +18,7 @@ export function OperationService() {
         </Content>
       </Wrapper>
       <Wrapper $isOdd={false} style={{ padding: '50px 0px 0px 50px' }}>
-        <BackgroudImage
-          src="/api/image-proxy/test-5-0.png"
-          $isOdd={false}
-          width={230}
-          height={241}
-          alt="승부예측하기"
-        />
+        <BackgroudImage src="/image-proxy/test-5-0.png" $isOdd={false} width={230} height={241} alt="승부예측하기" />
         <Content $isOdd={false}>
           <Flex $direction="column" $gap={20}>
             <Title>역대 전적확인하기</Title>
@@ -36,7 +30,7 @@ export function OperationService() {
         </Content>
       </Wrapper>
       <Wrapper $isOdd={true} style={{ padding: '50px 30px 0px 0px' }}>
-        <BackgroudImage src="/api/image-proxy/test-5-0.png" $isOdd={true} width={230} height={241} alt="승부예측하기" />
+        <BackgroudImage src="/image-proxy/test-5-0.png" $isOdd={true} width={230} height={241} alt="승부예측하기" />
         <Content $isOdd>
           <Flex $direction="column" $gap={20}>
             <Title>선수정보 확인하기</Title>
@@ -45,13 +39,7 @@ export function OperationService() {
         </Content>
       </Wrapper>
       <Wrapper $isOdd={false} style={{ padding: '50px 0px 0px 50px' }}>
-        <BackgroudImage
-          src="/api/image-proxy/test-5-0.png"
-          $isOdd={false}
-          width={230}
-          height={241}
-          alt="승부예측하기"
-        />
+        <BackgroudImage src="/image-proxy/test-5-0.png" $isOdd={false} width={230} height={241} alt="승부예측하기" />
         <Content $isOdd={false}>
           <Flex $direction="column" $gap={20}>
             <Title>응모권으로 경품응모</Title>

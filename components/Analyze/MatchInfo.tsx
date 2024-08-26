@@ -45,7 +45,7 @@ export function MatchInfo({ match }: MatchInfoProps) {
           </Text>
         </Flex>
         <Flex $gap={4} $align="center">
-          <Image src="/api/image-proxy/test-5-0.png" alt="고려대학교" width={42} height={42} />
+          <Image src="/image-proxy/test-5-0.png" alt="고려대학교" width={42} height={42} />
           <Text>연세대학교</Text>
         </Flex>
       </Flex>

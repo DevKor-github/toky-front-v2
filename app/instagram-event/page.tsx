@@ -8,14 +8,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function InstagramEvent() {
   const swiperImage = [
-    '/api/image-proxy/instagram-event/test.png',
-    '/api/image-proxy/instagram-event/test.png',
-    '/api/image-proxy/instagram-event/test.png',
-    '/api/image-proxy/instagram-event/test.png',
-    '/api/image-proxy/instagram-event/test.png',
-    '/api/image-proxy/instagram-event/test.png',
-    '/api/image-proxy/instagram-event/test.png',
-    '/api/image-proxy/instagram-event/test.png',
+    '/image-proxy/instagram-event/test.png',
+    '/image-proxy/instagram-event/test.png',
+    '/image-proxy/instagram-event/test.png',
+    '/image-proxy/instagram-event/test.png',
+    '/image-proxy/instagram-event/test.png',
+    '/image-proxy/instagram-event/test.png',
+    '/image-proxy/instagram-event/test.png',
+    '/image-proxy/instagram-event/test.png',
   ];
   return (
     <>
@@ -27,7 +27,7 @@ export default function InstagramEvent() {
               <Title>인스타그램</Title>
               <Title>카드 공유하기</Title>
             </Flex>
-            <Image src="/api/image-proxy/instagram-event/banner.png" width={244} height={186} alt="banner" />
+            <Image src="/image-proxy/instagram-event/banner.png" width={244} height={186} alt="banner" />
           </Flex>
           <SwiperWrapper
             autoplay={{
@@ -71,12 +71,7 @@ export default function InstagramEvent() {
                 <br /> 인스타그램 스토리를 업로드한 분들 중 <br /> 10분을 추첨하여 상품을 드립니다.
               </EventInfo>
             </StarbucksEvent>
-            <StarbucksImage
-              src="/api/image-proxy/instagram-event/starbucks.png"
-              width={129}
-              height={144}
-              alt="starbucks"
-            />
+            <StarbucksImage src="/image-proxy/instagram-event/starbucks.png" width={129} height={144} alt="starbucks" />
           </EventWrapper>
         </Flex>
       </Wrapper>

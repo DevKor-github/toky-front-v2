@@ -28,7 +28,7 @@ export default function Analyze() {
           showAll
           bgColor="linear-gradient(180deg, rgba(18, 18, 18, 0.80) 0%, rgba(18, 18, 18, 0.00) 100%);"
         />
-        <Banner $backgroundUrl="/api/image-proxy/test-5-0.png">
+        <Banner $backgroundUrl="/image-proxy/test-5-0.png">
           <ButtonWrapper>
             <ActionButton
               color="#121212"

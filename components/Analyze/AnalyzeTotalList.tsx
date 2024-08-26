@@ -12,8 +12,8 @@ export default function AnalyzeTotalList() {
     <Wrapper>
       <BackgroundImageWrapper>
         <BackgroundImageContent>
-          <KoreaLogo src="/api/image-proxy/test-5-0.png" width={288} height={289} alt={'Korea Univ Logo'} />
-          <YonseiLogo src="/api/image-proxy/test-5-0.png" width={292} height={295} alt={'Yonsei Univ Logo'} />
+          <KoreaLogo src="/image-proxy/test-5-0.png" width={288} height={289} alt={'Korea Univ Logo'} />
+          <YonseiLogo src="/image-proxy/test-5-0.png" width={292} height={295} alt={'Yonsei Univ Logo'} />
         </BackgroundImageContent>
       </BackgroundImageWrapper>
       {matchList.map((match) => (

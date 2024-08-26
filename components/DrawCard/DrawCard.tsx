@@ -46,7 +46,7 @@ export function DrawCard({ onDraw, totalDraw, productName, productAlias }: DrawC
 
   return (
     <Wrapper>
-      <ProductImage width={169} height={172} src="/api/image-proxy/test-5-0.png" alt="draw-card" />
+      <ProductImage width={169} height={172} src="/image-proxy/test-5-0.png" alt="draw-card" />
       <DrawBoard>
         현재&nbsp;<span>{totalDraw}장</span>&nbsp;응모
       </DrawBoard>

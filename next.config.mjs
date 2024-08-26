@@ -23,7 +23,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/api/image-proxy/:path*',
+        source: '/image-proxy/:path*',
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
@@ -45,7 +45,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/image-proxy/:path*',
+        source: '/image-proxy/:path*',
         destination: `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_REGION}.amazonaws.com/:path*`,
       },
       {

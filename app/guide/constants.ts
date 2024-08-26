@@ -2,19 +2,19 @@ import { MATCH_SCHEDULE } from '@/libs/constants/sports';
 
 const SCHEDULECARD_IMAGE = [
   {
-    imageUrl: '/api/image-proxy/guide/hockey.png',
+    imageUrl: '/image-proxy/guide/hockey.png',
   },
   {
-    imageUrl: '/api/image-proxy/guide/hockey.png',
+    imageUrl: '/image-proxy/guide/hockey.png',
   },
   {
-    imageUrl: '/api/image-proxy/guide/hockey.png',
+    imageUrl: '/image-proxy/guide/hockey.png',
   },
   {
-    imageUrl: '/api/image-proxy/guide/hockey.png',
+    imageUrl: '/image-proxy/guide/hockey.png',
   },
   {
-    imageUrl: '/api/image-proxy/guide/hockey.png',
+    imageUrl: '/image-proxy/guide/hockey.png',
   },
 ];
 

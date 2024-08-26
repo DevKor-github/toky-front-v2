@@ -19,19 +19,9 @@ export default function Guide() {
       <Header title="TOKY 이용 가이드" withSideBar />
       <Wrapper>
         <Banner>
-          <KoreaLogo src="/api/image-proxy/guide/korea_symbol.png" width={130} height={221} alt={'Korea Univ Logo'} />
-          <YonseiLogo
-            src="/api/image-proxy/guide/yonsei_symbol.png"
-            width={144}
-            height={205}
-            alt={'Yonsei Univ Logo'}
-          />
-          <TokyImage
-            src="/api/image-proxy/guide/toky_guide_banner.png"
-            priority={true}
-            alt={'Toky Image'}
-            fill={true}
-          />
+          <KoreaLogo src="/image-proxy/guide/korea_symbol.png" width={130} height={221} alt={'Korea Univ Logo'} />
+          <YonseiLogo src="/image-proxy/guide/yonsei_symbol.png" width={144} height={205} alt={'Yonsei Univ Logo'} />
+          <TokyImage src="/image-proxy/guide/toky_guide_banner.png" priority={true} alt={'Toky Image'} fill={true} />
           <Shadow />
           <Flex $direction="column" $align="center" $gap={11} style={{ position: 'relative' }}>
             <SubTitle>2024 정기전 토키</SubTitle>

@@ -16,28 +16,28 @@ export function DrawInfo() {
       <Flex $gap={15} $justify="center" $align="center">
         <Flex $direction="column" $align="center" $gap={10}>
           <DrawContent $isPrimary={false}>
-            <Image src="/api/image-proxy/guide/baemin.png" width={100} height={114} alt="baemin" />
+            <Image src="/image-proxy/guide/baemin.png" width={100} height={114} alt="baemin" />
           </DrawContent>
           <LimitText>
-            <Image src="/api/image-proxy/guide/coin.png" width={14} height={14} alt="coin" />
+            <Image src="/image-proxy/guide/coin.png" width={14} height={14} alt="coin" />
             20명 추첨
           </LimitText>
         </Flex>
         <Flex $direction="column" $align="center" $gap={10}>
           <DrawContent $isPrimary>
-            <Image src="/api/image-proxy/guide/watch.png" width={120} height={138} alt="baemin" />
+            <Image src="/image-proxy/guide/watch.png" width={120} height={138} alt="baemin" />
           </DrawContent>
           <LimitText>
-            <Image src="/api/image-proxy/guide/coin.png" width={14} height={14} alt="coin" />
+            <Image src="/image-proxy/guide/coin.png" width={14} height={14} alt="coin" />
             1명 추첨
           </LimitText>
         </Flex>
         <Flex $direction="column" $align="center" $gap={10}>
           <DrawContent $isPrimary={false}>
-            <Image src="/api/image-proxy/guide/starbucks.png" width={100} height={114} alt="baemin" />
+            <Image src="/image-proxy/guide/starbucks.png" width={100} height={114} alt="baemin" />
           </DrawContent>
           <LimitText>
-            <Image src="/api/image-proxy/guide/coin.png" width={14} height={14} alt="coin" />
+            <Image src="/image-proxy/guide/coin.png" width={14} height={14} alt="coin" />
             20명 추첨
           </LimitText>
         </Flex>
