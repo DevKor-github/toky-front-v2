@@ -2,17 +2,19 @@
 
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useCallback, useEffect, useState } from 'react';
 
+import { usePatchProfile } from '@/libs/apis/users';
 import { useProfileStore } from '@/libs/store/useProfileStore';
+import { useDoneEditModal } from '@/components/DoneEditModal/useDoneEditModal';
+import { getCheckName } from '@/libs/apis/auth';
 import TODO_DUMMY_IMAGE from '@/public/banner1.png';
 import UserInfoTopBar from '@/components/UserInfoTopBar';
 import InputBox from '@/components/InputBox';
-import { useCallback, useEffect, useState } from 'react';
-import { usePatchProfile } from '@/libs/apis/users';
-import { getCheckName } from '@/libs/apis/auth';
 
 export default function UserInfo() {
   const { mutate: patchProfile } = usePatchProfile();
+  const { openDoneEditModal } = useDoneEditModal();
 
   const prevNickname = useProfileStore((state) => state.profile?.name);
   const prevPhoneNumber = useProfileStore((state) => state.profile?.phoneNumber);
@@ -61,9 +63,16 @@ export default function UserInfo() {
 
   const handleEditButton = useCallback(() => {
     if (canEdit) {
-      patchProfile({ name: nickname, phoneNumber });
+      patchProfile(
+        { name: nickname, phoneNumber },
+        {
+          onSuccess: () => {
+            openDoneEditModal();
+          },
+        },
+      );
     }
-  }, [canEdit, nickname, phoneNumber, patchProfile]);
+  }, [canEdit, nickname, phoneNumber, patchProfile, openDoneEditModal]);
 
   useEffect(() => {
     // 새로고침 등으로 프로필 데이터 패칭이 늦어질 경우
