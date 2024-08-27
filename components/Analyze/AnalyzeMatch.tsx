@@ -12,7 +12,7 @@ export function AnalyzeMatch({ match }: { match: Exclude<SelectionType, 'All'> }
 
   return (
     <>
-      <RecordWrapper $backgroundUrl="/api/image-proxy/test-5-0.png">
+      <RecordWrapper $backgroundUrl="/image-proxy/test-5-0.png">
         <Flex $align="center" $direction="column">
           <Flex $gap={8} $direction="column" $align="center">
             <Subtitle>역대 전적</Subtitle>

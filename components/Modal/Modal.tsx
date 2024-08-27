@@ -65,4 +65,5 @@ const Content = styled.div<{ $isModalOpen: boolean }>`
   line-height: normal;
   letter-spacing: -1.2px;
   color: white;
+  text-align: center;
 `;

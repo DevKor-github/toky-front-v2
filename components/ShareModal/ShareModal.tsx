@@ -5,6 +5,8 @@ import PredictionCard from './PredictionCard';
 import styled from 'styled-components';
 import Backdrop from '../Backdrop';
 import { useCardShare } from './useCardShare';
+import { useGetShareScore } from '@/libs/apis/bets';
+import { useProfileStore } from '@/libs/store/Providers/ProfileStoreProvider';
 
 interface ShareModalProps {
   isModalOpen: boolean;
@@ -13,36 +15,39 @@ interface ShareModalProps {
 // TODO loading spinner 추가 && 공유하기 버튼 클릭시 로딩 추가 && 버튼 위치 변경
 export function ShareModal({ isModalOpen = true, onClose }: ShareModalProps) {
   const { shareImage, shareRef, imageRef } = useCardShare();
-
+  const profile = useProfileStore((state) => state.profile);
+  const { data, isLoading } = useGetShareScore();
   return (
     <>
       {isModalOpen && (
         <Wrapper>
           <Content>
-            <Flex $direction="column" $gap={14} $align="center" style={{ height: '100%' }}>
+            <Flex $direction="column" $gap={0} $align="center" style={{ height: '100%' }}>
               <div ref={imageRef}>
                 <PredictionCard
                   ref={shareRef}
-                  nickname="jone"
-                  numWinKorea={0}
-                  numWinYonsei={2}
-                  predictionImgSrc="/api/image-proxy/test-5-0.png"
+                  nickname={profile?.name ?? ''}
+                  numWinKorea={data?.numWinKorea ?? 0}
+                  numWinYonsei={data?.numWinYonsei ?? 0}
+                  predictionImgSrc="/image-proxy/test-5-0.png"
                 />
               </div>
-              <Flex $gap={11} style={{ marginTop: 2 }}>
-                <CancelButton onClick={onClose}>
-                  <Icon.Cancel />
-                </CancelButton>
-                <ShareButton onClick={shareImage}>
-                  <Icon.Share />
-                  공유하기
-                </ShareButton>
+              <Flex $gap={10} $direction="column" $align="center" style={{ marginTop: -60 }}>
+                <Flex $gap={11} style={{ marginTop: 2 }}>
+                  <CancelButton onClick={onClose}>
+                    <Icon.Cancel />
+                  </CancelButton>
+                  <ShareButton onClick={shareImage}>
+                    <Icon.Share />
+                    공유하기
+                  </ShareButton>
+                </Flex>
+                <ToolTip>
+                  @official.toky 태그하고 <br />
+                  공유 이벤트에 참여해보세요!
+                  <ToolTipArrow />
+                </ToolTip>
               </Flex>
-              <ToolTip>
-                @official.toky 태그하고 <br />
-                공유 이벤트에 참여해보세요!
-                <ToolTipArrow />
-              </ToolTip>
             </Flex>
           </Content>
           <Backdrop $isModalOpen={isModalOpen} onClick={onClose} $backgroundColor="transparent" $backdropBlur={false} />
@@ -124,4 +129,8 @@ const ToolTipArrow = styled.div`
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-bottom: 6px solid ${({ theme }) => theme.colors.secondaryBackground};
+`;
+
+const ShareButtonWrapper = styled.div`
+  position: absolute;
 `;
