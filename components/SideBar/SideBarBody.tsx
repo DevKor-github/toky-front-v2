@@ -6,19 +6,19 @@ import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
 import { usePathname } from 'next/navigation';
 import { PAGE_INFO_LIST } from './constants';
-import { useAuthStore } from '@/libs/store/useAuthStore';
-import { useTicketStore } from '@/libs/store/useTicketStore';
 import { CopyInviteCode } from '../CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '../KakaoLogin';
-import { useProfileStore } from '@/libs/store/useProfileStore';
+import { useProfileStore } from '@/libs/store/Providers/ProfileStoreProvider';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
+import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 
 function SideBarBody({ isBarOpen = true }) {
   // TODO: use userInfo from store or context
-  const { profile: userInfo } = useProfileStore();
-  const university = userInfo?.university == 0 ? '고려대학교' : '연세대학교';
   const nowPage = usePathname();
-  const { isLogin } = useAuthStore();
-  const { tickets } = useTicketStore();
+  const userInfo = useProfileStore((state) => state.profile);
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const tickets = useTicketStore((state) => state.tickets);
+  const university = userInfo?.university == 0 ? '고려대학교' : '연세대학교';
 
   function openTokyInstagram() {
     window.open('https://instagram.com/official.toky?igshid=NjIwNzIyMDk2Mg==');

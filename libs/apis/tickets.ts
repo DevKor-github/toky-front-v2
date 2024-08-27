@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import client from '../client/client';
-import { useTicketStore } from '../store/useTicketStore';
+import { useTicketStore } from '../store/Providers/TicketStoreProvider';
 
 const getTickets = async () => {
   const response = await client.get<number>('/ticket');
@@ -21,7 +21,7 @@ const postTicketsDraw = async (draws: DrawGift[]) => {
 
 // 현재는 응모권 하나씩, 한 상품에만 응모 가능
 const drawOneGift = async (giftId: number) => {
-  const { tickets } = useTicketStore();
+  const tickets = useTicketStore((state) => state.tickets);
   if (tickets < 1) {
     throw new Error('응모권이 부족합니다.');
   }
@@ -37,7 +37,7 @@ export const useGetTickets = () => {
 };
 
 const useDrawOneGift = () => {
-  const { decreaseTickets } = useTicketStore();
+  const decreaseTickets = useTicketStore((state) => state.decreaseTickets);
 
   return useMutation({
     mutationFn: drawOneGift,
@@ -49,5 +49,5 @@ const useDrawOneGift = () => {
 };
 
 export const useDraw = () => {
-  const { setTickets } = useTicketStore();
+  const setTickets = useTicketStore((state) => state.setTickets);
 };

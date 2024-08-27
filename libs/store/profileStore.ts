@@ -7,14 +7,16 @@ export interface Profile {
   inviteCode: string;
 }
 
-interface ProfileStore {
+export interface ProfileStore {
   profile: Profile | null;
   setProfile: (props: Profile) => void;
 }
 
-export const useProfileStore = create<ProfileStore>()((set) => ({
-  profile: null,
-  setProfile: (profile: Profile) => {
-    set({ profile });
-  },
-}));
+export const createProfileStore = () => {
+  return create<ProfileStore>()((set) => ({
+    profile: null,
+    setProfile: (profile: Profile) => {
+      set({ profile });
+    },
+  }));
+};

@@ -2,9 +2,9 @@ import { Flex } from '@/libs/design-system/flex';
 import styled from 'styled-components';
 import { OptionButton } from '../PredictionQuestion/OptionButton';
 import { useGetCheersParticipants, usePostCheers } from '@/libs/apis/cheers';
-import { useAuthStore } from '@/libs/store/useAuthStore';
 import { useLoginModal } from '../LoginModal/useLoginModal';
 import { useEffect, useState } from 'react';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 
 interface CheerInfo {
   myAnswer: number | null;
@@ -16,7 +16,7 @@ interface CheerInfo {
 }
 
 export function CheerUniversity() {
-  const { isLogin } = useAuthStore();
+  const isLogin = useAuthStore((state) => state.isLogin);
   const { data } = useGetCheersParticipants();
   const { mutate: postCheers, isSuccess } = usePostCheers();
   const { openLoginModal } = useLoginModal();

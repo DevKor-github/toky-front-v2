@@ -2,7 +2,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { useAuthStore } from '@/libs/store/useAuthStore';
 
 import { Flex } from '@/libs/design-system/flex';
 import MainTopBar from '@/components/MainTopBar';
@@ -17,6 +16,7 @@ import { ICON_INFO_LIST, SCHEDULE_INFO, MESSAGE_INFO } from './constants';
 import client from '@/libs/client/client';
 import { CopyInviteCode } from '@/components/CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '@/components/KakaoLogin';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 
 export default function Home() {
   const isLogin = useAuthStore((state) => state.isLogin);

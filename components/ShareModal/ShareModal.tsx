@@ -5,8 +5,8 @@ import PredictionCard from './PredictionCard';
 import styled from 'styled-components';
 import Backdrop from '../Backdrop';
 import { useCardShare } from './useCardShare';
-import { useProfileStore } from '@/libs/store/useProfileStore';
 import { useGetShareScore } from '@/libs/apis/bets';
+import { useProfileStore } from '@/libs/store/Providers/ProfileStoreProvider';
 
 interface ShareModalProps {
   isModalOpen: boolean;
@@ -15,7 +15,7 @@ interface ShareModalProps {
 // TODO loading spinner 추가 && 공유하기 버튼 클릭시 로딩 추가 && 버튼 위치 변경
 export function ShareModal({ isModalOpen = true, onClose }: ShareModalProps) {
   const { shareImage, shareRef, imageRef } = useCardShare();
-  const { profile } = useProfileStore();
+  const profile = useProfileStore((state) => state.profile);
   const { data, isLoading } = useGetShareScore();
   return (
     <>

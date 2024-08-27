@@ -1,13 +1,14 @@
 'use client';
 import { useOverlay } from '@/libs/design-system/overlay';
 import { ShareModal } from './ShareModal';
-import { useAuthStore } from '@/libs/store/useAuthStore';
 import { useLoginModal } from '../LoginModal/useLoginModal';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 
 export function useShareModal() {
   const overlay = useOverlay();
-  const { isLogin } = useAuthStore();
+  const isLogin = useAuthStore((state) => state.isLogin);
   const { openLoginModal } = useLoginModal();
+
   const openShareModal = () => {
     if (!isLogin) {
       openLoginModal();

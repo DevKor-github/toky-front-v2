@@ -1,9 +1,9 @@
 import { Icon } from '@/libs/design-system/icons';
-import { useTicketStore } from '@/libs/store/useTicketStore';
+import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 import styled from 'styled-components';
 
 export function TicketInfo() {
-  const { tickets } = useTicketStore();
+  const tickets = useTicketStore((state) => state.tickets);
 
   return (
     <Wrapper>
