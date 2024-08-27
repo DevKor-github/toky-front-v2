@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { useSignupError, useSignupForm } from '@/app/signup/store';
 
-import InputBox from '@/components/Signup/InputBox';
+import InputBox from '@/components/InputBox';
 
 export function SetNickname() {
   const nickname = useSignupForm((state) => state.nickname);
   const setNickname = useSignupForm((state) => state.setNickname);
-  const error = useSignupError((state) => state.error);
+  const { error, clearError } = useSignupError();
 
   return (
     <Wrapper>
@@ -17,7 +17,14 @@ export function SetNickname() {
         </h2>
       </Guide>
       <FormWrapper>
-        <InputBox placeholder="닉네임" value={nickname} setValue={setNickname} type="nickname" maxLength={10} />
+        <InputBox
+          placeholder="닉네임"
+          value={nickname}
+          setValue={setNickname}
+          error={error === 'nickname'}
+          maxLength={10}
+          clearError={clearError}
+        />
         <InputStatus>
           <NicknameCount>{nickname.length}/10</NicknameCount>
           {error === 'nickname' && <ErrorMessage>이미 존재하는 닉네임 입니다.</ErrorMessage>}

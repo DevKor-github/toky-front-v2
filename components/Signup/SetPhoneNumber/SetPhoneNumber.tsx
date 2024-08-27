@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { useSignupError, useSignupForm } from '@/app/signup/store';
 
-import InputBox from '@/components/Signup/InputBox';
+import InputBox from '@/components/InputBox';
 
 export function SetPhoneNumber() {
   const phoneNumber = useSignupForm((state) => state.phoneNumber);
   const setPhoneNumber = useSignupForm((state) => state.setPhoneNumber);
-  const error = useSignupError((state) => state.error);
+  const { error, clearError } = useSignupError();
 
   const setValue = (input: string) => {
     const reg = /\D/g;
@@ -23,7 +23,14 @@ export function SetPhoneNumber() {
         </h2>
       </Guide>
       <FormWrapper>
-        <InputBox placeholder="전화번호" value={phoneNumber} setValue={setValue} type="phoneNumber" maxLength={11} />
+        <InputBox
+          placeholder="전화번호"
+          value={phoneNumber}
+          setValue={setValue}
+          error={error === 'phoneNumber'}
+          maxLength={11}
+          clearError={clearError}
+        />
         {error === 'phoneNumber' && <ErrorMessage>이미 사용 중인 전화번호입니다.</ErrorMessage>}
       </FormWrapper>
     </Wrapper>
