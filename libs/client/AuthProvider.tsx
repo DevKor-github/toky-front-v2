@@ -86,6 +86,7 @@ export function AuthProvider() {
         });
 
         if (accessTokenFromCookie === null || refreshTokenFromCookie === null) {
+          clearTokens();
           return;
         }
 
