@@ -3,18 +3,18 @@
 import { useCallback, useEffect } from 'react';
 import { InternalAxiosRequestConfig } from 'axios';
 import client from '@/libs/client/client';
-import { useAuthStore } from '@/libs/store/useAuthStore';
 import { useGetProfile } from '@/libs/apis/users';
-import { useProfileStore } from '@/libs/store/useProfileStore';
 import { useGetTickets } from '../apis/tickets';
-import { useTicketStore } from '../store/useTicketStore';
+import { useAuthStore } from '../store/Providers/AuthStoreProvider';
+import { useProfileStore } from '../store/Providers/ProfileStoreProvider';
+import { useTicketStore } from '../store/Providers/TicketStoreProvider';
 
 const REFRESH_URL = '/auth/refresh';
 
 export function AuthProvider() {
   const { accessToken, refreshToken, setTokens, clearTokens, isLogin } = useAuthStore((state) => state);
-  const { setProfile } = useProfileStore();
-  const { setTickets } = useTicketStore();
+  const setProfile = useProfileStore((state) => state.setProfile);
+  const setTickets = useTicketStore((state) => state.setTickets);
 
   const { data: updateProfile, refetch: getProfile, isSuccess: isGetProfileSuccess } = useGetProfile();
   const { data: tickets, refetch: getTickets, isSuccess: isGetTicketsSuccess } = useGetTickets();

@@ -5,6 +5,7 @@ import ThemeClient from '@/libs/design-system/styled-components/ThemeClient';
 import { OverlayProvider } from '@/libs/design-system/overlay';
 import QueryProvider from '@/libs/client/QueryProvider';
 import { AuthProvider } from '@/libs/client/AuthProvider';
+import { StoreProvider } from '@/libs/store/Providers/StoreProvider';
 
 export const metadata: Metadata = {
   title: '신나는 정기전 승부예측, TOKY',
@@ -18,12 +19,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <StyledComponentsRegistry>
           <ThemeClient>
-            <QueryProvider>
-              <OverlayProvider>
-                <AuthProvider />
-                <main>{children}</main>
-              </OverlayProvider>
-            </QueryProvider>
+            <StoreProvider>
+              <QueryProvider>
+                <OverlayProvider>
+                  <AuthProvider />
+                  <main>{children}</main>
+                </OverlayProvider>
+              </QueryProvider>
+            </StoreProvider>
           </ThemeClient>
         </StyledComponentsRegistry>
       </body>

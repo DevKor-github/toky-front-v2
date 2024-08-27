@@ -1,6 +1,6 @@
 import client from '@/libs/client/client';
-import { useAuthStore } from '@/libs/store/useAuthStore';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useAuthStore } from '../store/Providers/AuthStoreProvider';
 
 // Request Interfaces
 interface PostSignupRequest {

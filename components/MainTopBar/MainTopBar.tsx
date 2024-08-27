@@ -9,14 +9,15 @@ import { usePathname } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
 import { Flex } from '@/libs/design-system/flex';
 import { TicketInfo } from './TicketInfo';
-import { useAuthStore } from '@/libs/store/useAuthStore';
 import { KakaoLogin } from '../KakaoLogin';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 
 export function MainTopBar() {
   const pathname = usePathname();
   const navControls = useAnimation();
-  const { isLogin } = useAuthStore();
+  const isLogin = useAuthStore((state) => state.isLogin);
   const isHome = pathname === '/';
+
   const navigationAnimation = useCallback(async () => {
     await navControls.start({
       y: 0,
