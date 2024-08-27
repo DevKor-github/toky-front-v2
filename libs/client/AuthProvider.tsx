@@ -23,12 +23,14 @@ export function AuthProvider() {
     try {
       const { data } = await client.post(REFRESH_URL);
       if (data.accessToken && data.refreshToken) {
+        console.log(1);
         setTokens(data.accessToken, data.refreshToken);
         return data.accessToken as string;
       }
     } catch (err) {
       console.log(err);
     }
+    console.log(2);
     clearTokens();
 
     return null;
@@ -86,13 +88,14 @@ export function AuthProvider() {
         });
 
         if (accessTokenFromCookie === null || refreshTokenFromCookie === null) {
-          clearTokens();
+          console.log(3);
           return;
         }
 
         document.cookie = 'access-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         document.cookie = 'refresh-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
+        console.log(4);
         setTokens(accessTokenFromCookie, refreshTokenFromCookie);
       } else {
         refresh();
