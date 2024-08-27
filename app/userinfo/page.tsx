@@ -3,17 +3,24 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 
+import { useProfileStore } from '@/libs/store/useProfileStore';
 import TODO_DUMMY_IMAGE from '@/public/banner1.png';
 import UserInfoTopBar from '@/components/UserInfoTopBar';
 import InputBox from '@/components/InputBox';
 import { useCallback, useEffect, useState } from 'react';
+import { usePatchProfile } from '@/libs/apis/users';
+import { getCheckName } from '@/libs/apis/auth';
 
 export default function UserInfo() {
-  const prevNickname = 'halion'; // TODO: API로 user name으로 초기값 설정
-  const prevPhoneNumber = '01012345678'; // TODO: API로 user number로 초기값 설정
-  const [nickname, setNickname] = useState<string>(prevNickname);
+  const { mutate: patchProfile } = usePatchProfile();
+
+  const prevNickname = useProfileStore((state) => state.profile?.name);
+  const prevPhoneNumber = useProfileStore((state) => state.profile?.phoneNumber);
+  const school = useProfileStore((state) => state.profile?.university);
+
+  const [nickname, setNickname] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-  const [phoneNumber, setPhoneNumber] = useState<string>(prevPhoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
 
   const [isAvailableNickname, setIsAvailableNickname] = useState(true);
   const canEdit =
@@ -35,15 +42,18 @@ export default function UserInfo() {
   }, []);
 
   const handleNicknameValidation = useCallback(() => {
-    // input Validation Check
     if (nickname === prevNickname) {
       setError('기존 닉네임과 동일합니다.');
-    } else if (nickname === 'error') {
-      setError('이미 존재하는 닉네임입니다.');
     } else {
-      setIsAvailableNickname(true);
+      getCheckName({ name: nickname }).then((validation) => {
+        if (validation) {
+          setIsAvailableNickname(true);
+        } else {
+          setError('이미 존재하는 닉네임입니다.');
+        }
+      });
     }
-  }, [nickname]);
+  }, [nickname, prevNickname]);
 
   const clearError = useCallback(() => {
     setError(null);
@@ -51,10 +61,17 @@ export default function UserInfo() {
 
   const handleEditButton = useCallback(() => {
     if (canEdit) {
-      // Edit 로직
-      console.log(nickname, phoneNumber);
+      patchProfile({ name: nickname, phoneNumber });
     }
-  }, [canEdit, nickname, phoneNumber]);
+  }, [canEdit, nickname, phoneNumber, patchProfile]);
+
+  useEffect(() => {
+    // 새로고침 등으로 프로필 데이터 패칭이 늦어질 경우
+    if (prevNickname !== undefined && prevPhoneNumber !== undefined) {
+      setNickname(prevNickname);
+      setPhoneNumber(prevPhoneNumber);
+    }
+  }, [prevNickname, prevPhoneNumber]);
 
   return (
     <div>
@@ -95,8 +112,7 @@ export default function UserInfo() {
           </FormWrapper>
           <FixedValue>
             <h2>학교</h2>
-            {/* TODO: API로 User 학교 패칭  */}
-            {'고려대학교'}
+            {school === 1 ? '연세대학교' : '고려대학교'}
           </FixedValue>
         </FormList>
       </Wrapper>
