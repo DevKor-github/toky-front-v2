@@ -17,7 +17,7 @@ export default function Analyze() {
   }, []);
 
   return (
-    <>
+    <div>
       <MainTopBar />
       <NavigationBar />
       <Wrapper>
@@ -45,7 +45,7 @@ export default function Analyze() {
         </Banner>
         {curNav === 'All' ? <AnalyzeTotal /> : <AnalyzeMatch match={curNav} />}
       </Wrapper>
-    </>
+    </div>
   );
 }
 
