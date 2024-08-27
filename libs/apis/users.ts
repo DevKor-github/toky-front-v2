@@ -1,5 +1,4 @@
 import client from '@/libs/client/client';
-import { Profile } from '@/libs/store/useProfileStore';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 // Request Interfaces
@@ -21,7 +20,7 @@ const getProfile = async () => {
   return response.data;
 };
 
-const patchProfile = async (params: Pick<Profile, 'name' | 'phoneNumber'>) => {
+const patchProfile = async (params: Pick<GetProfileResponse, 'name' | 'phoneNumber'>) => {
   const response = await client.patch<GetProfileResponse>('/users/profile', params);
   return response.data;
 };
