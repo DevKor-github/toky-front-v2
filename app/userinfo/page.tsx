@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 
 import { usePatchProfile } from '@/libs/apis/users';
-import { useProfileStore } from '@/libs/store/useProfileStore';
+import { useProfileStore } from '@/libs/store/Providers/ProfileStoreProvider';
 import { useDoneEditModal } from '@/components/DoneEditModal/useDoneEditModal';
 import { getCheckName } from '@/libs/apis/auth';
 import TODO_DUMMY_IMAGE from '@/public/banner1.png';
