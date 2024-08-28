@@ -45,7 +45,7 @@ export function CheerUniversity() {
     queryClient.setQueryData(['cheers-my'], { univ });
   }
   function onErrorCheer() {
-    if (isLogin) getMyCheer();
+    getMyCheer();
     getCheerParticipants();
   }
 
