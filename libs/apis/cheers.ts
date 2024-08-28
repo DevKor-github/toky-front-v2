@@ -37,6 +37,14 @@ export const useGetMyCheer = () => {
   });
 };
 
-export const usePostCheers = () => {
-  return useMutation({ mutationFn: postCheers });
+export const usePostCheers = (onSuccess: (univ: number) => void, onError: () => void) => {
+  return useMutation({
+    mutationFn: postCheers,
+    onSuccess: (_, variables) => {
+      onSuccess(variables.univ);
+    },
+    onError: () => {
+      onError();
+    },
+  });
 };

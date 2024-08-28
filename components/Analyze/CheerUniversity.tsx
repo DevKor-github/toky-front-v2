@@ -19,24 +19,19 @@ interface CheerInfo {
 export function CheerUniversity() {
   const isLogin = useAuthStore((state) => state.isLogin);
   const queryClient = useQueryClient();
-  const { data: participantsData } = useGetCheersParticipants();
+  const { refetch: getCheerParticipants, data: participantsData } = useGetCheersParticipants();
   const { refetch: getMyCheer, data: myCheerData } = useGetMyCheer();
-  const { mutate: postCheers } = usePostCheers();
   const { openLoginModal } = useLoginModal();
   const [cheerInfo, setCheerInfo] = useState<CheerInfo | null>(null);
+  const { mutate: postCheers } = usePostCheers(onSuccessCheer, onErrorCheer);
 
-  function handleAnswer(index: number) {
-    if (openLoginModal() !== false) return;
-
+  function onSuccessCheer(univ: number) {
     if (!cheerInfo) return;
-    if (cheerInfo.myAnswer === index) return;
-    postCheers({ univ: index });
 
     const newTotalParticipants =
       cheerInfo.myAnswer == null ? cheerInfo.totalParticipants + 1 : cheerInfo.totalParticipants;
 
-    // 낙관적 업데이트
-    if (index === 0) {
+    if (univ === 0) {
       const newKoreaParticipants = cheerInfo.koreaParticipants + 1;
       queryClient.setQueryData(['cheers-participants'], {
         participants: [newKoreaParticipants, newTotalParticipants - newKoreaParticipants],
@@ -47,7 +42,18 @@ export function CheerUniversity() {
         participants: [newTotalParticipants - newYonseiParticipants, newYonseiParticipants],
       });
     }
-    queryClient.setQueryData(['cheers-my'], { univ: index });
+    queryClient.setQueryData(['cheers-my'], { univ });
+  }
+  function onErrorCheer() {
+    if (isLogin) getMyCheer();
+    getCheerParticipants();
+  }
+
+  function handleAnswer(index: number) {
+    if (openLoginModal() !== false) return;
+    if (!cheerInfo) return;
+    if (cheerInfo.myAnswer === index) return;
+    postCheers({ univ: index });
   }
 
   useEffect(() => {
@@ -78,7 +84,6 @@ export function CheerUniversity() {
 
   useEffect(() => {
     if (!myCheerData) return;
-
     setCheerInfo((prev) => {
       if (prev) {
         return {
