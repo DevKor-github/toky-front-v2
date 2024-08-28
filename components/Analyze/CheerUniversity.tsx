@@ -5,6 +5,7 @@ import { useGetCheersParticipants, useGetMyCheer, usePostCheers } from '@/libs/a
 import { useLoginModal } from '../LoginModal/useLoginModal';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface CheerInfo {
   myAnswer: number | null;
@@ -17,6 +18,7 @@ interface CheerInfo {
 
 export function CheerUniversity() {
   const isLogin = useAuthStore((state) => state.isLogin);
+  const queryClient = useQueryClient();
   const { data: participantsData } = useGetCheersParticipants();
   const { refetch: getMyCheer, data: myCheerData } = useGetMyCheer();
   const { mutate: postCheers } = usePostCheers();
@@ -35,31 +37,19 @@ export function CheerUniversity() {
     const newTotalParticipants =
       cheerInfo.myAnswer == null ? cheerInfo.totalParticipants + 1 : cheerInfo.totalParticipants;
 
+    // 낙관적 업데이트
     if (index === 0) {
       const newKoreaParticipants = cheerInfo.koreaParticipants + 1;
-      const newKoreaPercentage = Math.floor((newKoreaParticipants / newTotalParticipants) * 100);
-
-      setCheerInfo({
-        koreaParticipants: newKoreaParticipants,
-        totalParticipants: newTotalParticipants,
-        yonseiParticipants: newTotalParticipants - newKoreaParticipants,
-        koreaPercentage: newKoreaPercentage,
-        yonseiPercentage: 100 - newKoreaPercentage,
-        myAnswer: index,
+      queryClient.setQueryData(['cheers-participants'], {
+        participants: [newKoreaParticipants, newTotalParticipants - newKoreaParticipants],
       });
     } else {
       const newYonseiParticipants = cheerInfo.yonseiParticipants + 1;
-      const newYonseiPercentage = Math.floor((newYonseiParticipants / newTotalParticipants) * 100);
-
-      setCheerInfo({
-        yonseiParticipants: newYonseiParticipants,
-        koreaParticipants: newTotalParticipants - newYonseiParticipants,
-        totalParticipants: newTotalParticipants,
-        yonseiPercentage: newYonseiPercentage,
-        koreaPercentage: 100 - newYonseiPercentage,
-        myAnswer: index,
+      queryClient.setQueryData(['cheers-participants'], {
+        participants: [newTotalParticipants - newYonseiParticipants, newYonseiParticipants],
       });
     }
+    queryClient.setQueryData(['cheers-my'], { univ: index });
   }
 
   useEffect(() => {
@@ -83,14 +73,16 @@ export function CheerUniversity() {
   }, [participantsData]);
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && !myCheerData) {
       getMyCheer();
     }
   }, [isLogin]);
 
   useEffect(() => {
+    if (!myCheerData) return;
+
     setCheerInfo((prev) => {
-      if (prev && myCheerData) {
+      if (prev) {
         return {
           ...prev,
           myAnswer: myCheerData.univ,

@@ -25,6 +25,7 @@ export const useGetCheersParticipants = () => {
   return useQuery({
     queryKey: ['cheers-participants'],
     queryFn: getCheersParticipants,
+    staleTime: 1000 * 60 * 5,
   });
 };
 
