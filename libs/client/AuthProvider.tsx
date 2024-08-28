@@ -121,6 +121,13 @@ export function AuthProvider() {
   }, [signIn, signOut, refresh]);
 
   useEffect(() => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (refreshToken) {
+      login();
+    }
+  }, [login]);
+
+  useEffect(() => {
     if (isLogin) {
       // 로그인 시 fetch
       getProfile();
