@@ -26,7 +26,7 @@ export function CheerUniversity() {
   const [cheerInfo, setCheerInfo] = useState<CheerInfo | null>(null);
 
   function handleAnswer(index: number) {
-    if (openLoginModal() === false) return;
+    if (openLoginModal() !== false) return;
 
     if (!cheerInfo) return;
     if (cheerInfo.myAnswer === index) return;
