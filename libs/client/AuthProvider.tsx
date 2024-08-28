@@ -12,7 +12,7 @@ import { useTicketStore } from '../store/Providers/TicketStoreProvider';
 const REFRESH_URL = '/auth/refresh';
 
 export function AuthProvider() {
-  const { accessToken, refreshToken, setTokens, clearTokens, isLogin } = useAuthStore((state) => state);
+  const { isLogin } = useAuthStore((state) => state);
   const setProfile = useProfileStore((state) => state.setProfile);
   const setTickets = useTicketStore((state) => state.setTickets);
 
@@ -23,29 +23,30 @@ export function AuthProvider() {
     try {
       const { data } = await client.post(REFRESH_URL);
       if (data.accessToken && data.refreshToken) {
-        setTokens(data.accessToken, data.refreshToken);
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
         return data.accessToken as string;
       }
     } catch (err) {
       console.log(err);
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
     }
-    clearTokens();
 
     return null;
-  }, [clearTokens, setTokens]);
+  }, []);
 
   const errorHandler = async (error: any) => {
     const { config, response } = error;
-    const originalRequest = config;
 
     if (response?.status === 401 && config.url !== REFRESH_URL && !config.sent) {
-      if (refreshToken == null) return Promise.reject(error);
       config.sent = true;
       const newAccessToken = await refresh();
 
       if (newAccessToken) {
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return client(originalRequest);
+        console.log(`new Access :: ${newAccessToken}`);
+        config.headers.Authorization = `Bearer ${newAccessToken}`;
+        return client(config);
       } else {
         return Promise.reject(error);
       }
@@ -55,13 +56,18 @@ export function AuthProvider() {
   };
 
   const requestHandler = (config: InternalAxiosRequestConfig) => {
+    let token: string | null = null;
+
     if (config.url === REFRESH_URL) {
-      config.headers.Authorization = `Bearer ${refreshToken}`;
+      token = localStorage.getItem('refreshToken');
     } else {
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-      }
+      token = localStorage.getItem('accessToken');
     }
+
+    if (token !== null) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
     return config;
   };
 
@@ -76,6 +82,8 @@ export function AuthProvider() {
   }, [responseInterceptor, requestInterceptor]);
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
     if (accessToken === null) {
       if (refreshToken === null) {
         let accessTokenFromCookie = null;
@@ -86,19 +94,21 @@ export function AuthProvider() {
         });
 
         if (accessTokenFromCookie === null || refreshTokenFromCookie === null) {
-          clearTokens();
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
           return;
         }
 
         document.cookie = 'access-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         document.cookie = 'refresh-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-        setTokens(accessTokenFromCookie, refreshTokenFromCookie);
+        localStorage.setItem('accessToken', accessTokenFromCookie);
+        localStorage.setItem('refreshToken', refreshTokenFromCookie);
       } else {
         refresh();
       }
     }
-  }, [accessToken, refreshToken, setTokens, clearTokens, refresh]);
+  }, [refresh]);
 
   useEffect(() => {
     if (isLogin) {
