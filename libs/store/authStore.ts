@@ -1,25 +1,15 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export interface AuthStore {
-  accessToken: string | null;
-  refreshToken: string | null;
   isLogin: boolean;
-  setTokens: (accessToken: string, refreshToken: string) => void;
-  clearTokens: () => void;
+  login: () => void;
+  logout: () => void;
 }
 
 export const createAuthStore = () => {
-  return create<AuthStore>()(
-    persist(
-      (set) => ({
-        accessToken: null,
-        refreshToken: null,
-        isLogin: false,
-        setTokens: (accessToken, refreshToken) => set({ accessToken, refreshToken, isLogin: true }),
-        clearTokens: () => set({ accessToken: null, refreshToken: null, isLogin: false }),
-      }),
-      { name: 'user-auth', getStorage: () => localStorage },
-    ),
-  );
+  return create<AuthStore>()((set) => ({
+    isLogin: false,
+    login: () => set({ isLogin: true }),
+    logout: () => set({ isLogin: false }),
+  }));
 };
