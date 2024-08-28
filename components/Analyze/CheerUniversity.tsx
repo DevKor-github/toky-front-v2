@@ -1,7 +1,7 @@
 import { Flex } from '@/libs/design-system/flex';
 import styled from 'styled-components';
 import { OptionButton } from '../PredictionQuestion/OptionButton';
-import { useGetCheersParticipants, usePostCheers } from '@/libs/apis/cheers';
+import { useGetCheersParticipants, useGetMyCheer, usePostCheers } from '@/libs/apis/cheers';
 import { useLoginModal } from '../LoginModal/useLoginModal';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
@@ -17,8 +17,9 @@ interface CheerInfo {
 
 export function CheerUniversity() {
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { data } = useGetCheersParticipants();
-  const { mutate: postCheers, isSuccess } = usePostCheers();
+  const { data: participantsData } = useGetCheersParticipants();
+  const { refetch: getMyCheer, data: myCheerData } = useGetMyCheer();
+  const { mutate: postCheers } = usePostCheers();
   const { openLoginModal } = useLoginModal();
   const [cheerInfo, setCheerInfo] = useState<CheerInfo | null>(null);
 
@@ -62,10 +63,10 @@ export function CheerUniversity() {
   }
 
   useEffect(() => {
-    if (data) {
-      const myAnswer = data.cheering ?? null;
-      const koreaParticipants = data.participants[0] ?? 0;
-      const yonseiParticipants = data.participants[1] ?? 0;
+    if (participantsData) {
+      const myAnswer = cheerInfo?.myAnswer ?? null;
+      const koreaParticipants = participantsData.participants[0] ?? 0;
+      const yonseiParticipants = participantsData.participants[1] ?? 0;
       const totalParticipants = koreaParticipants + yonseiParticipants;
       const koreaPercentage = totalParticipants === 0 ? 0 : Math.floor((koreaParticipants / totalParticipants) * 100);
       const yonseiPercentage = 100 - koreaPercentage;
@@ -79,7 +80,25 @@ export function CheerUniversity() {
         yonseiPercentage,
       });
     }
-  }, [data]);
+  }, [participantsData]);
+
+  useEffect(() => {
+    if (isLogin) {
+      getMyCheer();
+    }
+  }, [isLogin]);
+
+  useEffect(() => {
+    setCheerInfo((prev) => {
+      if (prev && myCheerData) {
+        return {
+          ...prev,
+          myAnswer: myCheerData.univ,
+        };
+      }
+      return prev;
+    });
+  }, [myCheerData]);
 
   return (
     <Wrapper>
