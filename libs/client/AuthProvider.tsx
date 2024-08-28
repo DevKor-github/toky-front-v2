@@ -8,6 +8,7 @@ import { useGetTickets } from '../apis/tickets';
 import { useAuthStore } from '../store/Providers/AuthStoreProvider';
 import { useProfileStore } from '../store/Providers/ProfileStoreProvider';
 import { useTicketStore } from '../store/Providers/TicketStoreProvider';
+import mem from 'mem';
 
 const REFRESH_URL = '/auth/refresh';
 
@@ -33,20 +34,26 @@ export function AuthProvider() {
     logout();
   }, [logout]);
 
-  const refresh = useCallback(async () => {
-    try {
-      const { data } = await client.post(REFRESH_URL);
-      if (data.accessToken && data.refreshToken) {
-        signIn(data.accessToken, data.refreshToken);
-        return data.accessToken as string;
-      }
-    } catch (err) {
-      console.log(err);
-      signOut();
-    }
+  const refresh = useCallback(
+    mem(
+      async () => {
+        try {
+          const { data } = await client.post(REFRESH_URL);
+          if (data.accessToken && data.refreshToken) {
+            signIn(data.accessToken, data.refreshToken);
+            return data.accessToken as string;
+          }
+        } catch (err) {
+          console.log(err);
+          signOut();
+        }
 
-    return null;
-  }, [signIn, signOut]);
+        return null;
+      },
+      { maxAge: 1000 },
+    ),
+    [signIn, signOut],
+  );
 
   const errorHandler = async (error: any) => {
     const { config, response } = error;
