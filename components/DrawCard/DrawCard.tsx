@@ -5,18 +5,22 @@ import styled from 'styled-components';
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { Icon } from '@/libs/design-system/icons';
 import { useToast } from '../Toast';
+import { useDrawOneGift } from '@/libs/apis/tickets';
+import { useLoginModal } from '../LoginModal/useLoginModal';
 
 interface DrawCardProps {
-  onDraw: () => void;
   totalDraw: number;
   productName: string;
   productAlias?: string;
+  id: number;
+  canDraw: boolean;
+  imgUrl: string;
 }
 
-export function DrawCard({ onDraw, totalDraw, productName, productAlias }: DrawCardProps) {
+export function DrawCard({ totalDraw, productName, productAlias, id, canDraw, imgUrl }: DrawCardProps) {
   const [isClicked, setIsClicked] = useState(false);
   const { openToast } = useToast();
-
+  const { openLoginModal } = useLoginModal();
   const ticketControls = useAnimation();
 
   async function ticketAnimation() {
@@ -32,21 +36,26 @@ export function DrawCard({ onDraw, totalDraw, productName, productAlias }: DrawC
     });
   }
 
-  const handleClick = async () => {
-    setIsClicked(true);
-    ticketAnimation();
-    //TODO: 응모 API 호출
-    onDraw();
-    //성공 시에만 보이게 수정
-    openToast({ message: `${productAlias ?? productName} 응모권 1장 획득!` });
+  function drawSuccess() {
+    openToast({ message: `${productAlias ?? productName} 응모권 1장 사용!` });
     setTimeout(() => {
       setIsClicked(false);
-    }, 400); // 버튼 크기 복원 시간과 동일하게 설정  };
+    }, 400);
+  }
+  const { mutate: onDraw } = useDrawOneGift(drawSuccess, id);
+
+  const handleClick = async () => {
+    if (openLoginModal() !== false) return;
+    // TODO : 응모권이 없을 때 처리
+    if (!canDraw) return;
+    setIsClicked(true);
+    ticketAnimation();
+    onDraw(id);
   };
 
   return (
     <Wrapper>
-      <ProductImage width={169} height={172} src="/image-proxy/test-5-0.png" alt="draw-card" />
+      <ProductImage width={169} height={172} src={imgUrl} alt="draw-card" />
       <DrawBoard>
         현재&nbsp;<span>{totalDraw}장</span>&nbsp;응모
       </DrawBoard>

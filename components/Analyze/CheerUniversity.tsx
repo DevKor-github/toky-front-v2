@@ -26,10 +26,8 @@ export function CheerUniversity() {
   const [cheerInfo, setCheerInfo] = useState<CheerInfo | null>(null);
 
   function handleAnswer(index: number) {
-    if (!isLogin) {
-      openLoginModal();
-      return;
-    }
+    if (openLoginModal() === false) return;
+
     if (!cheerInfo) return;
     if (cheerInfo.myAnswer === index) return;
     postCheers({ univ: index });
@@ -73,7 +71,7 @@ export function CheerUniversity() {
   }, [participantsData]);
 
   useEffect(() => {
-    if (isLogin && !myCheerData) {
+    if (isLogin) {
       getMyCheer();
     }
   }, [isLogin]);
