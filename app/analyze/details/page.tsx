@@ -8,6 +8,7 @@ import { PLAYER_CARD_LIST } from './constants';
 import PlayerCard from '@/components/PlayerCard';
 import { PlayerCardContainer } from '@/components/Analyze/PlayerCardContainer';
 import { useEffect } from 'react';
+import Header from '@/components/Header';
 
 export default function AnalyzeDetails() {
   const [curNav, setCurNav] = useState<SelectionType>('All');
@@ -24,28 +25,31 @@ export default function AnalyzeDetails() {
   }, []);
 
   return (
-    <Wrapper>
-      <SportsSelectionBar
-        curSelection={curNav}
-        handleSelect={handleNav}
-        hasUnderbar={true}
-        showAll={false}
-        bgColor="var(--black_0, #121212)"
-        isSticky={true}
-      />
-      <ContentsWrapper scale={scale}>
-        <PlayerCardContainer school="고려대학교" scale={scale}>
-          {PLAYER_CARD_LIST.map((player, index) => (
-            <PlayerCard key={index} scale={scale} {...player} />
-          ))}
-        </PlayerCardContainer>
-        <PlayerCardContainer school="연세대학교" scale={scale}>
-          {PLAYER_CARD_LIST.map((player, index) => (
-            <PlayerCard key={index} scale={scale} {...player} />
-          ))}
-        </PlayerCardContainer>
-      </ContentsWrapper>
-    </Wrapper>
+    <>
+      <Header title="선수 정보" withSideBar={true} />
+      <Wrapper>
+        <SportsSelectionBar
+          curSelection={curNav}
+          handleSelect={handleNav}
+          hasUnderbar={true}
+          showAll={false}
+          bgColor="var(--black_0, #121212)"
+          isSticky={true}
+        />
+        <ContentsWrapper scale={scale}>
+          <PlayerCardContainer school="고려대학교" scale={scale}>
+            {PLAYER_CARD_LIST.map((player, index) => (
+              <PlayerCard key={index} scale={scale} {...player} />
+            ))}
+          </PlayerCardContainer>
+          <PlayerCardContainer school="연세대학교" scale={scale}>
+            {PLAYER_CARD_LIST.map((player, index) => (
+              <PlayerCard key={index} scale={scale} {...player} />
+            ))}
+          </PlayerCardContainer>
+        </ContentsWrapper>
+      </Wrapper>
+    </>
   );
 }
 
