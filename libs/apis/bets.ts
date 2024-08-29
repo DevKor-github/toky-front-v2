@@ -1,9 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import client from '../client/client';
 import { SelectionType } from '@/libs/constants/sports';
 import { APIBetInterface, APIQuestionInterface } from '@/libs/types/bets';
 
 // Request Interfaces
+
+interface PostBetRequest {
+  questionId: number;
+  answer: number;
+  sports: Exclude<SelectionType, 'all'>;
+}
 
 // Response Interfaces
 interface ShareScore {
@@ -15,6 +21,10 @@ interface ShareScore {
 export type BetQuestions = { [key in Exclude<SelectionType, 'all'>]: APIQuestionInterface[] };
 
 export type MyBets = { [key in Exclude<SelectionType, 'all'>]: APIBetInterface[] };
+
+interface PostBetResponse {
+  percentage: number[];
+}
 
 // Axios Async Func
 const getShareScore = async () => {
@@ -29,6 +39,14 @@ const getBetQuestions = async () => {
 
 const getMyBets = async () => {
   const response = await client.get<MyBets>('/bets/bet');
+  return response.data;
+};
+
+const postBet = async ({ questionId, answer }: PostBetRequest) => {
+  const response = await client.post<PostBetResponse>('/bets/bet', {
+    questionId,
+    answer,
+  });
   return response.data;
 };
 
@@ -58,5 +76,47 @@ export const useGetMyBets = () => {
     queryKey: ['my-bets'],
     queryFn: getMyBets,
     enabled: false,
+  });
+};
+
+/**
+ * 각 질문별로 베팅을 수행합니다. 이미 베팅한 적이 있으면 베팅을 수정합니다.
+ */
+export const usePostBet = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: postBet,
+    onSuccess: (response, request) => {
+      const sports = request.sports;
+      queryClient.setQueryData<MyBets>(['my-bets'], (oldData) => {
+        if (oldData) {
+          return {
+            ...oldData,
+            [sports]: oldData[sports].map((question) => {
+              if (question.questionId === request.questionId) {
+                return {
+                  ...question,
+                  myAnswer: request.answer,
+                };
+              }
+              return { ...question };
+            }),
+          };
+        }
+      });
+      queryClient.setQueryData<BetQuestions>(['bets-question'], (oldData) => {
+        if (oldData) {
+          return {
+            ...oldData,
+            [sports]: oldData[sports].map((question) => {
+              if (question.questionId === request.questionId) {
+                return { ...question, percentage: response.percentage };
+              }
+              return { ...question };
+            }),
+          };
+        }
+      });
+    },
   });
 };
