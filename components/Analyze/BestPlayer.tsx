@@ -4,7 +4,7 @@ import { BEST_PLAYER_LIST } from './constants';
 import { SelectionType } from '@/libs/constants/sports';
 import BestPlayerItem from './BestPlayerItem';
 
-export function BestPlayer({ match }: { match: Exclude<SelectionType, 'All'> }) {
+export function BestPlayer({ match }: { match: Exclude<SelectionType, 'all'> }) {
   const bestPlayers = BEST_PLAYER_LIST[match];
   return (
     <Wrapper>

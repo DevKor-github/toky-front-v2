@@ -56,11 +56,11 @@ export interface BestPlayerInfo {
 }
 
 type BestPlayer = {
-  [key in Exclude<SelectionType, 'All'>]: BestPlayerInfo[];
+  [key in Exclude<SelectionType, 'all'>]: BestPlayerInfo[];
 };
 
 export const BEST_PLAYER_LIST: BestPlayer = {
-  Baseball: [
+  baseball: [
     {
       alias: 'KU슛돌이',
       name: '이상호',
@@ -86,7 +86,7 @@ export const BEST_PLAYER_LIST: BestPlayer = {
       isKorea: false,
     },
   ],
-  Basketball: [
+  basketball: [
     {
       alias: 'KU',
       name: '고려대학교',
@@ -112,7 +112,7 @@ export const BEST_PLAYER_LIST: BestPlayer = {
       isKorea: false,
     },
   ],
-  Hockey: [
+  icehockey: [
     {
       alias: 'KU',
       name: '고려대학교',
@@ -138,7 +138,7 @@ export const BEST_PLAYER_LIST: BestPlayer = {
       isKorea: false,
     },
   ],
-  Rugby: [
+  rugby: [
     {
       alias: 'KU',
       name: '고려대학교',
@@ -164,7 +164,7 @@ export const BEST_PLAYER_LIST: BestPlayer = {
       isKorea: false,
     },
   ],
-  Soccer: [
+  football: [
     {
       alias: 'KU',
       name: '고려대학교',

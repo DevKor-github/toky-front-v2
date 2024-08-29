@@ -25,7 +25,7 @@ export const SportsSelectionBar = memo(function SportsSelectionBar({
   return (
     <Wrapper $bgColor={bgColor} $isSticky={isSticky}>
       {showAll && (
-        <SportsButton isSelected={curSelection === 'All'} onClick={() => handleSelect('All')} hasUnderbar={hasUnderbar}>
+        <SportsButton isSelected={curSelection === 'all'} onClick={() => handleSelect('all')} hasUnderbar={hasUnderbar}>
           전체
         </SportsButton>
       )}

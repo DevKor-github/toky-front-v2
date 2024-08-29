@@ -2,8 +2,8 @@ import { SelectionType } from '@/libs/constants/sports';
 import { QuestionType } from '@/libs/types/bets';
 
 // TODO: Dummy Data
-export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'All'>]: QuestionType[] } = {
-  Baseball: [
+export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = {
+  baseball: [
     {
       questionId: 0,
       description: '야구 승리할 팀을 예측해주세요',
@@ -40,7 +40,7 @@ export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'All'>]: Ques
       answer: null,
     },
   ],
-  Soccer: [
+  football: [
     {
       questionId: 20,
       description: '축구 승리할 팀을 예측해주세요',
@@ -77,7 +77,7 @@ export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'All'>]: Ques
       answer: null,
     },
   ],
-  Basketball: [
+  basketball: [
     {
       questionId: 5,
       description: '농구 승리할 팀을 예측해주세요',
@@ -114,7 +114,7 @@ export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'All'>]: Ques
       answer: null,
     },
   ],
-  Rugby: [
+  rugby: [
     {
       questionId: 15,
       description: '럭비 승리할 팀을 예측해주세요',
@@ -151,7 +151,7 @@ export const DUMMY_QUESTIONS_API: { [key in Exclude<SelectionType, 'All'>]: Ques
       answer: null,
     },
   ],
-  Hockey: [
+  icehockey: [
     {
       questionId: 10,
       description: '빙구 승리할 팀을 예측해주세요',

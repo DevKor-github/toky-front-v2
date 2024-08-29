@@ -21,7 +21,7 @@ export default function Bets() {
   const { openShareModal } = useShareModal();
 
   // "Baseball" | "Soccer" | "Basketball" | "Rugby" | "Hockey"로 관리
-  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'All'>>('Baseball');
+  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>('baseball');
   const swiperRef = useRef<SwiperRef>(null);
   useEffect(() => {
     // 스와이퍼와 curNav 동기화
@@ -33,7 +33,7 @@ export default function Bets() {
   }
 
   const handleNav = useCallback((selection: SelectionType) => {
-    if (selection !== 'All') {
+    if (selection !== 'all') {
       setCurNav(selection);
     }
   }, []);
@@ -62,11 +62,11 @@ export default function Bets() {
 
   const checkIsDones = useCallback(
     (data: {
-      Baseball: QuestionType[];
-      Soccer: QuestionType[];
-      Basketball: QuestionType[];
-      Rugby: QuestionType[];
-      Hockey: QuestionType[];
+      baseball: QuestionType[];
+      football: QuestionType[];
+      basketball: QuestionType[];
+      rugby: QuestionType[];
+      icehockey: QuestionType[];
     }) => {
       let isDone = true;
       for (let key in data[curNav]) {
@@ -82,7 +82,7 @@ export default function Bets() {
 
   return (
     <div>
-      <NavScrollProvider<Exclude<SelectionType, 'All'>> target={curNav} />
+      <NavScrollProvider<Exclude<SelectionType, 'all'>> target={curNav} />
       <MainTopBar />
       <NavigationBar />
       <Wrapper>
