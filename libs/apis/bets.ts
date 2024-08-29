@@ -12,9 +12,9 @@ interface ShareScore {
   numDraw: number;
 }
 
-type BetQuestions = { [key in Exclude<SelectionType, 'all'>]: APIQuestionInterface[] };
+export type BetQuestions = { [key in Exclude<SelectionType, 'all'>]: APIQuestionInterface[] };
 
-type MyBets = { [key in Exclude<SelectionType, 'all'>]: APIBetInterface[] };
+export type MyBets = { [key in Exclude<SelectionType, 'all'>]: APIBetInterface[] };
 
 // Axios Async Func
 const getShareScore = async () => {
@@ -57,5 +57,6 @@ export const useGetMyBets = () => {
   return useQuery({
     queryKey: ['my-bets'],
     queryFn: getMyBets,
+    enabled: false,
   });
 };

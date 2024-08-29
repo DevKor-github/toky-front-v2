@@ -10,7 +10,7 @@ interface PredictionQuestionProps {
   options: string[];
   myAnswer: number | null;
   percentage: number[];
-  requestHandler: (qid: number, answer: number) => void;
+  requestHandler: (qid: number, answer: number, prevAnswer: number | null) => void;
 }
 export function PredictionQuestion({
   questionId,
@@ -21,14 +21,8 @@ export function PredictionQuestion({
   percentage,
   requestHandler,
 }: PredictionQuestionProps) {
-  const { openToast } = useToast();
-
-  // TODO: handleAnswer 실제 API로 교체
   const handleAnswer = (index: number) => {
-    if (myAnswer === null) {
-      openToast({ message: '응모권 1장 획득!' });
-    }
-    requestHandler(questionId, index);
+    requestHandler(questionId, index, myAnswer);
   };
 
   const totalOptionNumber = options.length - 1;

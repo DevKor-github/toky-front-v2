@@ -3,7 +3,8 @@ export interface QuestionType {
   description: string;
   choices: string[];
   percentage: number[];
-  answer: number | null;
+  myAnswer: number | null;
+  realAnswer: number | null;
 }
 
 export interface APIQuestionInterface {
