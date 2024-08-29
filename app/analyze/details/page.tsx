@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import Header from '@/components/Header';
 
 export default function AnalyzeDetails() {
-  const [curNav, setCurNav] = useState<SelectionType>('All');
+  const [curNav, setCurNav] = useState<SelectionType>('all');
   const handleNav = useCallback((selection: SelectionType) => {
     setCurNav(selection);
   }, []);
