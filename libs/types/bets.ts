@@ -5,3 +5,16 @@ export interface QuestionType {
   percentage: number[];
   answer: number | null;
 }
+
+export interface APIQuestionInterface {
+  questionId: number;
+  realAnswer: number | null;
+  description: string;
+  choices: string[];
+  percentage: number[];
+}
+
+export interface APIBetInterface {
+  questionId: number;
+  myAnswer: number | null;
+}
