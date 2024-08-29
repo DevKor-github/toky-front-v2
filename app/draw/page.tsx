@@ -5,43 +5,41 @@ import DrawCard from '@/components/DrawCard';
 import { DrawPolicy } from '@/components/DrawPolicy/DrawPolicy';
 import MainTopBar from '@/components/MainTopBar';
 import NavigationBar from '@/components/NavigationBar';
+import { useGetGiftItems, useGetMyTicketsUse, useGetTickets } from '@/libs/apis/tickets';
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
+import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 export default function Draw() {
-  const DUMMY_PRODUCT = [
-    {
-      id: 1,
-      name: '애플워치 7',
-      image: '/image-proxy/test-5-0.png',
-      totalDraw: 100,
-    },
-    {
-      id: 2,
-      name: '스타벅스\n아메리카노 (10명)',
-      image: '/image-proxy/test-5-0.png',
-      totalDraw: 200,
-    },
-    {
-      id: 3,
-      name: '토키 3',
-      image: '/image-proxy/test-5-0.png',
-      totalDraw: 300,
-    },
-    {
-      id: 4,
-      name: '토키 4',
-      image: '/image-proxy/test-5-0.png',
-      totalDraw: 400,
-    },
-    {
-      id: 5,
-      name: '토키 5',
-      image: '/image-proxy/test-5-0.png',
-      totalDraw: 500,
-    },
-  ];
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const { setTickets, tickets } = useTicketStore((state) => state);
+  const { refetch: refetchTickets, data: queriedTickets } = useGetTickets();
+  const { refetch: refetchMyTicketsUse, data: myTicketsUse } = useGetMyTicketsUse();
+  const { data: giftItems } = useGetGiftItems();
+  const [canDraw, setCanDraw] = useState(false);
+
+  useEffect(() => {
+    if (queriedTickets) {
+      setTickets(queriedTickets);
+    }
+  }, [queriedTickets]);
+
+  useEffect(() => {
+    if (isLogin) {
+      refetchTickets();
+      refetchMyTicketsUse();
+    }
+  }, [isLogin]);
+
+  useEffect(() => {
+    if (tickets > 0) {
+      setCanDraw(true);
+    }
+  }, [tickets]);
+
   return (
     <div>
       <MainTopBar />
@@ -64,7 +62,7 @@ export default function Draw() {
               <Title>여러번 응모할수록, 높아지는 당첨확률!</Title>
             </Flex>
             <Flex $direction="column" $align="center" $gap={12} style={{ width: '100%' }}>
-              <DrawBoard />
+              <DrawBoard myDraws={myTicketsUse ?? []} giftItems={giftItems ?? []} tickets={tickets} />
               <Flex $gap={3} $align="center">
                 <Icon.Question />
                 <InfoText>응모권은 어떻게 받을 수 있나요?</InfoText>
@@ -78,9 +76,17 @@ export default function Draw() {
             $justify="center"
             $align="center"
           >
-            {DUMMY_PRODUCT.map((product) => (
-              <DrawCard key={product.id} onDraw={() => {}} totalDraw={product.totalDraw} productName={product.name} />
-            ))}
+            {giftItems &&
+              giftItems.map((gift) => (
+                <DrawCard
+                  key={gift.id}
+                  id={gift.id}
+                  canDraw={canDraw}
+                  totalDraw={gift.count}
+                  productName={gift.name}
+                  imgUrl={gift.photoUrl}
+                />
+              ))}
           </Flex>
         </Flex>
         <DrawPolicy />

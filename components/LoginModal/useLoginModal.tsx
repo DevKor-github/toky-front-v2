@@ -12,6 +12,7 @@ export function useLoginModal() {
         overlay.open(({ isOpen, exit }) => <LoginModal isModalOpen={isOpen} onClose={exit} />);
       });
     }
+    return false;
   };
 
   return { openLoginModal };
