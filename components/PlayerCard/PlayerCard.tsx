@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import styled from 'styled-components';
 
-interface PlayerCardProps {
+export interface PlayerCardProps {
   image: string;
   name: string;
   jerseyNumber: string;
@@ -10,7 +10,15 @@ interface PlayerCardProps {
   heightWeight: string;
 }
 
-export function PlayerCard({ image, name, jerseyNumber, position, year, heightWeight }: PlayerCardProps) {
+export function PlayerCard({
+  image,
+  name,
+  jerseyNumber,
+  position,
+  year,
+  heightWeight,
+  scale,
+}: PlayerCardProps & { scale: number }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleToggle = () => {
@@ -18,37 +26,37 @@ export function PlayerCard({ image, name, jerseyNumber, position, year, heightWe
   };
 
   return (
-    <CardContainer onClick={handleToggle}>
+    <CardContainer onClick={handleToggle} scale={scale}>
       <Image src={image} alt={name} />
-      <NameContainer className={isFlipped ? '' : 'visible'}>
-        <NamePosition>{name}</NamePosition>
+      <NameContainer className={isFlipped ? '' : 'visible'} scale={scale}>
+        <NamePosition scale={scale}>{name}</NamePosition>
       </NameContainer>
       <InfoContainer className={isFlipped ? 'visible' : ''}>
         <PlayerInfo>
-          <PlayerInfoKey>백넘버</PlayerInfoKey>
-          <PlayerInfoValue>{jerseyNumber}</PlayerInfoValue>
+          <PlayerInfoKey scale={scale}>백넘버</PlayerInfoKey>
+          <PlayerInfoValue scale={scale}>{jerseyNumber}</PlayerInfoValue>
         </PlayerInfo>
         <PlayerInfo>
-          <PlayerInfoKey>포지션</PlayerInfoKey>
-          <PlayerInfoValue>{position}</PlayerInfoValue>
+          <PlayerInfoKey scale={scale}>포지션</PlayerInfoKey>
+          <PlayerInfoValue scale={scale}>{position}</PlayerInfoValue>
         </PlayerInfo>
         <PlayerInfo>
-          <PlayerInfoKey>학번</PlayerInfoKey>
-          <PlayerInfoValue>{year}</PlayerInfoValue>
+          <PlayerInfoKey scale={scale}>학번</PlayerInfoKey>
+          <PlayerInfoValue scale={scale}>{year}</PlayerInfoValue>
         </PlayerInfo>
         <PlayerInfo>
-          <PlayerInfoKey>키/몸무게</PlayerInfoKey>
-          <PlayerInfoValue>{heightWeight}</PlayerInfoValue>
+          <PlayerInfoKey scale={scale}>신체스펙</PlayerInfoKey>
+          <PlayerInfoValue scale={scale}>{heightWeight}</PlayerInfoValue>
         </PlayerInfo>
-        <FlipedNameContainer>{name}</FlipedNameContainer>
+        <FlipedNameContainer scale={scale}>{name}</FlipedNameContainer>
       </InfoContainer>
     </CardContainer>
   );
 }
 
-const CardContainer = styled.div`
-  width: 110px;
-  height: 110px;
+const CardContainer = styled.div<{ scale: number }>`
+  width: ${(props) => 110 * props.scale}px;
+  height: ${(props) => 110 * props.scale}px;
   border-radius: 4px;
   cursor: pointer;
   position: relative;
@@ -62,11 +70,11 @@ const Image = styled.img`
   border-radius: 4px;
 `;
 
-const NameContainer = styled.div`
+const NameContainer = styled.div<{ scale: number }>`
   position: absolute;
-  top: 86px;
+  top: ${(props) => 86 * props.scale}px;
   left: 0px;
-  width: 110px;
+  width: 100%;
   height: 24px;
   border-radius: 0px 0px 4px 4px;
   background: var(--_38, rgba(255, 255, 255, 0.38));
@@ -74,7 +82,7 @@ const NameContainer = styled.div`
   flex-shrink: 0;
   color: var(--black_1, #1f1f1f);
   font-family: 'Spoqa Han Sans Neo';
-  font-size: 14px;
+  font-size: ${(props) => 14 * props.scale}px;
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 21px */
@@ -85,10 +93,10 @@ const NameContainer = styled.div`
   }
 `;
 
-const NamePosition = styled.div`
+const NamePosition = styled.div<{ scale: number }>`
   position: absolute;
   top: 2px;
-  left: 55px;
+  left: ${(props) => 55 * props.scale}px;
 `;
 
 const InfoContainer = styled.div`
@@ -115,38 +123,38 @@ const PlayerInfo = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 `;
 
-const PlayerInfoKey = styled.div`
+const PlayerInfoKey = styled.div<{ scale: number }>`
   color: var(--_87, rgba(255, 255, 255, 0.87));
   font-family: 'Spoqa Han Sans Neo';
-  font-size: 10px;
+  font-size: ${(props) => 10 * props.scale}px;
   font-style: normal;
   font-weight: 700;
   line-height: 160%; /* 16px */
   letter-spacing: -0.6px;
 `;
 
-const PlayerInfoValue = styled.div`
+const PlayerInfoValue = styled.div<{ scale: number }>`
   color: var(--_87, rgba(255, 255, 255, 0.87));
   font-family: 'Spoqa Han Sans Neo';
-  font-size: 12px;
+  font-size: ${(props) => 12 * props.scale}px;
   font-style: normal;
   font-weight: 400;
   line-height: 160%; /* 23.2px */
   letter-spacing: -0.87px;
 `;
 
-const FlipedNameContainer = styled.div`
+const FlipedNameContainer = styled.div<{ scale: number }>`
   color: var(--white_0, #fff);
   font-family: 'Spoqa Han Sans Neo';
-  font-size: 14px;
+  font-size: ${(props) => 14 * props.scale}px;
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 21px */
   letter-spacing: -0.56px;
   position: absolute;
-  top: 88px;
-  left: 55px;
+  top: ${(props) => 88 * props.scale}px;
+  left: ${(props) => 55 * props.scale}px;
 `;
