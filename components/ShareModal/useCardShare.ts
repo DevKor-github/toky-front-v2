@@ -12,13 +12,19 @@ export function useCardShare() {
   const [canvasImageUrl, setCanvasImageUrl] = useState('');
   const profile = useProfileStore((state) => state.profile);
   const { openToast } = useToast();
-  const { data: scoreData, refetch: fetchMyScore } = useGetShareScore();
+  const { data: scoreData, refetch: fetchMyScore, isLoading: isFetchLoading } = useGetShareScore();
   const { mutate: postShare } = usePostShare(openShareSuccessToast);
   const imageRef = useRef(null);
 
-  const shareRef = useRefEffect((div: HTMLDivElement) => {
-    makeImageUrl(div);
-  }, []);
+  const isLoading = isFetchLoading || isCanvasLoading || isDownloding || isShareLoading;
+
+  const shareRef = useRefEffect(
+    (div: HTMLDivElement) => {
+      if (!profile || !scoreData) return;
+      makeImageUrl(div);
+    },
+    [profile, scoreData],
+  );
 
   useEffect(() => {
     fetchMyScore();
@@ -136,9 +142,7 @@ export function useCardShare() {
   }
 
   return {
-    isCanvasLoading,
-    isDownloding,
-    isShareLoading,
+    isLoading,
     imageRef,
     shareImage,
     makeImageUrl,
