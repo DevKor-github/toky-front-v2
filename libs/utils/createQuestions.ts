@@ -24,7 +24,6 @@ export function createQuestions(
         if (myBets[sports][ind].questionId === question.questionId) {
           myAnswer = myBets[sports][ind].myAnswer;
         } else {
-          // TODO:
           const curQuestionElement = myBets[sports].find((element) => element.questionId === question.questionId);
           if (curQuestionElement !== undefined) {
             myAnswer = curQuestionElement.myAnswer;
