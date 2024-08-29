@@ -28,7 +28,7 @@ interface PostBetResponse {
 
 // Axios Async Func
 const getShareScore = async () => {
-  const response = await client.get<ShareScore>('/bets/share');
+  const response = await client.get<ShareScore>('/bets/share/prediction');
   return response.data;
 };
 
@@ -50,11 +50,16 @@ const postBet = async ({ questionId, answer }: PostBetRequest) => {
   return response.data;
 };
 
-// Query Hook
+const postShareBenefit = async () => {
+  const response = await client.post<number>('/bets/share/prediction');
+  return response;
+};
+
 export const useGetShareScore = () => {
   return useQuery({
     queryKey: ['bets-share'],
     queryFn: getShareScore,
+    enabled: false,
   });
 };
 
@@ -119,4 +124,8 @@ export const usePostBet = () => {
       });
     },
   });
+};
+
+export const usePostShare = (onSuccessFunction: (ticket: number) => void) => {
+  return useMutation({ mutationFn: postShareBenefit, onSuccess: (data) => onSuccessFunction(data.data) });
 };

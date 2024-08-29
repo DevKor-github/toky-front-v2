@@ -1,17 +1,33 @@
+import { useGetShareScore, usePostShare } from '@/libs/apis/bets';
 import { useRefEffect } from '@/libs/hooks/useRefEffect';
+import { useProfileStore } from '@/libs/store/Providers/ProfileStoreProvider';
 import html2canvas from 'html2canvas';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useToast } from '../Toast';
 
 export function useCardShare() {
   const [isDownloding, setIsDownloading] = useState(false);
   const [isCanvasLoading, setIsCanvasLoading] = useState(true);
   const [isShareLoading, setIsShareLoading] = useState(false);
   const [canvasImageUrl, setCanvasImageUrl] = useState('');
+  const profile = useProfileStore((state) => state.profile);
+  const { openToast } = useToast();
+  const { data: scoreData, refetch: fetchMyScore } = useGetShareScore();
+  const { mutate: postShare } = usePostShare(openShareSuccessToast);
   const imageRef = useRef(null);
 
   const shareRef = useRefEffect((div: HTMLDivElement) => {
     makeImageUrl(div);
   }, []);
+
+  useEffect(() => {
+    fetchMyScore();
+  }, [fetchMyScore]);
+
+  function openShareSuccessToast(ticket: number) {
+    // TODO : 공유 성공 토스트
+    openToast({ message: `응모권 ${ticket}장 획득!` });
+  }
 
   async function downloadImage() {
     if (imageRef.current === null) return;
@@ -72,12 +88,13 @@ export function useCardShare() {
       return blob;
     } catch (error) {
       console.error('There was an error!', error);
-      alert(error);
+      alert('에러가 발생했습니다 다시 시도해주세요');
     }
   }
 
   async function shareImage() {
     if (!navigator.share) {
+      // TODO 모달로 변경
       alert('지원되지 않는 브라우저입니다. 모바일 크롬으로 접속해주세요!');
       return;
     }
@@ -106,6 +123,7 @@ export function useCardShare() {
           // text: 'https://www.toky.com',
           // title: 'hi',
         });
+        postShare();
       } catch (e: any) {
         if (name in e && e.name !== 'AbortError') {
           console.error(e);
@@ -117,5 +135,16 @@ export function useCardShare() {
     setIsShareLoading(false);
   }
 
-  return { isCanvasLoading, isDownloding, isShareLoading, imageRef, shareImage, makeImageUrl, shareRef, downloadImage };
+  return {
+    isCanvasLoading,
+    isDownloding,
+    isShareLoading,
+    imageRef,
+    shareImage,
+    makeImageUrl,
+    shareRef,
+    downloadImage,
+    scoreData,
+    profile,
+  };
 }

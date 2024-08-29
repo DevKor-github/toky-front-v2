@@ -16,7 +16,8 @@ export function PredictionCardFC(
   { nickname, numWinKorea, numWinYonsei, predictionImgSrc }: PredictionCardProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const predictionResult = numWinKorea > numWinYonsei ? 'KOREA' : numWinKorea < numWinYonsei ? 'YONSEI' : 'DRAW';
+  const predictionResult = numWinKorea > numWinYonsei ? 'KOREA' : numWinKorea == numWinYonsei ? 'DRAW' : 'YONSEI';
+
   return (
     <ShareCardWrapper ref={ref}>
       <ShareCard $predictionResult={predictionResult}>
