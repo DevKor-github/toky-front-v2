@@ -45,7 +45,7 @@ const Content = styled.div<ContentProps>`
   width: 54px;
   height: 54px;
   border-radius: 12px;
-
+  margin: auto;
   background: ${({ type, theme }) => {
     if (type === 'primary') return theme.colors.gradientButtonBlue;
     if (type === 'secondary') return theme.colors.gradientButtonGray;

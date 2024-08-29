@@ -24,7 +24,7 @@ export function DrawBoard({ myDraws, tickets, giftItems }: DrawBoardProps) {
         <FreeModeCarousel padding="16px" spaceBetween={16}>
           {giftItems.map((item) => {
             const myDrawItem = myDraws.find((draw) => draw.giftId === item.id);
-            return <DrawHistory key={item.id} name={item.name} usedDraw={myDrawItem?.count ?? 0} />;
+            return <DrawHistory key={item.id} name={item.alias} usedDraw={myDrawItem?.count ?? 0} />;
           })}
         </FreeModeCarousel>
       </CarouselWrapper>

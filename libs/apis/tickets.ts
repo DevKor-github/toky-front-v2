@@ -11,6 +11,7 @@ export interface DrawGift {
 export interface DrawGiftItem {
   id: number;
   name: string;
+  alias: string;
   requiredTicket: number;
   photoUrl: string;
   count: number;
