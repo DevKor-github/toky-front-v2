@@ -5,7 +5,7 @@ import { TOTAL_MATCH_LIST } from './constants';
 import { BestPlayer } from './BestPlayer';
 import Image from 'next/image';
 
-export function AnalyzeMatch({ match }: { match: Exclude<SelectionType, 'All'> }) {
+export function AnalyzeMatch({ match }: { match: Exclude<SelectionType, 'all'> }) {
   const matchInfo = TOTAL_MATCH_LIST[SelectionMap[match]];
   const { koreaWin, yonseiWin, matchName } = matchInfo;
   const isKoreaWin = koreaWin > yonseiWin;

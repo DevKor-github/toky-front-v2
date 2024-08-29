@@ -11,7 +11,7 @@ import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 export default function Analyze() {
-  const [curNav, setCurNav] = useState<SelectionType>('All');
+  const [curNav, setCurNav] = useState<SelectionType>('all');
   const handleNav = useCallback((selection: SelectionType) => {
     setCurNav(selection);
   }, []);
@@ -41,9 +41,9 @@ export default function Analyze() {
               승부예측하러 가기
             </ActionButton>
           </ButtonWrapper>
-          {curNav === 'All' ? <Timer expiryTimestamp={LastDate} /> : <MatchInfo match={curNav} />}
+          {curNav === 'all' ? <Timer expiryTimestamp={LastDate} /> : <MatchInfo match={curNav} />}
         </Banner>
-        {curNav === 'All' ? <AnalyzeTotal /> : <AnalyzeMatch match={curNav} />}
+        {curNav === 'all' ? <AnalyzeTotal /> : <AnalyzeMatch match={curNav} />}
       </Wrapper>
     </div>
   );

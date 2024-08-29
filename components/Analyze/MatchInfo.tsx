@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { MATCH_INFO } from './constants';
 
 interface MatchInfoProps {
-  match: Exclude<SelectionType, 'All'>;
+  match: Exclude<SelectionType, 'all'>;
 }
 
 export function MatchInfo({ match }: MatchInfoProps) {

@@ -4,8 +4,8 @@ import { Icon } from '@/libs/design-system/icons';
 import { SelectionArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
 
 interface PredictionBottomBarProps {
-  curSelection: Exclude<SelectionType, 'All'>;
-  handleNav: (selection: Exclude<SelectionType, 'All'>) => void;
+  curSelection: Exclude<SelectionType, 'all'>;
+  handleNav: (selection: Exclude<SelectionType, 'all'>) => void;
 }
 
 export function PredictionBottomBar({ curSelection, handleNav }: PredictionBottomBarProps) {

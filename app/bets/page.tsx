@@ -5,7 +5,15 @@ import styled from 'styled-components';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
+import { useGetBetQuestions, useGetMyBets, usePostBet } from '@/libs/apis/bets';
 import { SelectionArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
+import { NavScrollProvider } from '@/app/bets/NavScrollProvider';
+import { QuestionType } from '@/libs/types/bets';
+import { createQuestions } from '@/libs/utils/createQuestions';
+
+import { useToast } from '@/components/Toast';
+import { useLoginModal } from '@/components/LoginModal/useLoginModal';
 import MainTopBar from '@/components/MainTopBar';
 import NavigationBar from '@/components/NavigationBar';
 import { useShareModal } from '@/components/ShareModal';
@@ -13,94 +21,111 @@ import PredictionBanner from '@/components/PredictionBanner';
 import SportsSelectionBar from '@/components/SportsSelectionBar';
 import PredictionQuestion from '@/components/PredictionQuestion';
 import PredictionBottomBar from '@/components/PredictionBottomBar';
-import { NavScrollProvider } from '@/app/bets/NavScrollProvider';
-import { DUMMY_QUESTIONS_API } from '@/app/bets/dummy';
-import { QuestionType } from '@/libs/types/bets';
+
+const checkIsDones = (data: QuestionType[]) => {
+  let isDone = true;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].myAnswer === null) {
+      isDone = false;
+      break;
+    }
+  }
+  return isDone;
+};
 
 export default function Bets() {
-  const { openShareModal } = useShareModal();
+  const isLogin = useAuthStore((state) => state.isLogin);
 
-  // "Baseball" | "Soccer" | "Basketball" | "Rugby" | "Hockey"로 관리
-  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'All'>>('Baseball');
+  const { openLoginModal } = useLoginModal();
+  const { openShareModal } = useShareModal();
+  const { openToast } = useToast();
+
+  const { data: betQuestions } = useGetBetQuestions();
+  const { data: myBets, refetch: getMyBets } = useGetMyBets();
+  const { mutate: bet } = usePostBet();
+  const questionData = createQuestions(betQuestions!, myBets);
+
+  // "baseball" | "football" | "basketball" | "rugby" | "icehockey"로 관리
+  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>('baseball');
   const swiperRef = useRef<SwiperRef>(null);
   useEffect(() => {
     // 스와이퍼와 curNav 동기화
     swiperRef.current?.swiper.slideTo(SelectionMap[curNav]);
   }, [curNav]);
 
+  useEffect(() => {
+    if (isLogin) {
+      getMyBets();
+    }
+  }, [getMyBets, isLogin]);
+
   async function openModal() {
     await openShareModal();
   }
 
   const handleNav = useCallback((selection: SelectionType) => {
-    if (selection !== 'All') {
+    if (selection !== 'all') {
       setCurNav(selection);
     }
   }, []);
 
-  // TODO: 실제 API로 변경
-  const [questionData, setQuestionData] = useState(DUMMY_QUESTIONS_API);
-  const requestHandler = (qid: number, answer: number) => {
-    const newData = {
-      ...questionData,
-      [curNav]: questionData[curNav].map((quesition) => {
-        if (quesition.questionId === qid) {
-          return { ...quesition, answer };
-        }
-        return { ...quesition };
-      }),
-    };
-    setQuestionData(newData);
-    if (
-      !checkIsDones(questionData) &&
-      checkIsDones(newData) &&
-      curNav !== SelectionArray[SelectionArray.length - 1].type
-    ) {
-      setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
-    }
-  };
-
-  const checkIsDones = useCallback(
-    (data: {
-      Baseball: QuestionType[];
-      Soccer: QuestionType[];
-      Basketball: QuestionType[];
-      Rugby: QuestionType[];
-      Hockey: QuestionType[];
-    }) => {
-      let isDone = true;
-      for (let key in data[curNav]) {
-        if (data[curNav][key].answer === null) {
-          isDone = false;
-          break;
-        }
+  const requestHandler = useCallback(
+    (qid: number, answer: number, prevAnswer: number | null) => {
+      if (!isLogin) {
+        openLoginModal();
+        return;
       }
-      return isDone;
+
+      const newData = questionData[curNav].map((question) => {
+        if (question.questionId === qid) {
+          return { ...question, myAnswer: answer };
+        }
+        return { ...question };
+      });
+
+      bet(
+        { answer, questionId: qid, sports: curNav },
+        {
+          onSuccess: () => {
+            if (prevAnswer === null) {
+              openToast({ message: '응모권 1장 획득!' });
+            }
+          },
+        },
+      );
+
+      if (
+        !checkIsDones(questionData[curNav]) && // 이전에 응답을 덜 했었고,
+        checkIsDones(newData) && // 이번 응답으로 모든 응답이 완료되었으며
+        curNav !== SelectionArray[SelectionArray.length - 1].type // 마지막 종목이 아닌 경우
+      ) {
+        setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
+      }
     },
-    [curNav],
+    [curNav, questionData, isLogin, openLoginModal, openToast, bet],
   );
 
   return (
     <div>
-      <NavScrollProvider<Exclude<SelectionType, 'All'>> target={curNav} />
+      <NavScrollProvider<Exclude<SelectionType, 'all'>> target={curNav} />
       <MainTopBar />
       <NavigationBar />
       <Wrapper>
         <PredictionBanner shareHandler={openModal} />
         <SportsSelectionBar curSelection={curNav} handleSelect={handleNav} isSticky />
         <Swiper slidesPerView={1} allowTouchMove={false} ref={swiperRef}>
-          {Object.entries(questionData).map(([sportsName, questions]) => (
-            <SwiperSlide key={sportsName}>
+          {SelectionArray.map(({ type }) => (
+            <SwiperSlide key={type}>
               <QuestionsWrapper>
-                {questions.map((question, index) => {
+                {questionData[type].map((question, index) => {
                   return (
                     <PredictionQuestion
-                      key={`${sportsName}-${index}`}
+                      key={`${type}-${index}`}
                       questionId={question.questionId}
                       questionIndex={index}
                       questionDescription={question.description}
                       options={question.choices}
-                      myAnswer={question.answer}
+                      myAnswer={question.myAnswer}
                       percentage={question.percentage}
                       requestHandler={requestHandler}
                     />
