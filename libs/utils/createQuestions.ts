@@ -25,9 +25,9 @@ export function createQuestions(
           myAnswer = myBets[sports][ind].myAnswer;
         } else {
           // TODO:
-          const myElement = myBets[sports].find((element) => element.questionId === question.questionId);
-          if (myElement !== undefined) {
-            myAnswer = myElement.myAnswer;
+          const curQuestionElement = myBets[sports].find((element) => element.questionId === question.questionId);
+          if (curQuestionElement !== undefined) {
+            myAnswer = curQuestionElement.myAnswer;
           }
         }
       }
@@ -48,11 +48,11 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
   baseball: [
     {
       questionId: 1,
-      description: '야구 승리할 팀을 예측해주세요',
+      description: '승리할 팀을 예측해주세요',
       choices: ['고려대', '무승부', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 2,
@@ -60,7 +60,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '득점없음', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 3,
@@ -68,7 +68,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['0개', '1개', '2개 이상'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 4,
@@ -76,7 +76,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20],
+      percentage: [null, null],
     },
     {
       questionId: 5,
@@ -84,7 +84,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '동률', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
   ],
   football: [
@@ -94,7 +94,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '무승부', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 7,
@@ -102,7 +102,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['1점 이내', '2점', '3점 이상'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 8,
@@ -110,7 +110,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '득점없음', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 9,
@@ -118,7 +118,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20],
+      percentage: [null, null],
     },
     {
       questionId: 10,
@@ -126,7 +126,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '없음', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
   ],
   basketball: [
@@ -136,7 +136,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '무승부', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 12,
@@ -144,7 +144,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20],
+      percentage: [null, null],
     },
     {
       questionId: 13,
@@ -152,7 +152,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20],
+      percentage: [null, null],
     },
     {
       questionId: 14,
@@ -160,7 +160,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '양 팀 동일', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 15,
@@ -168,7 +168,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '무승부', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
   ],
   rugby: [
@@ -178,7 +178,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '무승부', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 17,
@@ -186,7 +186,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20],
+      percentage: [null, null],
     },
     {
       questionId: 18,
@@ -194,7 +194,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20],
+      percentage: [null, null],
     },
     {
       questionId: 19,
@@ -202,7 +202,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['45점 이내', '46~55점', '56점 이상'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 20,
@@ -210,7 +210,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '무승부', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
   ],
   icehockey: [
@@ -220,7 +220,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '무승부', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 22,
@@ -228,7 +228,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['동점', '1~2점', '3점 이상'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 23,
@@ -236,7 +236,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['3분 이내', '3~5분', '5분 이상'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 24,
@@ -244,7 +244,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '양 팀 동일', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
     {
       questionId: 25,
@@ -252,7 +252,7 @@ const initialData: { [key in Exclude<SelectionType, 'all'>]: QuestionType[] } = 
       choices: ['고려대', '양 팀 동일', '연세대'],
       realAnswer: null,
       myAnswer: null,
-      percentage: [10, 20, 30],
+      percentage: [null, null, null],
     },
   ],
 };

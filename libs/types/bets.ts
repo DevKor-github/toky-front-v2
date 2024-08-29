@@ -2,7 +2,7 @@ export interface QuestionType {
   questionId: number;
   description: string;
   choices: string[];
-  percentage: number[];
+  percentage: (number | null)[];
   myAnswer: number | null;
   realAnswer: number | null;
 }
@@ -12,7 +12,7 @@ export interface APIQuestionInterface {
   realAnswer: number | null;
   description: string;
   choices: string[];
-  percentage: number[];
+  percentage: (number | null)[];
 }
 
 export interface APIBetInterface {

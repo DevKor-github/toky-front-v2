@@ -9,7 +9,7 @@ interface PredictionQuestionProps {
   questionDescription: string;
   options: string[];
   myAnswer: number | null;
-  percentage: number[];
+  percentage: (number | null)[];
   requestHandler: (qid: number, answer: number, prevAnswer: number | null) => void;
 }
 export function PredictionQuestion({
@@ -43,7 +43,7 @@ export function PredictionQuestion({
               index={index}
               handleAnswer={handleAnswer}
               position={position}
-              percentage={percentage[index]}
+              percentage={percentage[index] ?? 0}
               myAnswer={myAnswer}
             />
           );
