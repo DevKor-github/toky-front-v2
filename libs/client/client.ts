@@ -1,9 +1,6 @@
+import { createAxiosInstance } from '@/libs/client/createAxiosInstance';
 import axios from 'axios';
 
-const client = axios.create({
-  baseURL: '/api',
-  headers: { 'Content-Type': 'application/json' },
-  withCredentials: true,
-});
+const client = createAxiosInstance('/api');
 
 export default client;
