@@ -47,4 +47,5 @@ const TimerWrapper = styled.div`
 const ExpiredWrapper = styled.div`
   ${(prop) => prop.theme.typography.headTextBold};
   text-align: center;
+  color: white;
 `;

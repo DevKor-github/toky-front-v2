@@ -1,3 +1,5 @@
+import exp from 'constants';
+
 export type { IconProps } from './type';
 
 export { ArrowLeft } from './ArrowLeft';
@@ -25,4 +27,8 @@ export { AttendanceQuizArrow } from './AttendanceQuizArrow';
 export { AttendanceQuizTitleStroke } from './AttendanceQuizTitleStroke';
 export { ArrowRight } from './ArrowRight';
 export { Question } from './Question';
+export { Check } from './Check';
 export { Dot } from './Dot';
+export { AttendanceQuizRightBackground } from './AttendanceQuizRightBackground';
+export { AttendanceQuizLeftBackground } from './AttendanceQuizLeftBackground';
+export { Plus } from './Plus';

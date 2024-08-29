@@ -2,6 +2,7 @@
 
 import { DrawBoard } from '@/components/DrawBoard';
 import DrawCard from '@/components/DrawCard';
+import { DrawPolicy } from '@/components/DrawPolicy/DrawPolicy';
 import MainTopBar from '@/components/MainTopBar';
 import NavigationBar from '@/components/NavigationBar';
 import { Flex } from '@/libs/design-system/flex';
@@ -13,31 +14,31 @@ export default function Draw() {
     {
       id: 1,
       name: '애플워치 7',
-      image: '/api/image-proxy/test-5-0.png',
+      image: '/image-proxy/test-5-0.png',
       totalDraw: 100,
     },
     {
       id: 2,
       name: '스타벅스\n아메리카노 (10명)',
-      image: '/api/image-proxy/test-5-0.png',
+      image: '/image-proxy/test-5-0.png',
       totalDraw: 200,
     },
     {
       id: 3,
       name: '토키 3',
-      image: '/api/image-proxy/test-5-0.png',
+      image: '/image-proxy/test-5-0.png',
       totalDraw: 300,
     },
     {
       id: 4,
       name: '토키 4',
-      image: '/api/image-proxy/test-5-0.png',
+      image: '/image-proxy/test-5-0.png',
       totalDraw: 400,
     },
     {
       id: 5,
       name: '토키 5',
-      image: '/api/image-proxy/test-5-0.png',
+      image: '/image-proxy/test-5-0.png',
       totalDraw: 500,
     },
   ];
@@ -82,6 +83,7 @@ export default function Draw() {
             ))}
           </Flex>
         </Flex>
+        <DrawPolicy />
       </Wrapper>
     </div>
   );

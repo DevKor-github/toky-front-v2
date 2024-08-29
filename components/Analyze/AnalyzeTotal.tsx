@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 import AnalyzeTotalList from './AnalyzeTotalList';
+import { CheerUniversity } from './CheerUniversity';
 
 export function AnalyzeTotal() {
   return (
@@ -26,6 +27,7 @@ export function AnalyzeTotal() {
         <Divider top={84} />
       </Wrapper>
       <AnalyzeTotalList />
+      <CheerUniversity />
     </>
   );
 }
