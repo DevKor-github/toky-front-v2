@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import { SwiperRef } from 'swiper/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSignupError, useSignupForm } from '@/app/signup/store';
 
@@ -14,8 +14,9 @@ import { getCheckName, useGetNeedSignup, usePostSignup } from '@/libs/apis/auth'
 
 export default function SignUp() {
   const router = useRouter();
+  const param = useSearchParams();
 
-  const { data: isAlreadySignup, isSuccess } = useGetNeedSignup();
+  const { data: isAlreadySignup, isSuccess, isError } = useGetNeedSignup();
   const { mutate: singup } = usePostSignup();
 
   const formState = useSignupForm();
@@ -31,10 +32,10 @@ export default function SignUp() {
   }, [progress]);
 
   useEffect(() => {
-    if (isSuccess && isAlreadySignup) {
+    if ((isSuccess && isAlreadySignup) || isError) {
       router.push('/');
     }
-  }, [isSuccess, router, isAlreadySignup]);
+  }, [isSuccess, router, isAlreadySignup, isError]);
 
   const handlePrevButton = useCallback(() => {
     if (progress === 0) {
@@ -89,6 +90,7 @@ export default function SignUp() {
               name: formState.nickname,
               phoneNumber: formState.phoneNumber,
               university: formState.school === 'korea' ? 0 : 1,
+              inviteCode: param.get('invite-code') ?? undefined,
             },
             {
               onSuccess: () => setProgress((prev) => prev + 1),
