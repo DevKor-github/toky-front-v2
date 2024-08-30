@@ -17,6 +17,7 @@ interface InputBoxProps {
     text: string;
     onClick: () => void;
   };
+  changeable?: boolean;
 }
 export function InputBox({
   type = 'new',
@@ -27,6 +28,7 @@ export function InputBox({
   error = false,
   validationButton,
   clearError,
+  changeable = false,
 }: InputBoxProps) {
   const [status, setStatus] = useState<StatusType>('default');
   const errorState = useSignupError();
@@ -36,6 +38,7 @@ export function InputBox({
       <Input
         $status={status}
         $error={error}
+        $changeable={changeable}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
@@ -64,7 +67,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Input = styled.input<{ $status: StatusType; $error?: boolean }>`
+const Input = styled.input<{ $status: StatusType; $error?: boolean; $changeable?: boolean }>`
   padding: 16px;
   border: none;
   outline: none;
@@ -72,8 +75,9 @@ const Input = styled.input<{ $status: StatusType; $error?: boolean }>`
 
   border-radius: 8px;
   border: 1px solid;
-  border-color: ${({ $status, $error }) => {
+  border-color: ${({ $status, $error, $changeable }) => {
     if ($error) return `var(--Light-Red, #F95B6E)`;
+    if ($changeable) return `var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));`;
     switch ($status) {
       case 'focus':
       case 'filled':
