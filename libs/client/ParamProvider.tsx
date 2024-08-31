@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export function ParamProvider() {
+function ParamProvider() {
   const param = useSearchParams();
 
   useEffect(() => {
@@ -13,4 +13,12 @@ export function ParamProvider() {
   }, [param]);
 
   return <></>;
+}
+
+export function SuspenseParamProvider() {
+  return (
+    <Suspense>
+      <ParamProvider />
+    </Suspense>
+  );
 }

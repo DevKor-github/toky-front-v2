@@ -17,7 +17,7 @@ import client from '@/libs/client/client';
 import { CopyInviteCode } from '@/components/CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '@/components/KakaoLogin';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
-import { ParamProvider } from '@/libs/client/ParamProvider';
+import { SuspenseParamProvider } from '@/libs/client/ParamProvider';
 
 export default function Home() {
   const isLogin = useAuthStore((state) => state.isLogin);
@@ -33,9 +33,7 @@ export default function Home() {
 
   return (
     <div>
-      <Suspense>
-        <ParamProvider />
-      </Suspense>
+      <SuspenseParamProvider />
       <MainTopBar />
       <Wrapper>
         <MainCarousel />
