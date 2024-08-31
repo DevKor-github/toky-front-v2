@@ -43,7 +43,7 @@ export function PredictionQuestion({
               index={index}
               handleAnswer={handleAnswer}
               position={position}
-              percentage={percentage[index] ?? 0}
+              percentage={percentage[index] ? percentage[index] * 100 : 0}
               myAnswer={myAnswer}
             />
           );
