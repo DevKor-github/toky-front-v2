@@ -12,7 +12,6 @@ export function CopyInviteCode() {
   const { openToast } = useToast();
 
   function generateInviteCode(code: string) {
-    console.log(process.env.NEXT_PUBLIC_DOMAIN_URL + '/?referer=' + inviteCode);
     return process.env.NEXT_PUBLIC_DOMAIN_URL + '/?referer=' + inviteCode;
   }
 
@@ -33,7 +32,6 @@ export function CopyInviteCode() {
         });
     } else {
       // TODO: Error handling (프로필이 안 받아와졌거나, inviteCode가 없는 경우)
-      console.log(inviteCode);
     }
   });
 
