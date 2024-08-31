@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
 
 import { Flex } from '@/libs/design-system/flex';
@@ -17,19 +17,10 @@ import client from '@/libs/client/client';
 import { CopyInviteCode } from '@/components/CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '@/components/KakaoLogin';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
-import { useSearchParams } from 'next/navigation';
+import { ParamProvider } from '@/libs/client/ParamProvider';
 
 export default function Home() {
   const isLogin = useAuthStore((state) => state.isLogin);
-  const param = useSearchParams();
-
-  useEffect(() => {
-    // invite-code가 있다면 세션에 저장
-    const inviteCode = param.get('referer');
-    if (inviteCode) {
-      sessionStorage.setItem('invite-code', inviteCode);
-    }
-  }, [param]);
 
   const onClick = async () => {
     try {
@@ -42,6 +33,9 @@ export default function Home() {
 
   return (
     <div>
+      <Suspense>
+        <ParamProvider />
+      </Suspense>
       <MainTopBar />
       <Wrapper>
         <MainCarousel />
@@ -50,7 +44,6 @@ export default function Home() {
             <IconButton key={`${iconInfo.href}-${iconInfo.icon}`} {...iconInfo} />
           ))}
         </Flex>
-
         <ActionCardWrapper>
           {isLogin ? (
             <ActionCard
