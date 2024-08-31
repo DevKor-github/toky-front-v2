@@ -14,7 +14,6 @@ import { getCheckName, useGetNeedSignup, usePostSignup } from '@/libs/apis/auth'
 
 export default function SignUp() {
   const router = useRouter();
-  const param = useSearchParams();
 
   const { data: isAlreadySignup, isSuccess, isError } = useGetNeedSignup();
   const { mutate: singup } = usePostSignup();
@@ -85,12 +84,14 @@ export default function SignUp() {
           setProgress((prev) => prev + 1);
           break;
         case 3:
+          const inviteCode = sessionStorage.getItem('invite-code');
+          sessionStorage.removeItem('invite-code');
           singup(
             {
               name: formState.nickname,
               phoneNumber: formState.phoneNumber,
               university: formState.school === 'korea' ? 0 : 1,
-              inviteCode: param.get('referer') ?? undefined,
+              inviteCode: inviteCode ?? undefined,
             },
             {
               onSuccess: () => setProgress((prev) => prev + 1),

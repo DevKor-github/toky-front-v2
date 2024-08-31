@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Flex } from '@/libs/design-system/flex';
@@ -17,9 +17,19 @@ import client from '@/libs/client/client';
 import { CopyInviteCode } from '@/components/CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '@/components/KakaoLogin';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
+import { useSearchParams } from 'next/navigation';
 
 export default function Home() {
   const isLogin = useAuthStore((state) => state.isLogin);
+  const param = useSearchParams();
+
+  useEffect(() => {
+    // invite-code가 있다면 세션에 저장
+    const inviteCode = param.get('referer');
+    if (inviteCode) {
+      sessionStorage.setItem('invite-code', inviteCode);
+    }
+  }, [param]);
 
   const onClick = async () => {
     try {
