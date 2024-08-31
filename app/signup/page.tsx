@@ -90,7 +90,7 @@ export default function SignUp() {
               name: formState.nickname,
               phoneNumber: formState.phoneNumber,
               university: formState.school === 'korea' ? 0 : 1,
-              inviteCode: param.get('invite-code') ?? undefined,
+              inviteCode: param.get('referer') ?? undefined,
             },
             {
               onSuccess: () => setProgress((prev) => prev + 1),
