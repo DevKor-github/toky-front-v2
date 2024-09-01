@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
+import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 import { useGetBetQuestions, useGetMyBets, usePostBet } from '@/libs/apis/bets';
 import { SelectionArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
 import { NavScrollProvider } from '@/app/bets/NavScrollProvider';
@@ -35,6 +36,7 @@ const checkIsDones = (data: QuestionType[]) => {
 
 export default function Bets() {
   const isLogin = useAuthStore((state) => state.isLogin);
+  const addTickets = useTicketStore((state) => state.addTickets);
 
   const { openLoginModal } = useLoginModal();
   const { openShareModal } = useShareModal();
@@ -89,6 +91,7 @@ export default function Bets() {
           onSuccess: () => {
             if (prevAnswer === null) {
               openToast({ message: '응모권 1장 획득!' });
+              addTickets(1);
             }
           },
         },
@@ -102,7 +105,7 @@ export default function Bets() {
         setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
       }
     },
-    [curNav, questionData, isLogin, openLoginModal, openToast, bet],
+    [curNav, questionData, isLogin, openLoginModal, openToast, bet, addTickets],
   );
 
   return (
