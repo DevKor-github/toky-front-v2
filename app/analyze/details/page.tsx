@@ -4,15 +4,16 @@ import styled from 'styled-components';
 import { useState, useCallback } from 'react';
 import SportsSelectionBar from '@/components/SportsSelectionBar';
 import { SelectionType } from '@/libs/constants/sports';
-import { PLAYER_CARD_LIST } from './constants';
 import PlayerCard from '@/components/PlayerCard';
 import { PlayerCardContainer } from '@/components/Analyze/PlayerCardContainer';
 import { useEffect } from 'react';
 import Header from '@/components/Header';
+import { KOREA_PLAYER_CARD_LIST, YONSEI_PLAYER_CARD_LIST } from '../constants';
 
 export default function AnalyzeDetails() {
-  const [curNav, setCurNav] = useState<SelectionType>('all');
+  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>('baseball');
   const handleNav = useCallback((selection: SelectionType) => {
+    if (selection === 'all') return;
     setCurNav(selection);
   }, []);
 
@@ -23,6 +24,9 @@ export default function AnalyzeDetails() {
       setScale(window.innerWidth / 390);
     }
   }, []);
+
+  const koreaPlayers = curNav != 'rugby' ? KOREA_PLAYER_CARD_LIST[curNav] : [];
+  const yonseiPlayers = curNav != 'rugby' ? YONSEI_PLAYER_CARD_LIST[curNav] : [];
 
   return (
     <>
@@ -38,12 +42,12 @@ export default function AnalyzeDetails() {
         />
         <ContentsWrapper scale={scale}>
           <PlayerCardContainer school="고려대학교" scale={scale}>
-            {PLAYER_CARD_LIST.map((player, index) => (
+            {koreaPlayers.map((player, index) => (
               <PlayerCard key={index} scale={scale} {...player} />
             ))}
           </PlayerCardContainer>
           <PlayerCardContainer school="연세대학교" scale={scale}>
-            {PLAYER_CARD_LIST.map((player, index) => (
+            {yonseiPlayers.map((player, index) => (
               <PlayerCard key={index} scale={scale} {...player} />
             ))}
           </PlayerCardContainer>
