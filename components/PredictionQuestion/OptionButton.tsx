@@ -27,7 +27,7 @@ export function OptionButton({ index, handleAnswer, option, position, percentage
     >
       {option}
       {isAnswered && (
-        <Percentage>
+        <Percentage $isMyAnswer={isMyAnswer}>
           <span>{percentage}</span>
           <span>%</span>
         </Percentage>
@@ -87,7 +87,7 @@ const Wrapper = styled.button<{
   align-items: center;
 `;
 
-const Percentage = styled.div`
+const Percentage = styled.div<{ $isMyAnswer: boolean }>`
   display: flex;
   gap: 0.3rem;
   align-items: flex-end;
@@ -95,11 +95,13 @@ const Percentage = styled.div`
   font-weight: 700;
 
   font-family: 'Spoqa Han Sans Neo';
+  color: ${({ $isMyAnswer }) => ($isMyAnswer ? `var(--white_0, #FFF)` : `#3C3C3C`)};
 
   & span:nth-child(1) {
     font-size: 30px;
     letter-spacing: -3px;
-    -webkit-text-stroke: 1px white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: ${({ $isMyAnswer }) => ($isMyAnswer ? `var(--white_0, #FFF)` : `#3C3C3C`)};
   }
   & span:nth-child(2) {
     height: 20px;
