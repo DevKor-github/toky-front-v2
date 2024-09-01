@@ -21,6 +21,14 @@ export interface MyDrawGifts {
   draws: DrawGift[];
 }
 
+export interface TicketHistoryItem {
+  id: number;
+  detail: string;
+  usedTicket: number;
+  remainingTicket: number;
+  createdAt: string;
+}
+
 const getTickets = async () => {
   const response = await client.get<number>('/ticket');
   return response.data;
@@ -34,6 +42,11 @@ const getGiftItems = async () => {
 const getMyTicketsUse = async () => {
   const response = await client.get<MyDrawGifts>('/ticket/draw');
   return response.data.draws;
+};
+
+const getTicketHistoryList = async () => {
+  const response = await client.get<TicketHistoryItem[]>('/ticket/history');
+  return response.data;
 };
 
 const postTicketsDraw = async (draws: DrawGift[]) => {
@@ -124,5 +137,12 @@ export const useDrawOneGift = (onSuccessFunction: () => void, giftId: number) =>
         refetchTickets();
       }
     },
+  });
+};
+
+export const useGetTicketHistoryList = () => {
+  return useQuery({
+    queryKey: ['ticket-history'],
+    queryFn: getTicketHistoryList,
   });
 };
