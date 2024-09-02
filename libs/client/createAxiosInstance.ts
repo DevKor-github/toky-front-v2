@@ -30,15 +30,18 @@ const errorHandler = async (error: any) => {
   const { config, response } = error;
 
   if (response?.status === 401 && config.url !== REFRESH_URL && !config.sent) {
-    config.sent = true;
-    const newAccessToken = await refresh();
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (refreshToken !== null) {
+      config.sent = true;
+      const newAccessToken = await refresh();
 
-    if (newAccessToken) {
-      console.log(`New Access Token :: ${newAccessToken}`);
-      config.headers.Authorization = `Bearer ${newAccessToken}`;
-      return client(config);
-    } else {
-      return Promise.reject(error);
+      if (newAccessToken) {
+        console.log(`New Access Token :: ${newAccessToken}`);
+        config.headers.Authorization = `Bearer ${newAccessToken}`;
+        return client(config);
+      } else {
+        return Promise.reject(error);
+      }
     }
   }
 

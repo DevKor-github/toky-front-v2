@@ -10,7 +10,7 @@ interface OptionButtonProps {
   position: 'left' | 'center' | 'right';
   percentage: number;
   myAnswer: number | null;
-  realAnswer: number | null;
+  realAnswer?: number | null;
 }
 export function OptionButton({
   index,
