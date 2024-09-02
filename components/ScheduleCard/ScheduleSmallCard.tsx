@@ -11,7 +11,7 @@ interface ScheduleSmallCardProps {
 export function ScheduleSmallCard({ title, time, backgroundImage }: ScheduleSmallCardProps) {
   return (
     <Card>
-      <BackGroundImage src={backgroundImage} fill alt="스케줄 카드" />
+      <BackGroundImage src={backgroundImage} fill alt="스케줄 카드" sizes="30vw 100%" />
       <Flex $direction="column" style={{ position: 'relative' }}>
         <Time>{time}</Time>
         <Name>{title}</Name>

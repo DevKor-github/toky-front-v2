@@ -38,12 +38,12 @@ export const MATCH_SCHEDULE = [
     time: '14:30',
     startDate: new Date('2024-09-27T14:30:00'),
   },
-  // {
-  //   title: '럭비',
-  //   day: '9/27 (금)',
-  //   time: '14:30',
-  //   startDate: new Date('2024-09-27T14:30:00'),
-  // },
+  {
+    title: '럭비',
+    day: '9/27 (금)',
+    time: '14:30',
+    startDate: new Date('2024-09-27T14:30:00'),
+  },
   {
     title: '축구',
     day: '9/27 (금)',

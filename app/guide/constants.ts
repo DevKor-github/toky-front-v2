@@ -15,7 +15,7 @@ const SCHEDULECARD_IMAGE = [
   },
 ];
 
-export const GUIDE_INFO = MATCH_SCHEDULE.map((match, index) => {
+export const GUIDE_INFO = MATCH_SCHEDULE.filter((info) => info.title != '럭비').map((match, index) => {
   return {
     ...match,
     imageUrl: SCHEDULECARD_IMAGE[index].imageUrl,

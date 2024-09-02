@@ -30,7 +30,7 @@ export function MainTopBar() {
     if (isHome) {
       navigationAnimation();
     }
-  }, [navigationAnimation, pathname]);
+  }, [navigationAnimation, isHome]);
 
   return (
     <Wrapper
