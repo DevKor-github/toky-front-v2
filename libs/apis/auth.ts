@@ -49,8 +49,6 @@ export const usePostSignup = () => {
 export const usePostLogout = () => {
   const logout = useAuthStore((state) => state.logout);
   const signOut = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
     logout();
   };
   return useMutation({ mutationFn: postLogout, onSuccess: signOut });

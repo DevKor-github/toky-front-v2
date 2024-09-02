@@ -12,11 +12,13 @@ import { useProfileStore } from '@/libs/store/Providers/ProfileStoreProvider';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 import { onClickKakaoLogin } from '@/libs/utils/kakaoLogin';
+import { usePostLogout } from '@/libs/apis/auth';
 
 function SideBarBody({ isBarOpen = true }) {
   const nowPage = usePathname();
   const userInfo = useProfileStore((state) => state.profile);
-  const { logout, isLogin } = useAuthStore((state) => state);
+  const { isLogin } = useAuthStore((state) => state);
+  const { mutate: logout } = usePostLogout();
   const tickets = useTicketStore((state) => state.tickets);
   const university = userInfo?.university == 0 ? '고려대학교' : '연세대학교';
 
@@ -83,7 +85,7 @@ function SideBarBody({ isBarOpen = true }) {
             </NavItem>
             {isLogin && (
               <Link href="/">
-                <NavItem $selected={false} onClick={logout}>
+                <NavItem $selected={false} onClick={() => logout}>
                   로그아웃
                 </NavItem>
               </Link>
