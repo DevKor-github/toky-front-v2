@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
 
 import { Flex } from '@/libs/design-system/flex';
@@ -17,6 +17,7 @@ import client from '@/libs/client/client';
 import { CopyInviteCode } from '@/components/CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '@/components/KakaoLogin';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
+import { SuspenseParamProvider } from '@/libs/client/ParamProvider';
 
 export default function Home() {
   const isLogin = useAuthStore((state) => state.isLogin);
@@ -32,6 +33,7 @@ export default function Home() {
 
   return (
     <div>
+      <SuspenseParamProvider />
       <MainTopBar />
       <Wrapper>
         <MainCarousel />
@@ -40,7 +42,6 @@ export default function Home() {
             <IconButton key={`${iconInfo.href}-${iconInfo.icon}`} {...iconInfo} />
           ))}
         </Flex>
-
         <ActionCardWrapper>
           {isLogin ? (
             <ActionCard
