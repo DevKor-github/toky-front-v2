@@ -139,10 +139,9 @@ export default function Bets() {
             <SwiperSlide
               key={type}
               onFocus={() => {
-                if (!swiperRef.current) {
-                  return;
+                if (swiperRef.current) {
+                  swiperRef.current.swiper.el.scrollLeft = 0;
                 }
-                swiperRef.current.swiper.el.scrollLeft = 0;
               }}
             >
               <QuestionsWrapper>
