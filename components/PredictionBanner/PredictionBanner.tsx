@@ -1,8 +1,10 @@
 'use client';
 
+import styled from 'styled-components';
 import ActionButton from '@/components/ActionButton';
 import { Flex } from '@/libs/design-system/flex';
-import styled from 'styled-components';
+import Link from 'next/link';
+import { Typo } from '@/libs/design-system/typo';
 
 interface PredictionBannerProps {
   shareHandler: () => void;
@@ -11,15 +13,15 @@ export function PredictionBanner({ shareHandler }: PredictionBannerProps) {
   return (
     <Wrapper>
       <Title>
-        {/* TODO: 저작권 명확히 한 후, SVG 또는 웹폰트 적용 */}
-        <div style={{ fontSize: '16px' }}>2024 정기전 토키</div>
-        <div style={{ fontSize: '43.5px' }}>승부예측</div>
+        <Typo.BetSubTitle />
+        <Typo.BetTitle />
       </Title>
       <Flex $gap="6px">
-        {/* TODO: 더 알아보기 버튼에 액션 적용 */}
-        <ActionButton color="white" bgColor="#FFFFFF26" fontSize="14px" padding="8px 16px" borderRadius="99px">
-          더 알아보기
-        </ActionButton>
+        <Link href="/analyze">
+          <ActionButton color="white" bgColor="#FFFFFF26" fontSize="14px" padding="8px 16px" borderRadius="99px">
+            더 알아보기
+          </ActionButton>
+        </Link>
         <ActionButton
           color="white"
           bgColor="linear-gradient(90deg, rgba(134, 0, 240, 0.80) -12.75%, rgba(70, 0, 183, 0.80) 113.73%)"

@@ -62,7 +62,7 @@ export default function Bets() {
   }, [getMyBets, isLogin]);
 
   const openModal = useCallback(async () => {
-    await openShareModal;
+    await openShareModal();
   }, [openShareModal]);
 
   const handleNav = useCallback((selection: SelectionType) => {
