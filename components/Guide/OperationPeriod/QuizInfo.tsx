@@ -1,5 +1,6 @@
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
+import { Typo } from '@/libs/design-system/typo';
 import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
 import Image from 'next/image';
 import styled from 'styled-components';
@@ -15,7 +16,7 @@ export function QuizInfo() {
       </RightBackground>
       <Content>
         <Flex $direction="column" $align="center" $gap={8}>
-          <SectionTitle>출석퀴즈</SectionTitle>
+          <Typo.GuideAttendenceTitle />
           <Flex $gap={6}>
             <InfoText>09.09(금)</InfoText>
             <InfoText>- </InfoText>
