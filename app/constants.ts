@@ -8,6 +8,7 @@ interface Event {
   title: string;
   time: string;
   location: string;
+  img: string;
 }
 
 interface ScheduleInfo {
@@ -51,6 +52,7 @@ export const SCHEDULE_INFO: ScheduleInfo = {
       title: '합동응원전',
       time: '18:00',
       location: '고려대학교 화정체육관',
+      img: '/image-proxy/home/cheer-ot.png',
     },
   ],
   '9/27 (금)': [
@@ -58,28 +60,27 @@ export const SCHEDULE_INFO: ScheduleInfo = {
       title: '야구',
       time: '12:00',
       location: '목동 야구장',
+      img: '/image-proxy/home/baseball.png',
     },
     {
       title: '농구',
       time: '16:00',
       location: '고양 농구장',
+      img: '/image-proxy/home/basketball.png',
     },
     {
       title: '아이스하키',
       time: '16:00',
       location: '목동 아이스링크',
+      img: '/image-proxy/home/icehockey.png',
     },
   ],
   '9/28 (토)': [
     {
-      title: '럭비',
-      time: '12:00',
-      location: '고양 운동장',
-    },
-    {
       title: '축구',
       time: '16:00',
       location: '고양 운동장',
+      img: '/image-proxy/home/football.png',
     },
   ],
 };

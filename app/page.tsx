@@ -1,8 +1,7 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
 import { Flex } from '@/libs/design-system/flex';
 import MainTopBar from '@/components/MainTopBar';
 import MainCarousel from '@/components/MainCarousel';
@@ -10,7 +9,6 @@ import ActionCard from '@/components/ActionCard';
 import IconButton from '@/components/IconButton';
 import FreeModeCarousel from '@/components/FreeModeCarousel';
 import ScheduleCard from '@/components/ScheduleCard';
-import Baseball from '@/public/baseball.png';
 import ActionButton from '@/components/ActionButton';
 import { ICON_INFO_LIST, SCHEDULE_INFO, MESSAGE_INFO } from './constants';
 import client from '@/libs/client/client';
@@ -22,15 +20,6 @@ import { Icon } from '@/libs/design-system/icons';
 
 export default function Home() {
   const isLogin = useAuthStore((state) => state.isLogin);
-
-  const onClick = async () => {
-    try {
-      const response = await client.get<boolean>('/auth/need-signup');
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   return (
     <div>
@@ -58,7 +47,11 @@ export default function Home() {
         <ScheduleCarouselWrapper>
           <ScheduleHeader>
             <ScheduleTitle>정기전 일정</ScheduleTitle>
-            <ActionButton color="var(--white-medium-emphasis-60, rgba(255, 255, 255, 0.60))" fontSize="14px">
+            <ActionButton
+              color="var(--white-medium-emphasis-60, rgba(255, 255, 255, 0.60))"
+              fontSize="14px"
+              href="/bets"
+            >
               <Flex $gap={4} $align="center">
                 자세히보기
                 <Icon.ChevronForward />
@@ -66,17 +59,17 @@ export default function Home() {
             </ActionButton>
           </ScheduleHeader>
           <FreeModeCarousel padding="0px 20px" spaceBetween={0}>
-            {Object.entries(SCHEDULE_INFO).map(([date, events]) => (
-              <React.Fragment key={date}>
+            {Object.entries(SCHEDULE_INFO).map(([date, events], index) => (
+              <React.Fragment key={`${date}-${index}`}>
                 <Date>{date}</Date>
                 <Flex $align="flex-start">
                   {events.map((event, index) => (
                     <ScheduleCard
-                      key={index}
+                      key={event.title + index}
                       title={event.title}
                       time={event.time}
                       location={event.location}
-                      backgroundImage={Baseball.src} //TODO: 서버에서 이미지 파일 가져와서 생성
+                      backgroundImage={event.img} //TODO: 서버에서 이미지 파일 가져와서 생성
                     />
                   ))}
                 </Flex>
@@ -84,9 +77,6 @@ export default function Home() {
             ))}
           </FreeModeCarousel>
         </ScheduleCarouselWrapper>
-        <ActionButton color="white" onClick={onClick}>
-          test
-        </ActionButton>
       </Wrapper>
     </div>
   );
