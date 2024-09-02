@@ -11,12 +11,14 @@ import SignupTopBar from '@/components/Signup/SignupTopBar';
 import SignupProgress from '@/components/Signup/SignupProgress';
 import SignupFunnel from '@/components/Signup/SignupFunnel';
 import { getCheckName, useGetNeedSignup, usePostSignup } from '@/libs/apis/auth';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 
 export default function SignUp() {
   const router = useRouter();
 
   const { data: isAlreadySignup, isSuccess, isError, refetch: checkAlreadySignUp } = useGetNeedSignup();
   const { mutate: singup } = usePostSignup();
+  const login = useAuthStore((state) => state.login);
 
   const formState = useSignupForm();
   const errorState = useSignupError();
@@ -94,7 +96,10 @@ export default function SignUp() {
               inviteCode: inviteCode ?? undefined,
             },
             {
-              onSuccess: () => setProgress((prev) => prev + 1),
+              onSuccess: () => {
+                setProgress((prev) => prev + 1);
+                login();
+              },
             },
           );
           break;
