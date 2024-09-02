@@ -14,7 +14,6 @@ import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 import { onClickKakaoLogin } from '@/libs/utils/kakaoLogin';
 
 function SideBarBody({ isBarOpen = true }) {
-  // TODO: use userInfo from store or context
   const nowPage = usePathname();
   const userInfo = useProfileStore((state) => state.profile);
   const { logout, isLogin } = useAuthStore((state) => state);
@@ -82,11 +81,12 @@ function SideBarBody({ isBarOpen = true }) {
             <NavItem $selected={false} onClick={openTokyInstagram}>
               문의하기
             </NavItem>
-            {/* TODO LOGOUT달기 */}
             {isLogin && (
-              <NavItem $selected={false} onClick={logout}>
-                로그아웃
-              </NavItem>
+              <Link href="/">
+                <NavItem $selected={false} onClick={logout}>
+                  로그아웃
+                </NavItem>
+              </Link>
             )}
           </Flex>
         </NavWrapper>

@@ -76,7 +76,7 @@ export default function Home() {
                       title={event.title}
                       time={event.time}
                       location={event.location}
-                      backgroundImage={event.img} //TODO: 서버에서 이미지 파일 가져와서 생성
+                      backgroundImage={event.img}
                     />
                   ))}
                 </Flex>
