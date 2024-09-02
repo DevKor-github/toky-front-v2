@@ -7,12 +7,14 @@ import { useAuthStore } from '../store/Providers/AuthStoreProvider';
 import { useProfileStore } from '../store/Providers/ProfileStoreProvider';
 import { useTicketStore } from '../store/Providers/TicketStoreProvider';
 import { refresh } from '@/libs/client/createAxiosInstance';
+import { useGetNeedSignup } from '@/libs/apis/auth';
 
 export function AuthProvider() {
   const { isLogin, login, logout } = useAuthStore((state) => state);
   const setProfile = useProfileStore((state) => state.setProfile);
   const setTickets = useTicketStore((state) => state.setTickets);
 
+  const { data: isAlreadySignup, isSuccess: isGetNeedSignupSuccess } = useGetNeedSignup();
   const { data: updateProfile, refetch: getProfile, isSuccess: isGetProfileSuccess } = useGetProfile();
   const { data: tickets, refetch: getTickets, isSuccess: isGetTicketsSuccess } = useGetTickets();
 
@@ -58,11 +60,10 @@ export function AuthProvider() {
   }, [signIn, signOut]);
 
   useEffect(() => {
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (refreshToken) {
+    if (isGetNeedSignupSuccess && isAlreadySignup) {
       login();
     }
-  }, [login]);
+  }, [isGetNeedSignupSuccess, isAlreadySignup, login]);
 
   useEffect(() => {
     if (isLogin) {
