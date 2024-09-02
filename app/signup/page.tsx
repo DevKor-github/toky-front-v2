@@ -46,6 +46,12 @@ export default function SignUp() {
     }
   }, [router, progress]);
 
+  const preventSwiperTab = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.el.scrollLeft = 0;
+    }
+  };
+
   // 다음 버튼 활성화 로직
   useEffect(() => {
     switch (progress) {
@@ -119,7 +125,7 @@ export default function SignUp() {
     <div>
       <SignupTopBar handlePrevButton={handlePrevButton} />
       <SignupProgress curProgress={progress} totalProgress={totalProgress} />
-      <SignupFunnel ref={swiperRef} />
+      <SignupFunnel ref={swiperRef} preventSwiperTab={preventSwiperTab} />
       <SignupFooter $isDone={clickable} onClick={handleNextButton}>
         {progress === totalProgress ? '토키 시작하기' : '다음'}
       </SignupFooter>

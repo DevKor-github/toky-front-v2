@@ -9,31 +9,36 @@ import SetPhoneNumber from '@/components/Signup/SetPhoneNumber';
 import TermsAgreement from '@/components/Signup/TermsAgreement';
 import Welcome from '@/components/Signup/Welcome';
 
-interface SignupFunnelProps {}
-export const SignupFunnel = forwardRef<SwiperRef, SignupFunnelProps>(function SignupContents({}, ref) {
+interface SignupFunnelProps {
+  preventSwiperTab: () => void;
+}
+export const SignupFunnel = forwardRef<SwiperRef, SignupFunnelProps>(function SignupContents(
+  { preventSwiperTab },
+  ref,
+) {
   return (
     <SwiperWrapper slidesPerView={1} allowTouchMove={false} ref={ref}>
-      <SwiperSlide>
+      <SwiperSlide onFocus={preventSwiperTab}>
         <Contents>
           <SetUniv />
         </Contents>
       </SwiperSlide>
-      <SwiperSlide>
+      <SwiperSlide onFocus={preventSwiperTab}>
         <Contents>
           <SetNickname />
         </Contents>
       </SwiperSlide>
-      <SwiperSlide>
+      <SwiperSlide onFocus={preventSwiperTab}>
         <Contents>
           <SetPhoneNumber />
         </Contents>
       </SwiperSlide>
-      <SwiperSlide>
+      <SwiperSlide onFocus={preventSwiperTab}>
         <Contents>
           <TermsAgreement />
         </Contents>
       </SwiperSlide>
-      <SwiperSlide>
+      <SwiperSlide onFocus={preventSwiperTab}>
         <Contents>
           <Welcome />
         </Contents>

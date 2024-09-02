@@ -136,7 +136,14 @@ export default function Bets() {
         <SportsSelectionBar curSelection={curNav} handleSelect={handleNav} isSticky />
         <Swiper slidesPerView={1} allowTouchMove={false} ref={swiperRef}>
           {SelectionArray.map(({ type }) => (
-            <SwiperSlide key={type}>
+            <SwiperSlide
+              key={type}
+              onFocus={() => {
+                if (swiperRef.current) {
+                  swiperRef.current.swiper.el.scrollLeft = 0;
+                }
+              }}
+            >
               <QuestionsWrapper>
                 {questionData[type].map((question, index) => {
                   return (
