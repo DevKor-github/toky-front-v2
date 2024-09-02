@@ -7,11 +7,15 @@ import { SelectionType } from '@/libs/constants/sports';
 import PlayerCard from '@/components/PlayerCard';
 import { PlayerCardContainer } from '@/components/Analyze/PlayerCardContainer';
 import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Header from '@/components/Header';
 import { KOREA_PLAYER_CARD_LIST, YONSEI_PLAYER_CARD_LIST } from '../constants';
 
 export default function AnalyzeDetails() {
-  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>('baseball');
+  const searchParams = useSearchParams();
+  const sportsType = searchParams.get('sports') ?? 'baseball';
+
+  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>(sportsType as Exclude<SelectionType, 'all'>);
   const handleNav = useCallback((selection: SelectionType) => {
     if (selection === 'all') return;
     setCurNav(selection);

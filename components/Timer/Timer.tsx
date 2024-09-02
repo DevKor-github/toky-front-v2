@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useTimer from './useTimer';
 import styled from 'styled-components';
 import { getFormattedTimeFromSeconds } from '@/libs/utils/time';
