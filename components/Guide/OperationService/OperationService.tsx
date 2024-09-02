@@ -80,12 +80,11 @@ const BackgroudImage = styled(Image)<{ $isOdd: boolean }>`
 const Title = styled.h2`
   color: #fff;
   text-align: center;
-  font-family: 'Happiness Sans';
   font-size: 22px;
   font-style: normal;
-  font-weight: 900;
+  font-weight: 700;
   line-height: normal;
-  letter-spacing: -0.9px;
+  letter-spacing: -0.88px;
 `;
 
 const Text = styled.div`

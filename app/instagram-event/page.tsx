@@ -100,13 +100,12 @@ const Title = styled.h2`
 `;
 
 const Subtitle = styled.h4`
-  color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
-  font-family: 'Happiness Sans';
-  font-size: 14px;
+  color: #fff;
+  font-size: 18px;
   font-style: normal;
-  font-weight: 900;
+  font-weight: 700;
   line-height: normal;
-  letter-spacing: -0.56px;
+  letter-spacing: -0.72px;
 `;
 const InfoText = styled.p`
   color: #fff;

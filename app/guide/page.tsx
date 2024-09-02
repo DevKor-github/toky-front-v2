@@ -97,11 +97,11 @@ const Title = styled.h2`
 const Text = styled.h4`
   color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
   text-align: center;
-  font-family: 'Happiness Sans';
+  font-family: 'Spoqa Han Sans Neo';
   font-size: 14px;
   font-style: normal;
-  font-weight: 900;
-  line-height: normal;
+  font-weight: 700;
+  line-height: 150%; /* 21px */
   letter-spacing: -0.56px;
   margin-top: 10px;
 `;
