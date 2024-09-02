@@ -18,6 +18,7 @@ import { CopyInviteCode } from '@/components/CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '@/components/KakaoLogin';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 import { SuspenseParamProvider } from '@/libs/client/ParamProvider';
+import { Icon } from '@/libs/design-system/icons';
 
 export default function Home() {
   const isLogin = useAuthStore((state) => state.isLogin);
@@ -54,24 +55,35 @@ export default function Home() {
           )}
         </ActionCardWrapper>
         {/*TODO: 정기전 일정, 자세히 보기 구현 */}
-        <FreeModeCarousel padding="0px 20px" spaceBetween={0}>
-          {Object.entries(SCHEDULE_INFO).map(([date, events]) => (
-            <React.Fragment key={date}>
-              <Date>{date}</Date>
-              <Flex $align="flex-start">
-                {events.map((event, index) => (
-                  <ScheduleCard
-                    key={index}
-                    title={event.title}
-                    time={event.time}
-                    location={event.location}
-                    backgroundImage={Baseball.src} //TODO: 서버에서 이미지 파일 가져와서 생성
-                  />
-                ))}
+        <ScheduleCarouselWrapper>
+          <ScheduleHeader>
+            <ScheduleTitle>정기전 일정</ScheduleTitle>
+            <ActionButton color="var(--white-medium-emphasis-60, rgba(255, 255, 255, 0.60))" fontSize="14px">
+              <Flex $gap={4} $align="center">
+                자세히보기
+                <Icon.ChevronForward />
               </Flex>
-            </React.Fragment>
-          ))}
-        </FreeModeCarousel>
+            </ActionButton>
+          </ScheduleHeader>
+          <FreeModeCarousel padding="0px 20px" spaceBetween={0}>
+            {Object.entries(SCHEDULE_INFO).map(([date, events]) => (
+              <React.Fragment key={date}>
+                <Date>{date}</Date>
+                <Flex $align="flex-start">
+                  {events.map((event, index) => (
+                    <ScheduleCard
+                      key={index}
+                      title={event.title}
+                      time={event.time}
+                      location={event.location}
+                      backgroundImage={Baseball.src} //TODO: 서버에서 이미지 파일 가져와서 생성
+                    />
+                  ))}
+                </Flex>
+              </React.Fragment>
+            ))}
+          </FreeModeCarousel>
+        </ScheduleCarouselWrapper>
         <ActionButton color="white" onClick={onClick}>
           test
         </ActionButton>
@@ -106,4 +118,28 @@ const Date = styled.div`
 
 const ActionCardWrapper = styled.div`
   padding: 0px 20px;
+`;
+
+const ScheduleCarouselWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+  gap: 12px;
+`;
+
+const ScheduleHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px 14px 0px 20px;
+`;
+
+const ScheduleTitle = styled.div`
+  color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
+  font-family: 'Spoqa Han Sans Neo';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.8px;
 `;

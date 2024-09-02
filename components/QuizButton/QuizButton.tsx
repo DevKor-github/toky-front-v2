@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { Icon } from '@/libs/design-system/icons';
 
 interface QuizButtonProps {
-  type: 'O' | 'X';
-  onAnswer: (answer: 'O' | 'X') => void;
+  type: boolean;
+  onAnswer: (answer: boolean) => void;
 }
 
 export function QuizButton({ type, onAnswer }: QuizButtonProps) {
@@ -13,9 +13,9 @@ export function QuizButton({ type, onAnswer }: QuizButtonProps) {
     'var(--Background-14, linear-gradient(0deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.14) 100%), #121212)',
   );
 
-  const onClickHandler = (type: 'O' | 'X') => {
+  const onClickHandler = (type: boolean) => {
     onAnswer(type);
-    setBgColor(type === 'O' ? 'rgba(89, 136, 255, 0.80)' : 'rgba(249, 91, 110, 0.80)');
+    setBgColor(type === true ? 'rgba(89, 136, 255, 0.80)' : 'rgba(249, 91, 110, 0.80)');
   };
 
   return (
@@ -27,7 +27,7 @@ export function QuizButton({ type, onAnswer }: QuizButtonProps) {
       borderRadius="12px"
       onClick={() => onClickHandler(type)}
     >
-      {type === 'O' ? <Icon.OButton /> : <Icon.XButton />}
+      {type === true ? <Icon.OButton /> : <Icon.XButton />}
     </ActionButton>
   );
 }

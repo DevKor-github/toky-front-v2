@@ -1,34 +1,49 @@
 import styled from 'styled-components';
 import QuizButton from '../QuizButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ResultBadge } from './ResultBadge';
 import { Icon } from '@/libs/design-system/icons';
+import { usePostAttendance } from '@/libs/apis/attendance';
 
-export function DailyAttendanceQuiz() {
-  const quiz = {
-    question: '서장훈은 고려대 출신 농구선수이다',
-    quizId: 1,
-  };
+interface DailyAttendanceQuizProps {
+  question: string;
+  quizId: number;
+  todayAttendance: boolean;
+}
 
-  // TODO: API call 서버에서 isAnswered, isCorrect 받아오기
+export function DailyAttendanceQuiz({ question, quizId, todayAttendance }: DailyAttendanceQuizProps) {
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
-
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const handleAnswer = (answer: 'O' | 'X') => {
-    setIsAnswered(true);
+  useEffect(() => {
+    setIsAnswered(todayAttendance);
+  }, [todayAttendance]);
 
-    const serverAnswer = 'X';
-    // TODO: API call
+  useEffect(() => {
+    setIsLoading(false);
+  }, [isAnswered]);
 
-    if (answer === serverAnswer) {
-      setIsCorrect(true);
-    } else {
-      setIsCorrect(false);
+  const { mutate: postAttendance, data, error } = usePostAttendance();
+
+  const handleAnswer = (answer: boolean) => {
+    postAttendance({ answer: answer });
+
+    if (data) {
+      setIsAnswered(true);
+      setIsCorrect(data.data.correct);
+    }
+
+    if (error) {
+      console.log(error);
     }
   };
 
-  // TODO: QuizQuestion의 width를 길이에 따라 조절할지 고민
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  //TODO: 정답 결과에 따라서 OX 버튼 색상 변경
 
   return (
     <Wrapper>
@@ -40,10 +55,10 @@ export function DailyAttendanceQuiz() {
         <DailyAttendanceQuizTitleStroke>
           <Icon.AttendanceQuizTitleStroke />
         </DailyAttendanceQuizTitleStroke>
-        <DailyAttendanceQuizQuestion>{quiz.question}</DailyAttendanceQuizQuestion>
-        <ButtonContainer isAnswered={isAnswered}>
-          <QuizButton type="O" onAnswer={handleAnswer} />
-          <QuizButton type="X" onAnswer={handleAnswer} />
+        <DailyAttendanceQuizQuestion>{question}</DailyAttendanceQuizQuestion>
+        <ButtonContainer $isAnswered={isAnswered}>
+          <QuizButton type={true} onAnswer={handleAnswer} />
+          <QuizButton type={false} onAnswer={handleAnswer} />
         </ButtonContainer>
         {isAnswered && <ResultBadge type={isCorrect} />}
       </DailyAttendanceQuizContainer>
@@ -107,8 +122,8 @@ const DailyAttendanceQuizQuestion = styled.div`
   letter-spacing: -0.8px;
 `;
 
-const ButtonContainer = styled.div<{ isAnswered: Boolean }>`
-  pointer-events: ${({ isAnswered }) => (isAnswered ? 'none' : 'auto')};
+const ButtonContainer = styled.div<{ $isAnswered: Boolean }>`
+  pointer-events: ${({ $isAnswered }) => ($isAnswered ? 'none' : 'auto')};
   display: flex;
   flex-direction: row;
   justify-content: center;
