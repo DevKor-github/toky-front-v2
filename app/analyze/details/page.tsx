@@ -17,13 +17,7 @@ export default function AnalyzeDetails() {
     setCurNav(selection);
   }, []);
 
-  const [scale, setScale] = useState<number>(0);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setScale(window.innerWidth / 390);
-    }
-  }, []);
+  const [scale, setScale] = useState<number>(typeof window !== 'undefined' ? window.innerWidth / 390 : 1);
 
   const koreaPlayers = curNav != 'rugby' ? KOREA_PLAYER_CARD_LIST[curNav] : [];
   const yonseiPlayers = curNav != 'rugby' ? YONSEI_PLAYER_CARD_LIST[curNav] : [];

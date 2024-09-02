@@ -1,5 +1,6 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import Image from 'next/image';
 
 export interface PlayerCardProps {
   image: string;
@@ -25,10 +26,20 @@ export function PlayerCard({
     setIsFlipped(!isFlipped);
   };
 
+  const skeletonImage =
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAECAIAAADETxJQAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAMUlEQVR4nGPIrOzOqWhbuHYvw7yNBxK9w/7/+s+g7xSiJaG+eeNBBgY2UUev6LKyZgByfxCvAnvQuAAAAABJRU5ErkJggg==';
+
   return (
     // TODO image최적화
     <CardContainer onClick={handleToggle} scale={scale}>
-      <Image src={image} alt={name} />
+      <Image
+        src={image}
+        alt={name}
+        fill
+        sizes="100% 100%"
+        style={{ borderRadius: '4px' }}
+        placeholder={skeletonImage}
+      />
       <NameContainer className={isFlipped ? '' : 'visible'} scale={scale}>
         <NamePosition scale={scale}>{name}</NamePosition>
       </NameContainer>
@@ -62,13 +73,6 @@ const CardContainer = styled.div<{ scale: number }>`
   cursor: pointer;
   position: relative;
   transition: transform 0.3s;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 4px;
 `;
 
 const NameContainer = styled.div<{ scale: number }>`
