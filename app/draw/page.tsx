@@ -21,6 +21,10 @@ export default function Draw() {
   const { data: giftItems } = useGetGiftItems();
   const [canDraw, setCanDraw] = useState(false);
 
+  function scrollToBottom() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+
   useEffect(() => {
     if (queriedTickets) {
       setTickets(queriedTickets);
@@ -65,7 +69,7 @@ export default function Draw() {
               <DrawBoard myDraws={myTicketsUse ?? []} giftItems={giftItems ?? []} tickets={tickets} />
               <Flex $gap={3} $align="center">
                 <Icon.Question />
-                <InfoText>응모권은 어떻게 받을 수 있나요?</InfoText>
+                <InfoText onClick={scrollToBottom}>응모권은 어떻게 받을 수 있나요?</InfoText>
               </Flex>
             </Flex>
           </Flex>
