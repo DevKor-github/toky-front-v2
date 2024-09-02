@@ -1467,7 +1467,7 @@ export const YONSEI_PLAYER_CARD_LIST: PlayerCardListProps = {
       heightWeight: '179/73',
     },
     {
-      image: '/image-proxy/analyze/profile/yonsei/football/23_janghyunbin.png',
+      image: '/image-proxy/analyze/profile/yonsei/football/23_janghyeonbin.png',
       name: '장현빈',
       jerseyNumber: '11',
       position: 'WF',
