@@ -4,3 +4,5 @@ export { GuideBanner } from './GuideBanner';
 export { GuideBetTitle } from './GuideBetTitle';
 export { GuideAttendenceTitle } from './GuideAttendenceTitle';
 export { GuideTicketTitle } from './GuideTicketTitle';
+export { ShareInstagram } from './ShareInstagram';
+export { SharePredictionTypo } from './SharePredictionTypo';

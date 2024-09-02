@@ -1,9 +1,10 @@
 'use client';
 import Header from '@/components/Header';
 import { Flex } from '@/libs/design-system/flex';
+import { Typo } from '@/libs/design-system/typo';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { Autoplay, FreeMode } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function InstagramEvent() {
@@ -24,8 +25,7 @@ export default function InstagramEvent() {
         <Banner>
           <Flex $direction="column" $align="center" style={{ position: 'relative' }}>
             <Flex $direction="column" $align="center" style={{ marginBottom: 28 }}>
-              <Title>인스타그램</Title>
-              <Title>카드 공유하기</Title>
+              <Typo.ShareInstagram />
             </Flex>
             <Image src="/image-proxy/instagram-event/banner.png" width={244} height={186} alt="banner" />
           </Flex>
@@ -53,10 +53,7 @@ export default function InstagramEvent() {
         </Banner>
         <Flex $direction="column" style={{ padding: '40px 20px 60px 20px' }} $gap={40} $align="center">
           <Flex $direction="column" $align="center" $gap={8}>
-            <Title>
-              인스타그램으로
-              <br />내 예측 공유하기
-            </Title>
+            <Typo.SharePredictionTypo />
             <Flex $gap={6}>
               <InfoText>09.09(금)</InfoText>
               <InfoText>- </InfoText>
