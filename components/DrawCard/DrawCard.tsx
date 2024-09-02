@@ -37,7 +37,7 @@ export function DrawCard({ totalDraw, productName, productAlias, id, canDraw, im
   }
 
   function drawSuccess() {
-    openToast({ message: `${productAlias ?? productName} 응모권 1장 사용!` });
+    openToast({ message: `${productAlias ?? productName} 응모 완료!` });
     setTimeout(() => {
       setIsClicked(false);
     }, 400);
