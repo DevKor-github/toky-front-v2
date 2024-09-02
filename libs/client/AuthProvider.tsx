@@ -53,10 +53,12 @@ export function AuthProvider() {
       document.cookie = 'refresh-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
       signIn(accessTokenFromCookie, refreshTokenFromCookie);
+    } else if (accessToken !== null) {
+      checkAlreadySignUp();
     } else if (refreshToken !== null) {
       refresh();
     }
-  }, [signIn, signOut]);
+  }, [signIn, signOut, checkAlreadySignUp]);
 
   useEffect(() => {
     if (isGetNeedSignupSuccess && isAlreadySignup) {
