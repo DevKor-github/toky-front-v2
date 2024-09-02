@@ -88,7 +88,7 @@ const Input = styled.input<{ $status: StatusType; $error?: boolean; $changeable?
   }};
 
   color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
-  font-size: 15px;
+  font-size: 16px;
   letter-spacing: -0.6px;
 
   &::placeholder {
