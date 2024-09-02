@@ -19,7 +19,7 @@ export function OptionButton({
   position,
   percentage,
   myAnswer,
-  realAnswer,
+  realAnswer = null,
 }: OptionButtonProps) {
   const isAnswered = myAnswer !== null; // 내가 찍은 문제인지
   const isMyAnswer = myAnswer === index; // 내가 찍은 옵션인지

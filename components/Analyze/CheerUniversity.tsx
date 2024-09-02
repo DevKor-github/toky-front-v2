@@ -100,7 +100,7 @@ export function CheerUniversity() {
       <Flex $direction="column" $align="center">
         <Title>자신의 학교를 응원해주세요!</Title>
       </Flex>
-      <Flex style={{ width: '100%' }} $justify="center">
+      <Flex style={{ width: '100%' }} $justify="center" $gap={2}>
         <OptionButton
           option={'고려대학교'}
           index={0}
