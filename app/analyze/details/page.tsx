@@ -33,7 +33,7 @@ export default function AnalyzeDetails() {
   const yonseiPlayers = curNav != 'rugby' ? YONSEI_PLAYER_CARD_LIST[curNav] : [];
 
   return (
-    <>
+    <div>
       <Header title="선수 정보" withSideBar={true} />
       <Wrapper>
         <SportsSelectionBar
@@ -46,18 +46,18 @@ export default function AnalyzeDetails() {
         />
         <ContentsWrapper scale={scale}>
           <PlayerCardContainer school="고려대학교" scale={scale}>
-            {koreaPlayers.map((player) => (
-              <PlayerCard key={player.image} scale={scale} {...player} />
+            {koreaPlayers.map((player, index) => (
+              <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
             ))}
           </PlayerCardContainer>
           <PlayerCardContainer school="연세대학교" scale={scale}>
-            {yonseiPlayers.map((player) => (
-              <PlayerCard key={player.image} scale={scale} {...player} />
+            {yonseiPlayers.map((player, index) => (
+              <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
             ))}
           </PlayerCardContainer>
         </ContentsWrapper>
       </Wrapper>
-    </>
+    </div>
   );
 }
 

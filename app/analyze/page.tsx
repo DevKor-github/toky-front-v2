@@ -74,16 +74,16 @@ export default function Analyze() {
               </Flex>
               <div style={{ marginTop: 15 }}>
                 <PlayerCarousel>
-                  {koreaPlayers.map((player) => (
-                    <PlayerCard key={player.image} scale={scale} {...player} />
+                  {koreaPlayers.map((player, index) => (
+                    <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
                   ))}
                 </PlayerCarousel>
                 <Caption>SPORTS KU 제공</Caption>
 
                 <div style={{ height: 16 }} />
                 <PlayerCarousel>
-                  {yonseiPlayers.map((player) => (
-                    <PlayerCard key={player.image} scale={scale} {...player} />
+                  {yonseiPlayers.map((player, index) => (
+                    <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
                   ))}
                 </PlayerCarousel>
                 <Caption>연세대학교 스포츠매거진 시스붐바 제공</Caption>
