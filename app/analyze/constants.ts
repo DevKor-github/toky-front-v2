@@ -714,7 +714,7 @@ export const KOREA_PLAYER_CARD_LIST: PlayerCardListProps = {
     {
       image: '/image-proxy/analyze/profile/korea/football/23_kimjiwon.png',
       name: '김지원',
-      jerseyNumber: '27',
+      jerseyNumber: '9',
       position: 'FW',
       year: '23학번',
       heightWeight: '189/87',
