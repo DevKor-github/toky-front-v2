@@ -1,15 +1,19 @@
 import { create } from 'zustand';
 
 export interface AuthStore {
-  isLogin: boolean;
+  isLogin: boolean | null;
   login: () => void;
   logout: () => void;
 }
 
 export const createAuthStore = () => {
   return create<AuthStore>()((set) => ({
-    isLogin: false,
+    isLogin: null,
     login: () => set({ isLogin: true }),
-    logout: () => set({ isLogin: false }),
+    logout: () => {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      set({ isLogin: false });
+    },
   }));
 };

@@ -27,12 +27,6 @@ export function AuthProvider() {
     [checkAlreadySignUp],
   );
 
-  const signOut = useCallback(() => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    logout();
-  }, [logout]);
-
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
@@ -45,7 +39,7 @@ export function AuthProvider() {
       });
 
       if (accessTokenFromCookie === null || refreshTokenFromCookie === null) {
-        signOut();
+        logout();
         return;
       }
 
@@ -58,7 +52,7 @@ export function AuthProvider() {
     } else if (refreshToken !== null) {
       refresh();
     }
-  }, [signIn, signOut, checkAlreadySignUp]);
+  }, [signIn, logout, checkAlreadySignUp]);
 
   useEffect(() => {
     if (isGetNeedSignupSuccess && isAlreadySignup) {

@@ -16,7 +16,7 @@ function SideBarBody({ isBarOpen = true }) {
   // TODO: use userInfo from store or context
   const nowPage = usePathname();
   const userInfo = useProfileStore((state) => state.profile);
-  const isLogin = useAuthStore((state) => state.isLogin);
+  const { logout, isLogin } = useAuthStore((state) => state);
   const tickets = useTicketStore((state) => state.tickets);
   const university = userInfo?.university == 0 ? '고려대학교' : '연세대학교';
 
@@ -77,7 +77,11 @@ function SideBarBody({ isBarOpen = true }) {
               문의하기
             </NavItem>
             {/* TODO LOGOUT달기 */}
-            {isLogin && <NavItem $selected={false}>로그아웃</NavItem>}
+            {isLogin && (
+              <NavItem $selected={false} onClick={logout}>
+                로그아웃
+              </NavItem>
+            )}
           </Flex>
         </NavWrapper>
       </Flex>
