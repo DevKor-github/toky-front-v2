@@ -26,6 +26,7 @@ export function PlayerCard({
   };
 
   return (
+    // TODO image최적화
     <CardContainer onClick={handleToggle} scale={scale}>
       <Image src={image} alt={name} />
       <NameContainer className={isFlipped ? '' : 'visible'} scale={scale}>
