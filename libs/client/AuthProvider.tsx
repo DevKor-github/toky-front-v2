@@ -36,27 +36,25 @@ export function AuthProvider() {
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
-    if (accessToken === null) {
-      if (refreshToken === null) {
-        let accessTokenFromCookie = null;
-        let refreshTokenFromCookie = null;
-        document.cookie.split(';').forEach((c) => {
-          if (c.trim().startsWith('access-token=')) accessTokenFromCookie = c.split('=')[1];
-          if (c.trim().startsWith('refresh-token=')) refreshTokenFromCookie = c.split('=')[1];
-        });
+    if (accessToken === null && refreshToken === null) {
+      let accessTokenFromCookie = null;
+      let refreshTokenFromCookie = null;
+      document.cookie.split(';').forEach((c) => {
+        if (c.trim().startsWith('access-token=')) accessTokenFromCookie = c.split('=')[1];
+        if (c.trim().startsWith('refresh-token=')) refreshTokenFromCookie = c.split('=')[1];
+      });
 
-        if (accessTokenFromCookie === null || refreshTokenFromCookie === null) {
-          signOut();
-          return;
-        }
-
-        document.cookie = 'access-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        document.cookie = 'refresh-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
-        signIn(accessTokenFromCookie, refreshTokenFromCookie);
-      } else {
-        refresh();
+      if (accessTokenFromCookie === null || refreshTokenFromCookie === null) {
+        signOut();
+        return;
       }
+
+      document.cookie = 'access-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = 'refresh-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+      signIn(accessTokenFromCookie, refreshTokenFromCookie);
+    } else if (refreshToken !== null) {
+      refresh();
     }
   }, [signIn, signOut]);
 
