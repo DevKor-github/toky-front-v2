@@ -9,14 +9,17 @@ import ActionCard from '@/components/ActionCard';
 import IconButton from '@/components/IconButton';
 import FreeModeCarousel from '@/components/FreeModeCarousel';
 import ScheduleCard from '@/components/ScheduleCard';
-import ActionButton from '@/components/ActionButton';
-import { ICON_INFO_LIST, SCHEDULE_INFO, MESSAGE_INFO } from './constants';
-import client from '@/libs/client/client';
+import { ICON_INFO_LIST, SCHEDULE_INFO, MESSAGE_INFO, AD_BANNER_LIST } from './constants';
 import { CopyInviteCode } from '@/components/CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '@/components/KakaoLogin';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 import { SuspenseParamProvider } from '@/libs/client/ParamProvider';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import Image from 'next/image';
+import { Autoplay, Pagination } from 'swiper/modules';
 import { Icon } from '@/libs/design-system/icons';
+import ActionButton from '@/components/ActionButton';
+import { onClickKakaoLogin } from '@/libs/utils/kakaoLogin';
 
 export default function Home() {
   const isLogin = useAuthStore((state) => state.isLogin);
@@ -40,7 +43,12 @@ export default function Home() {
               padding="16px 16px 16px 20px"
             />
           ) : (
-            <ActionCard message={MESSAGE_INFO.kakaoLogin} contents={<KakaoLogin />} padding="16px 20px" />
+            <ActionCard
+              message={MESSAGE_INFO.kakaoLogin}
+              contents={<KakaoLogin />}
+              padding="16px 20px"
+              onClick={onClickKakaoLogin}
+            />
           )}
         </ActionCardWrapper>
         <ScheduleCarouselWrapper>
@@ -55,7 +63,7 @@ export default function Home() {
                 자세히보기
                 <Icon.ChevronForward />
               </Flex>
-            </ActionButton>
+            </ActionButton>{' '}
           </ScheduleHeader>
           <FreeModeCarousel padding="0px 20px" spaceBetween={0}>
             {Object.entries(SCHEDULE_INFO).map(([date, events], index) => (
@@ -76,6 +84,24 @@ export default function Home() {
             ))}
           </FreeModeCarousel>
         </ScheduleCarouselWrapper>
+        <AdWrapper>
+          <Swiper
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: true,
+            }}
+            modules={[Pagination, Autoplay]}
+            spaceBetween={0}
+            loop
+            slidesPerView={1}
+          >
+            {AD_BANNER_LIST.map((banner, index) => (
+              <SwiperSlide key={`${banner.imgUrl}-${index}`}>
+                <BannerImage src={banner.imgUrl} alt="ad" fill sizes="100vw 100%" />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </AdWrapper>
       </Wrapper>
     </div>
   );
@@ -130,4 +156,20 @@ const ScheduleTitle = styled.div`
   font-weight: 700;
   line-height: normal;
   letter-spacing: -0.8px;
+`;
+
+const AdWrapper = styled.div`
+  padding: 0px 20px;
+  margin-bottom: 32px;
+  margin-top: 32px;
+  width: 100%;
+  position: relative;
+  aspect-ratio: 350/78;
+  .swiper {
+    height: 100%;
+  }
+`;
+
+const BannerImage = styled(Image)`
+  object-fit: fill;
 `;

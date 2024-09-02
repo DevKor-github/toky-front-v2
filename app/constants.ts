@@ -91,3 +91,19 @@ export const MESSAGE_INFO: MessageInfo = {
 };
 
 export const ICON_INFO_LIST = Object.values(ICON_INFO);
+
+interface AdBannerInfo {
+  imgUrl: string;
+  link: string;
+}
+
+export const AD_BANNER_LIST: AdBannerInfo[] = [
+  {
+    imgUrl: '/image-proxy/home/sportsku_ad_bannerv2.png',
+    link: 'https://blog.naver.com/sportsku',
+  },
+  {
+    imgUrl: '/image-proxy/home/sis_ad_banner.png',
+    link: 'https://blog.naver.com/PostList.naver?blogId=sis_boom_bah&tab=1',
+  },
+];

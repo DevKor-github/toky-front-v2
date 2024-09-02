@@ -4,11 +4,12 @@ interface ActionCardProps {
   message: string;
   contents: React.ReactNode;
   padding?: string;
+  onClick?: () => void;
 }
 
-export function ActionCard({ message, contents, padding }: ActionCardProps) {
+export function ActionCard({ message, contents, padding, onClick }: ActionCardProps) {
   return (
-    <Wrapper padding={padding}>
+    <Wrapper padding={padding} onClick={onClick}>
       <Message>{message}</Message>
       <div>{contents}</div>
     </Wrapper>

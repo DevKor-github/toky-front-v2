@@ -11,6 +11,7 @@ import { KakaoLogin } from '../KakaoLogin';
 import { useProfileStore } from '@/libs/store/Providers/ProfileStoreProvider';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
+import { onClickKakaoLogin } from '@/libs/utils/kakaoLogin';
 
 function SideBarBody({ isBarOpen = true }) {
   // TODO: use userInfo from store or context
@@ -51,7 +52,7 @@ function SideBarBody({ isBarOpen = true }) {
             </InfoWrapper>
           </Flex>
         ) : (
-          <LoginWrapper>
+          <LoginWrapper onClick={onClickKakaoLogin}>
             10초만에 로그인하고
             <br />
             승부예측 참여하세요
