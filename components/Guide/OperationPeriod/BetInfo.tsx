@@ -2,6 +2,7 @@ import { GUIDE_INFO } from '@/app/guide/constants';
 import { ScheduleSmallCard } from '@/components/ScheduleCard';
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
+import { Typo } from '@/libs/design-system/typo';
 import styled from 'styled-components';
 
 export function BetInfo() {
@@ -10,7 +11,7 @@ export function BetInfo() {
   return (
     <Wrapper>
       <Flex $direction="column" $align="center" $gap={8}>
-        <SectionTitle>승부예측</SectionTitle>
+        <Typo.GuideBetTitle />
         <Flex $direction="column" $align="flex-end">
           <Flex $gap={6}>
             <InfoText>09.09(월)</InfoText>

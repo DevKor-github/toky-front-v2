@@ -1,4 +1,5 @@
 import { Flex } from '@/libs/design-system/flex';
+import { Typo } from '@/libs/design-system/typo';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
 
@@ -6,7 +7,7 @@ export function DrawInfo() {
   return (
     <Wrapper>
       <Flex $direction="column" $align="center" $gap={8}>
-        <SectionTitle>승부예측</SectionTitle>
+        <Typo.GuideTicketTitle />
         <Flex $gap={6}>
           <InfoText>09.09(금)</InfoText>
           <InfoText>- </InfoText>
