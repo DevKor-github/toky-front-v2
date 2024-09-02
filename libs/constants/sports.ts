@@ -6,12 +6,13 @@ export const SelectionArray = [
   { type: 'rugby', title: '럭비' },
 ] as const;
 
-export const PlaySportsArray = [
-  { type: 'baseball', title: '야구' },
-  { type: 'icehockey', title: '빙구' },
-  { type: 'basketball', title: '농구' },
-  { type: 'football', title: '축구' },
-] as const;
+export const PlaySportsArray = SelectionArray.slice(0, 4) as Exclude<
+  (typeof SelectionArray)[number],
+  {
+    readonly type: 'rugby';
+    readonly title: '럭비';
+  }
+>[];
 
 export type SelectionType = (typeof SelectionArray)[number]['type'] | 'all';
 
