@@ -25,17 +25,27 @@ export default function UserInfo() {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
 
   const [isAvailableNickname, setIsAvailableNickname] = useState(true);
+
+  // 변경 가능한 닉네임 표시 여부
+  const nicknameChangeable = isAvailableNickname && nickname !== prevNickname && prevNickname !== undefined;
+  // 수정하기 버튼 활성화 여부
   const canEdit =
     isAvailableNickname &&
-    (nickname !== prevNickname ||
-      (phoneNumber !== prevPhoneNumber &&
-        phoneNumber.length === 11 &&
-        /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/.test(phoneNumber)));
+    phoneNumber.length === 11 &&
+    /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/.test(phoneNumber) &&
+    (nickname !== prevNickname || phoneNumber !== prevPhoneNumber);
 
-  const handleNickname = useCallback((input: string) => {
-    setNickname(input);
-    setIsAvailableNickname(false);
-  }, []);
+  const handleNickname = useCallback(
+    (input: string) => {
+      setNickname(input);
+      if (input === prevNickname) {
+        setIsAvailableNickname(true);
+      } else {
+        setIsAvailableNickname(false);
+      }
+    },
+    [prevNickname],
+  );
 
   const handlePhoneNumber = useCallback((input: string) => {
     const reg = /\D/g;
@@ -44,18 +54,14 @@ export default function UserInfo() {
   }, []);
 
   const handleNicknameValidation = useCallback(() => {
-    if (nickname === prevNickname) {
-      setError('기존 닉네임과 동일합니다.');
-    } else {
-      getCheckName({ name: nickname }).then((validation) => {
-        if (validation) {
-          setIsAvailableNickname(true);
-        } else {
-          setError('이미 존재하는 닉네임입니다.');
-        }
-      });
-    }
-  }, [nickname, prevNickname]);
+    getCheckName({ name: nickname }).then((validation) => {
+      if (validation) {
+        setIsAvailableNickname(true);
+      } else {
+        setError('이미 존재하는 닉네임입니다.');
+      }
+    });
+  }, [nickname]);
 
   const clearError = useCallback(() => {
     setError(null);
@@ -99,13 +105,19 @@ export default function UserInfo() {
                 value={nickname}
                 setValue={handleNickname}
                 maxLength={10}
-                validationButton={{ text: '중복확인', onClick: handleNicknameValidation }}
+                validationButton={
+                  !isAvailableNickname && prevNickname !== nickname
+                    ? { text: '중복확인', onClick: handleNicknameValidation }
+                    : undefined
+                }
                 error={error !== null}
                 clearError={clearError}
+                changeable={nicknameChangeable}
               />
               <InputStatus>
                 <NicknameCount>{nickname.length}/10</NicknameCount>
                 {error && <ErrorMessage>{error}</ErrorMessage>}
+                {nicknameChangeable && <PossibleMessage>변경가능한 닉네임입니다.</PossibleMessage>}
               </InputStatus>
             </InputWrapper>
           </FormWrapper>
@@ -190,11 +202,16 @@ const NicknameCount = styled.span`
   font-size: 14px;
 `;
 
-const ErrorMessage = styled.span`
-  color: #f95b6e;
+const Message = styled.span`
   font-size: 12px;
   font-weight: 300;
   letter-spacing: -0.48px;
+`;
+const ErrorMessage = styled(Message)`
+  color: #f95b6e;
+`;
+const PossibleMessage = styled(Message)`
+  color: white;
 `;
 
 const FixedValue = styled.div`
