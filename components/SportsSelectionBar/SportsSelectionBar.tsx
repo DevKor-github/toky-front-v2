@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import { SelectionArray, SelectionType } from '@/libs/constants/sports';
 import { SportsButton } from '@/components/SportsSelectionBar/SportsButton';
 
+const PlayArray = SelectionArray.slice(0, 4);
+
 interface SportsSelectionBarProps {
   curSelection: SelectionType;
   handleSelect: (selection: SelectionType) => void;
@@ -13,6 +15,7 @@ interface SportsSelectionBarProps {
   showAll?: boolean; // "전체" 항목의 표시 여부
   hasUnderbar?: boolean; // 선택된 nav 항목 아래에 밑줄 표시 여부
   isSticky?: boolean; // position : sticky 여부
+  isPlayOnly?: boolean; // 럭비 제외 여부
 }
 export const SportsSelectionBar = memo(function SportsSelectionBar({
   curSelection,
@@ -21,15 +24,17 @@ export const SportsSelectionBar = memo(function SportsSelectionBar({
   showAll = false,
   hasUnderbar = true,
   isSticky = false,
+  isPlayOnly = false,
 }: SportsSelectionBarProps) {
+  const SportsArray = isPlayOnly ? PlayArray : SelectionArray;
   return (
-    <Wrapper $bgColor={bgColor} $isSticky={isSticky}>
+    <Wrapper $bgColor={bgColor} $isSticky={isSticky} $isPlayOnly={isPlayOnly}>
       {showAll && (
         <SportsButton isSelected={curSelection === 'all'} onClick={() => handleSelect('all')} hasUnderbar={hasUnderbar}>
           전체
         </SportsButton>
       )}
-      {SelectionArray.map((sport) => (
+      {SportsArray.map((sport) => (
         <SportsButton
           key={sport.title}
           isSelected={curSelection === sport.type}
@@ -43,12 +48,12 @@ export const SportsSelectionBar = memo(function SportsSelectionBar({
   );
 });
 
-const Wrapper = styled.nav<{ $bgColor?: string; $isSticky: boolean }>`
+const Wrapper = styled.nav<{ $bgColor?: string; $isSticky: boolean; $isPlayOnly: boolean }>`
   top: ${(props) => props.theme.space.mainTopBarHeight + props.theme.space.navigationBarHeight}px;
   display: flex;
   justify-content: space-between;
   z-index: ${({ theme }) => theme.zIndex.SportsSelectionBar};
-  padding: 0 20px;
+  padding: 0 ${({ $isPlayOnly }) => ($isPlayOnly ? 40 : 20)}px;
   ${({ $isSticky }) => $isSticky && 'position: sticky;'}
   background: ${({ $bgColor }) =>
     $bgColor ||

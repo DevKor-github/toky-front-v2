@@ -23,6 +23,8 @@ import SportsSelectionBar from '@/components/SportsSelectionBar';
 import PredictionQuestion from '@/components/PredictionQuestion';
 import PredictionBottomBar from '@/components/PredictionBottomBar';
 
+const PlayArray = SelectionArray.slice(0, 4);
+
 const checkIsDones = (data: QuestionType[]) => {
   let isDone = true;
   for (let i = 0; i < data.length; i++) {
@@ -116,9 +118,9 @@ export default function Bets() {
           // 진짜 모든 종목의 응답이 끝난 경우
           setTimeout(openModal, 500);
         } else {
-          if (curNav !== SelectionArray[SelectionArray.length - 1].type) {
+          if (curNav !== PlayArray[PlayArray.length - 1].type) {
             // 마지막 종목이 아닌 경우
-            setTimeout(() => setCurNav(SelectionArray[SelectionMap[curNav] + 1].type), 500);
+            setTimeout(() => setCurNav(PlayArray[SelectionMap[curNav] + 1].type), 500);
           }
         }
       }
@@ -133,9 +135,9 @@ export default function Bets() {
       <NavigationBar />
       <Wrapper>
         <PredictionBanner shareHandler={openModal} />
-        <SportsSelectionBar curSelection={curNav} handleSelect={handleNav} isSticky />
+        <SportsSelectionBar isPlayOnly={true} curSelection={curNav} handleSelect={handleNav} isSticky />
         <Swiper slidesPerView={1} allowTouchMove={false} ref={swiperRef}>
-          {SelectionArray.map(({ type }) => (
+          {PlayArray.map(({ type }) => (
             <SwiperSlide
               key={type}
               onFocus={() => {
@@ -144,23 +146,25 @@ export default function Bets() {
                 }
               }}
             >
-              <QuestionsWrapper>
-                {questionData[type].map((question, index) => {
-                  return (
-                    <PredictionQuestion
-                      key={`${type}-${index}`}
-                      questionId={question.questionId}
-                      questionIndex={index}
-                      questionDescription={question.description}
-                      options={question.choices}
-                      myAnswer={question.myAnswer}
-                      percentage={question.percentage}
-                      requestHandler={requestHandler}
-                      realAnswer={question.realAnswer}
-                    />
-                  );
-                })}
-              </QuestionsWrapper>
+              {
+                <QuestionsWrapper>
+                  {questionData[type].map((question, index) => {
+                    return (
+                      <PredictionQuestion
+                        key={`${type}-${index}`}
+                        questionId={question.questionId}
+                        questionIndex={index}
+                        questionDescription={question.description}
+                        options={question.choices}
+                        myAnswer={question.myAnswer}
+                        percentage={question.percentage}
+                        requestHandler={requestHandler}
+                        realAnswer={question.realAnswer}
+                      />
+                    );
+                  })}
+                </QuestionsWrapper>
+              }
             </SwiperSlide>
           ))}
         </Swiper>
