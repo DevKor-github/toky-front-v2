@@ -61,9 +61,9 @@ export default function Bets() {
     }
   }, [getMyBets, isLogin]);
 
-  async function openModal() {
-    await openShareModal();
-  }
+  const openModal = useCallback(async () => {
+    await openShareModal;
+  }, [openShareModal]);
 
   const handleNav = useCallback((selection: SelectionType) => {
     if (selection !== 'all') {
@@ -97,15 +97,33 @@ export default function Bets() {
         },
       );
 
-      if (
-        !checkIsDones(questionData[curNav]) && // 이전에 응답을 덜 했었고,
-        checkIsDones(newData) && // 이번 응답으로 모든 응답이 완료되었으며
-        curNav !== SelectionArray[SelectionArray.length - 1].type // 마지막 종목이 아닌 경우
-      ) {
-        setTimeout(() => setCurNav(SelectionArray[SelectionMap[curNav] + 1].type), 500);
+      if (!checkIsDones(questionData[curNav]) && checkIsDones(newData)) {
+        // 이전에 응답을 덜 했었고,
+        // 이번 응답으로 현재 종목의 모든 응답이 완료된 경우
+        let allDone = true;
+        const questionKeyArray = Object.keys(questionData) as Array<keyof typeof questionData>;
+        for (let i = 0; i < questionKeyArray.length; i++) {
+          const key = questionKeyArray[i];
+          if (key !== curNav) {
+            if (!checkIsDones(questionData[key])) {
+              allDone = false;
+              break;
+            }
+          }
+        }
+
+        if (allDone) {
+          // 진짜 모든 종목의 응답이 끝난 경우
+          setTimeout(openModal, 500);
+        } else {
+          if (curNav !== SelectionArray[SelectionArray.length - 1].type) {
+            // 마지막 종목이 아닌 경우
+            setTimeout(() => setCurNav(SelectionArray[SelectionMap[curNav] + 1].type), 500);
+          }
+        }
       }
     },
-    [curNav, questionData, isLogin, openLoginModal, openToast, bet, addTickets],
+    [curNav, questionData, isLogin, openLoginModal, openToast, bet, addTickets, openModal],
   );
 
   return (
