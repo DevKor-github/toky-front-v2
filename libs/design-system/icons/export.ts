@@ -32,3 +32,4 @@ export { Dot } from './Dot';
 export { AttendanceQuizRightBackground } from './AttendanceQuizRightBackground';
 export { AttendanceQuizLeftBackground } from './AttendanceQuizLeftBackground';
 export { Plus } from './Plus';
+export { Hit } from './Hit';

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useToast } from '@/components/Toast';
 
 import { OptionButton } from '@/components/PredictionQuestion/OptionButton';
 
@@ -11,6 +10,7 @@ interface PredictionQuestionProps {
   myAnswer: number | null;
   percentage: (number | null)[];
   requestHandler: (qid: number, answer: number, prevAnswer: number | null) => void;
+  realAnswer: number | null;
 }
 export function PredictionQuestion({
   questionId,
@@ -20,6 +20,7 @@ export function PredictionQuestion({
   myAnswer,
   percentage,
   requestHandler,
+  realAnswer,
 }: PredictionQuestionProps) {
   const handleAnswer = (index: number) => {
     requestHandler(questionId, index, myAnswer);
@@ -45,6 +46,7 @@ export function PredictionQuestion({
               position={position}
               percentage={percentage[index] ? Math.round(percentage[index] * 100) : 0}
               myAnswer={myAnswer}
+              realAnswer={realAnswer}
             />
           );
         })}

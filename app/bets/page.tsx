@@ -131,6 +131,7 @@ export default function Bets() {
                       myAnswer={question.myAnswer}
                       percentage={question.percentage}
                       requestHandler={requestHandler}
+                      realAnswer={question.realAnswer}
                     />
                   );
                 })}
