@@ -7,8 +7,24 @@ import NavigationBar from '@/components/NavigationBar';
 import AttendanceCalendar from '@/components/AttendanceCalendar';
 import DailyAttendanceQuiz from '@/components/DailyAttendanceQuiz';
 import { Icon } from '@/libs/design-system/icons';
+import { useGetAttendance } from '@/libs/apis/attendance';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 
 export default function Attendance() {
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const { data: attendanceInfo } = useGetAttendance();
+
+  //TODO: 백엔드에서 비로그인 상태의 attendanceInfo가 어떻게 처리되는지 확인 후 개발
+  //TODO: 백엔드에 오늘 정답여부 요청
+
+  const {
+    attendanceHistory = [],
+    today = '',
+    question = '',
+    quizId = 0,
+    todayAttendance = false,
+  } = attendanceInfo || {};
+
   return (
     <div>
       <MainTopBar />
@@ -24,8 +40,12 @@ export default function Attendance() {
         <AttendanceTicket>
           <Icon.AttendanceTicket />
         </AttendanceTicket>
-        <AttendanceCalendar />
-        <DailyAttendanceQuiz />
+        <AttendanceCalendar attendanceHistory={attendanceHistory ?? []} today={today ?? ''} />
+        <DailyAttendanceQuiz
+          question={question ?? ''}
+          quizId={quizId ?? 0}
+          todayAttendance={todayAttendance ?? false}
+        />
       </Wrapper>
     </div>
   );

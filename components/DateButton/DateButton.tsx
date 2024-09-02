@@ -7,13 +7,13 @@ export interface DateButtonProps {
 
 export function DateButton({ type, date }: DateButtonProps) {
   return (
-    <StyledDateButton className={`date-button ${type}`} type={type} date={date}>
+    <StyledDateButton className={`date-button ${type}`} type={type}>
       {type !== 'checked' ? date : '✔'}
     </StyledDateButton>
   );
 }
 
-const StyledDateButton = styled.button<DateButtonProps>`
+const StyledDateButton = styled.button<{ type: string }>`
   width: 26px;
   height: 26px;
   border-radius: 99px;
