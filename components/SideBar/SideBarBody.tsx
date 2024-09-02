@@ -69,6 +69,11 @@ function SideBarBody({ isBarOpen = true }) {
               );
             })}
             {isLogin && (
+              <Link href="/ticket-history">
+                <NavItem $selected={nowPage == '/ticket-history'}>응모권 내역</NavItem>
+              </Link>
+            )}
+            {isLogin && (
               <Link href="/userinfo">
                 <NavItem $selected={nowPage == '/userinfo'}>회원 정보 관리</NavItem>
               </Link>

@@ -1,15 +1,18 @@
 import { Icon } from '@/libs/design-system/icons';
 import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 export function TicketInfo() {
   const tickets = useTicketStore((state) => state.tickets);
 
   return (
-    <Wrapper>
-      <Icon.Ticket size={20} />
-      {tickets}장
-    </Wrapper>
+    <Link href="/ticket-history">
+      <Wrapper>
+        <Icon.Ticket size={20} />
+        {tickets}장
+      </Wrapper>
+    </Link>
   );
 }
 

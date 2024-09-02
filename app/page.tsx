@@ -43,7 +43,6 @@ export default function Home() {
             <ActionCard message={MESSAGE_INFO.kakaoLogin} contents={<KakaoLogin />} padding="16px 20px" />
           )}
         </ActionCardWrapper>
-        {/*TODO: 정기전 일정, 자세히 보기 구현 */}
         <ScheduleCarouselWrapper>
           <ScheduleHeader>
             <ScheduleTitle>정기전 일정</ScheduleTitle>

@@ -4,6 +4,7 @@ import FreeModeCarousel from '../FreeModeCarousel';
 import { DrawHistory } from './DrawHistory';
 import { Icon } from '@/libs/design-system/icons';
 import { DrawGift, DrawGiftItem, MyDrawGifts } from '@/libs/apis/tickets';
+import Link from 'next/link';
 
 interface DrawBoardProps {
   giftItems: DrawGiftItem[];
@@ -14,7 +15,14 @@ interface DrawBoardProps {
 export function DrawBoard({ myDraws, tickets, giftItems }: DrawBoardProps) {
   return (
     <Wrapper>
-      <Title>내 응모권</Title>
+      <TitleWrapper>
+        <Link href="/ticket-history">
+          <Flex $gap={4} $align="center" $justify="center">
+            <Title>내 응모권 내역</Title>
+            <Icon.ChevronForward />
+          </Flex>
+        </Link>
+      </TitleWrapper>
       <Flex $gap={4} style={{ marginTop: 4, marginBottom: 12 }} $align="center" $justify="center">
         <Icon.Ticket />
         <MyDraw>{tickets}</MyDraw>
@@ -48,6 +56,11 @@ const CarouselWrapper = styled.div`
   background: rgba(255, 255, 255, 0.1);
   margin-top: 8px;
   width: 100%;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const Title = styled.h5`
