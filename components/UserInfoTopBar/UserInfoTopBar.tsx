@@ -3,7 +3,6 @@
 import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
 
-import { SideBar } from '@/components/SideBar';
 import { ArrowLeft } from '@/libs/design-system/icons/ArrowLeft';
 
 export function UserInfoTopBar() {
