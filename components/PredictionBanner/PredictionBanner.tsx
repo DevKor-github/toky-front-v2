@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ActionButton from '@/components/ActionButton';
 import { Flex } from '@/libs/design-system/flex';
 import Link from 'next/link';
+import { Typo } from '@/libs/design-system/typo';
 
 interface PredictionBannerProps {
   shareHandler: () => void;
@@ -12,9 +13,8 @@ export function PredictionBanner({ shareHandler }: PredictionBannerProps) {
   return (
     <Wrapper>
       <Title>
-        {/* TODO: 저작권 명확히 한 후, SVG 또는 웹폰트 적용 */}
-        <div style={{ fontSize: '16px' }}>2024 정기전 토키</div>
-        <div style={{ fontSize: '43.5px' }}>승부예측</div>
+        <Typo.BetSubTitle />
+        <Typo.BetTitle />
       </Title>
       <Flex $gap="6px">
         <Link href="/analyze">
