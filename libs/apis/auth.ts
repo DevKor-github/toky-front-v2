@@ -61,5 +61,6 @@ export const useGetNeedSignup = () => {
     queryKey: ['needSignup'],
     queryFn: getNeedSignup,
     retry: false,
+    enabled: false,
   });
 };

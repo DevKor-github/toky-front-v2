@@ -15,7 +15,7 @@ import { getCheckName, useGetNeedSignup, usePostSignup } from '@/libs/apis/auth'
 export default function SignUp() {
   const router = useRouter();
 
-  const { data: isAlreadySignup, isSuccess, isError } = useGetNeedSignup();
+  const { data: isAlreadySignup, isSuccess, isError, refetch: checkAlreadySignUp } = useGetNeedSignup();
   const { mutate: singup } = usePostSignup();
 
   const formState = useSignupForm();
@@ -105,6 +105,10 @@ export default function SignUp() {
       }
     }
   };
+
+  useEffect(() => {
+    checkAlreadySignUp();
+  }, [checkAlreadySignUp]);
 
   return (
     <div>

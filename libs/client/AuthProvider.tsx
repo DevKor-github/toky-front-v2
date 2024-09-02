@@ -14,7 +14,7 @@ export function AuthProvider() {
   const setProfile = useProfileStore((state) => state.setProfile);
   const setTickets = useTicketStore((state) => state.setTickets);
 
-  const { data: isAlreadySignup, isSuccess: isGetNeedSignupSuccess } = useGetNeedSignup();
+  const { data: isAlreadySignup, refetch: checkAlreadySignUp, isSuccess: isGetNeedSignupSuccess } = useGetNeedSignup();
   const { data: updateProfile, refetch: getProfile, isSuccess: isGetProfileSuccess } = useGetProfile();
   const { data: tickets, refetch: getTickets, isSuccess: isGetTicketsSuccess } = useGetTickets();
 
@@ -22,10 +22,11 @@ export function AuthProvider() {
     (accessToken: string, refreshToken: string) => {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      login();
+      checkAlreadySignUp();
     },
-    [login],
+    [checkAlreadySignUp],
   );
+
   const signOut = useCallback(() => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
