@@ -104,7 +104,7 @@ const ButtonWrapper = styled.button<{
   overflow: hidden;
   z-index: 0;
 
-  color: ${({ $isMyAnswer }) => ($isMyAnswer ? `var(--white_0, #FFF)` : `#3C3C3C`)};
+  color: ${({ $isMyAnswer, $isAnswered }) => ($isAnswered && !$isMyAnswer ? `#3C3C3C` : `var(--white_0, #FFF)`)};
   font-size: ${({ $isAnswered }) => ($isAnswered ? '12px' : '16px')};
   font-weight: ${({ $isAnswered }) => ($isAnswered ? 500 : 700)};
   line-height: normal;
