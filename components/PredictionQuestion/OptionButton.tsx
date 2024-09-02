@@ -1,3 +1,4 @@
+import { Icon } from '@/libs/design-system/icons';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -9,68 +10,101 @@ interface OptionButtonProps {
   position: 'left' | 'center' | 'right';
   percentage: number;
   myAnswer: number | null;
+  realAnswer: number | null;
 }
-export function OptionButton({ index, handleAnswer, option, position, percentage, myAnswer }: OptionButtonProps) {
-  const isAnswered = myAnswer !== null;
-  const isMyAnswer = myAnswer === index;
+export function OptionButton({
+  index,
+  handleAnswer,
+  option,
+  position,
+  percentage,
+  myAnswer,
+  realAnswer,
+}: OptionButtonProps) {
+  const isAnswered = myAnswer !== null; // 내가 찍은 문제인지
+  const isMyAnswer = myAnswer === index; // 내가 찍은 옵션인지
+  const hasRealAnswer = realAnswer !== null; // 정답이 공개된 문제인지
+  const isRealAnswer = realAnswer === index; // 이 옵션이 정답인지
+  const isCorrect = isRealAnswer && isMyAnswer; // 내가 이 옵션으로 적중 했는지
 
   return (
-    <Wrapper
-      type="submit"
-      onClick={(e) => {
-        e.preventDefault();
-        if (index === myAnswer) return;
-        handleAnswer(index);
-      }}
-      $isAnswered={isAnswered}
-      $position={position}
-    >
-      {option}
-      {isAnswered && (
-        <Percentage $isMyAnswer={isMyAnswer}>
-          <span>{percentage}</span>
-          <span>%</span>
-        </Percentage>
+    <Wrapper>
+      {isCorrect && (
+        <IconWrapper>
+          <Icon.Hit />
+        </IconWrapper>
       )}
-      {/* default gradient */}
-      <Gradient
-        initial={'visible'}
-        variants={motionVariant}
-        animate={isAnswered ? 'hidden' : 'visible'}
-        $type={'default'}
+      <ButtonWrapper
+        type="submit"
+        onClick={(e) => {
+          e.preventDefault();
+          if (!hasRealAnswer) {
+            if (index === myAnswer) return;
+            handleAnswer(index);
+          }
+        }}
         $position={position}
-      />
-      {/* selected gradient */}
-      <Gradient
-        initial={'hidden'}
-        variants={motionVariant}
-        animate={isMyAnswer ? 'visible' : 'hidden'}
-        $type={'selected'}
-        $position={position}
-      />
-      {/* nonselected gradient */}
-      <Gradient
-        initial={'hidden'}
-        variants={motionVariant}
-        animate={isMyAnswer ? 'hidden' : 'visible'}
-        $type={'nonselected'}
-        $position={position}
-      />
+        $isAnswered={isAnswered}
+        $isMyAnswer={isMyAnswer}
+      >
+        {!isCorrect && (
+          <>
+            {option}
+            {isAnswered && (
+              <Percentage $isMyAnswer={isMyAnswer}>
+                <span>{percentage}</span>
+                <span>%</span>
+              </Percentage>
+            )}
+          </>
+        )}
+
+        {/* default gradient */}
+        <Gradient
+          initial={'visible'}
+          variants={motionVariant}
+          animate={isAnswered ? 'hidden' : 'visible'}
+          $type={'default'}
+          $position={position}
+        />
+        {/* selected gradient */}
+        <Gradient
+          initial={'hidden'}
+          variants={motionVariant}
+          animate={isMyAnswer ? 'visible' : 'hidden'}
+          $type={'selected'}
+          $position={position}
+        />
+        {/* nonselected gradient */}
+        <Gradient
+          initial={'hidden'}
+          variants={motionVariant}
+          animate={isMyAnswer ? 'hidden' : 'visible'}
+          $type={'nonselected'}
+          $position={position}
+        />
+      </ButtonWrapper>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.button<{
+const Wrapper = styled.div`
+  position: relative;
+  flex: 1 0 0;
+`;
+
+const ButtonWrapper = styled.button<{
   $position: 'left' | 'center' | 'right';
   $isAnswered: boolean;
+  $isMyAnswer: boolean;
 }>`
-  flex: 1 0 0;
+  width: 100%;
   height: 67px;
   position: relative;
   overflow: hidden;
   z-index: 0;
 
-  color: #ffffff;
+  color: ${({ $isMyAnswer }) => ($isMyAnswer ? `var(--white_0, #FFF)` : `#3C3C3C`)};
   font-size: ${({ $isAnswered }) => ($isAnswered ? '12px' : '16px')};
   font-weight: ${({ $isAnswered }) => ($isAnswered ? 500 : 700)};
   line-height: normal;
@@ -138,4 +172,12 @@ const Gradient = styled(motion.div)<{
         }
     }
   }};
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
 `;
