@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Icon } from '@/libs/design-system/icons';
-import { SelectionArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
+import { PlaySportsArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
 
 interface PredictionBottomBarProps {
   curSelection: Exclude<SelectionType, 'all'>;
@@ -9,29 +9,29 @@ interface PredictionBottomBarProps {
 }
 
 export function PredictionBottomBar({ curSelection, handleNav }: PredictionBottomBarProps) {
-  const endIndex = SelectionArray.length - 1;
+  const endIndex = PlaySportsArray.length - 1;
   return (
     <BottomBar>
       <NavButton
         onClick={() => {
-          handleNav(SelectionArray[SelectionMap[curSelection] - 1].type);
+          handleNav(PlaySportsArray[SelectionMap[curSelection] - 1].type);
         }}
       >
-        {curSelection !== SelectionArray[0].type && (
+        {curSelection !== PlaySportsArray[0].type && (
           <>
             <Icon.ArrowRight color="#FFFFFFDE" rotate={180} />
-            <span>{SelectionArray[SelectionMap[curSelection] - 1].title}</span>
+            <span>{PlaySportsArray[SelectionMap[curSelection] - 1].title}</span>
           </>
         )}
       </NavButton>
       <NavButton
         onClick={() => {
-          handleNav(SelectionArray[SelectionMap[curSelection] + 1].type);
+          handleNav(PlaySportsArray[SelectionMap[curSelection] + 1].type);
         }}
       >
-        {curSelection !== SelectionArray[endIndex].type && (
+        {curSelection !== PlaySportsArray[endIndex].type && (
           <>
-            <span>{SelectionArray[SelectionMap[curSelection] + 1].title}</span>
+            <span>{PlaySportsArray[SelectionMap[curSelection] + 1].title}</span>
             <Icon.ArrowRight color="#FFFFFFDE" rotate={0} />
           </>
         )}

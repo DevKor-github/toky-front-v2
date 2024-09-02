@@ -6,6 +6,13 @@ export const SelectionArray = [
   { type: 'rugby', title: '럭비' },
 ] as const;
 
+export const PlaySportsArray = [
+  { type: 'baseball', title: '야구' },
+  { type: 'icehockey', title: '빙구' },
+  { type: 'basketball', title: '농구' },
+  { type: 'football', title: '축구' },
+] as const;
+
 export type SelectionType = (typeof SelectionArray)[number]['type'] | 'all';
 
 export const SelectionMap: { [key in Exclude<SelectionType, 'all'>]: number } = {

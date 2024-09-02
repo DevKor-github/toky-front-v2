@@ -8,7 +8,7 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 import { useGetBetQuestions, useGetMyBets, usePostBet } from '@/libs/apis/bets';
-import { SelectionArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
+import { PlaySportsArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
 import { NavScrollProvider } from '@/app/bets/NavScrollProvider';
 import { QuestionType } from '@/libs/types/bets';
 import { createQuestions } from '@/libs/utils/createQuestions';
@@ -22,8 +22,6 @@ import PredictionBanner from '@/components/PredictionBanner';
 import SportsSelectionBar from '@/components/SportsSelectionBar';
 import PredictionQuestion from '@/components/PredictionQuestion';
 import PredictionBottomBar from '@/components/PredictionBottomBar';
-
-const PlayArray = SelectionArray.slice(0, 4);
 
 const checkIsDones = (data: QuestionType[]) => {
   let isDone = true;
@@ -49,8 +47,8 @@ export default function Bets() {
   const { mutate: bet } = usePostBet();
   const questionData = createQuestions(betQuestions!, myBets);
 
-  // "baseball" | "football" | "basketball" | "rugby" | "icehockey"로 관리
-  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>('baseball');
+  // "baseball" | "football" | "basketball" | "icehockey"로 관리
+  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all' | 'rugby'>>('baseball');
   const swiperRef = useRef<SwiperRef>(null);
   useEffect(() => {
     // 스와이퍼와 curNav 동기화
@@ -68,7 +66,7 @@ export default function Bets() {
   }, [openShareModal]);
 
   const handleNav = useCallback((selection: SelectionType) => {
-    if (selection !== 'all') {
+    if (selection !== 'all' && selection !== 'rugby') {
       setCurNav(selection);
     }
   }, []);
@@ -118,9 +116,9 @@ export default function Bets() {
           // 진짜 모든 종목의 응답이 끝난 경우
           setTimeout(openModal, 500);
         } else {
-          if (curNav !== PlayArray[PlayArray.length - 1].type) {
+          if (curNav !== PlaySportsArray[PlaySportsArray.length - 1].type) {
             // 마지막 종목이 아닌 경우
-            setTimeout(() => setCurNav(PlayArray[SelectionMap[curNav] + 1].type), 500);
+            setTimeout(() => setCurNav(PlaySportsArray[SelectionMap[curNav] + 1].type), 500);
           }
         }
       }
@@ -137,7 +135,7 @@ export default function Bets() {
         <PredictionBanner shareHandler={openModal} />
         <SportsSelectionBar isPlayOnly={true} curSelection={curNav} handleSelect={handleNav} isSticky />
         <Swiper slidesPerView={1} allowTouchMove={false} ref={swiperRef}>
-          {PlayArray.map(({ type }) => (
+          {PlaySportsArray.map(({ type }) => (
             <SwiperSlide
               key={type}
               onFocus={() => {

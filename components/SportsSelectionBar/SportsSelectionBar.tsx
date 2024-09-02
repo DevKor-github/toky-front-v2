@@ -3,10 +3,8 @@
 import { memo } from 'react';
 import styled from 'styled-components';
 
-import { SelectionArray, SelectionType } from '@/libs/constants/sports';
+import { PlaySportsArray, SelectionArray, SelectionType } from '@/libs/constants/sports';
 import { SportsButton } from '@/components/SportsSelectionBar/SportsButton';
-
-const PlayArray = SelectionArray.slice(0, 4);
 
 interface SportsSelectionBarProps {
   curSelection: SelectionType;
@@ -26,7 +24,7 @@ export const SportsSelectionBar = memo(function SportsSelectionBar({
   isSticky = false,
   isPlayOnly = false,
 }: SportsSelectionBarProps) {
-  const SportsArray = isPlayOnly ? PlayArray : SelectionArray;
+  const SportsArray = isPlayOnly ? PlaySportsArray : SelectionArray;
   return (
     <Wrapper $bgColor={bgColor} $isSticky={isSticky} $isPlayOnly={isPlayOnly}>
       {showAll && (
