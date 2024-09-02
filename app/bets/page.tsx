@@ -102,7 +102,7 @@ export default function Bets() {
         checkIsDones(newData) && // 이번 응답으로 모든 응답이 완료되었으며
         curNav !== SelectionArray[SelectionArray.length - 1].type // 마지막 종목이 아닌 경우
       ) {
-        setCurNav(SelectionArray[SelectionMap[curNav] + 1].type);
+        setTimeout(() => setCurNav(SelectionArray[SelectionMap[curNav] + 1].type), 500);
       }
     },
     [curNav, questionData, isLogin, openLoginModal, openToast, bet, addTickets],
