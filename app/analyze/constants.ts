@@ -518,7 +518,7 @@ export const KOREA_PLAYER_CARD_LIST: PlayerCardListProps = {
       heightWeight: '175/70',
     },
     {
-      image: '/image-proxy/analyze/profile/korea/icehockey/24_gwonminjae.png',
+      image: '/image-proxy/analyze/profile/korea/icehockey/24_parkminchae.png',
       name: '박민채',
       jerseyNumber: '20',
       position: 'FW',
@@ -526,7 +526,7 @@ export const KOREA_PLAYER_CARD_LIST: PlayerCardListProps = {
       heightWeight: '180/88',
     },
     {
-      image: '/image-proxy/analyze/profile/korea/icehockey/24_gwonminjae.png',
+      image: '/image-proxy/analyze/profile/korea/icehockey/24_sonhyeon.png',
       name: '손현',
       jerseyNumber: '29',
       position: 'FW',
@@ -534,7 +534,7 @@ export const KOREA_PLAYER_CARD_LIST: PlayerCardListProps = {
       heightWeight: '175/73',
     },
     {
-      image: '/image-proxy/analyze/profile/korea/icehockey/24_gwonminjae.png',
+      image: '/image-proxy/analyze/profile/korea/icehockey/24_leejihoon.png',
       name: '이지훈',
       jerseyNumber: '75',
       position: 'FW',
@@ -542,7 +542,7 @@ export const KOREA_PLAYER_CARD_LIST: PlayerCardListProps = {
       heightWeight: '175/78',
     },
     {
-      image: '/image-proxy/analyze/profile/korea/icehockey/24_gwonminjae.png',
+      image: '/image-proxy/analyze/profile/korea/icehockey/24_jungyoungguen.png',
       name: '정영근',
       jerseyNumber: '10',
       position: 'FW',
@@ -550,7 +550,7 @@ export const KOREA_PLAYER_CARD_LIST: PlayerCardListProps = {
       heightWeight: '175/70',
     },
     {
-      image: '/image-proxy/analyze/profile/korea/icehockey/24_gwonminjae.png',
+      image: '/image-proxy/analyze/profile/korea/icehockey/24_parktaeyoung.png',
       name: '박태영',
       jerseyNumber: '82',
       position: 'DF',
@@ -558,7 +558,7 @@ export const KOREA_PLAYER_CARD_LIST: PlayerCardListProps = {
       heightWeight: '180/82',
     },
     {
-      image: '/image-proxy/analyze/profile/korea/icehockey/24_gwonminjae.png',
+      image: '/image-proxy/analyze/profile/korea/icehockey/24_songjoonseob.png',
       name: '송준섭',
       jerseyNumber: '5',
       position: 'DF',
@@ -566,7 +566,7 @@ export const KOREA_PLAYER_CARD_LIST: PlayerCardListProps = {
       heightWeight: '187/83',
     },
     {
-      image: '/image-proxy/analyze/profile/korea/icehockey/24_gwonminjae.png',
+      image: '/image-proxy/analyze/profile/korea/icehockey/24_yangtaegyu.png',
       name: '양태규',
       jerseyNumber: '97',
       position: 'DF',
@@ -574,7 +574,7 @@ export const KOREA_PLAYER_CARD_LIST: PlayerCardListProps = {
       heightWeight: '180/75',
     },
     {
-      image: '/image-proxy/analyze/profile/korea/icehockey/24_gwonminjae.png',
+      image: '/image-proxy/analyze/profile/korea/icehockey/24_choiwonhyoung.png',
       name: '최원형',
       jerseyNumber: '21',
       position: 'DF',

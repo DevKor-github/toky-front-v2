@@ -42,13 +42,13 @@ export default function AnalyzeDetails() {
         />
         <ContentsWrapper scale={scale}>
           <PlayerCardContainer school="고려대학교" scale={scale}>
-            {koreaPlayers.map((player, index) => (
-              <PlayerCard key={index} scale={scale} {...player} />
+            {koreaPlayers.map((player) => (
+              <PlayerCard key={player.image} scale={scale} {...player} />
             ))}
           </PlayerCardContainer>
           <PlayerCardContainer school="연세대학교" scale={scale}>
-            {yonseiPlayers.map((player, index) => (
-              <PlayerCard key={index} scale={scale} {...player} />
+            {yonseiPlayers.map((player) => (
+              <PlayerCard key={player.image} scale={scale} {...player} />
             ))}
           </PlayerCardContainer>
         </ContentsWrapper>
