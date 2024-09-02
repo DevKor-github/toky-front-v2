@@ -101,7 +101,8 @@ const Wrapper = styled.div`
   height: 100%;
   width: 331px;
   background-color: #222222;
-  padding: 72px 20px 0 20px;
+  padding: 72px 20px 60px 20px;
+  overflow-y: scroll;
 
   transition: 1s ease;
   z-index: ${(props) => props.theme.zIndex.SideBar};

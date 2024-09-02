@@ -17,9 +17,7 @@ export function UserInfoTopBar() {
         </button>
       </FlexItems>
       <FlexItems $position="center">회원 정보 관리</FlexItems>
-      <FlexItems $position="right">
-        <SideBar />
-      </FlexItems>
+      <FlexItems $position="right" />
     </Wrapper>
   );
 }
