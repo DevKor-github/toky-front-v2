@@ -25,8 +25,8 @@ export function MainCarousel() {
         }}
         loop
       >
-        {bannersList.map((banner) => (
-          <SwiperSlide key={banner.src}>
+        {bannersList.map((banner, index) => (
+          <SwiperSlide key={`${banner.src}-${index}`}>
             <MainCarouselContent src={banner.src} />
           </SwiperSlide>
         ))}

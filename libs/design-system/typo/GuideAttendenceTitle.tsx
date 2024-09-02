@@ -7,8 +7,8 @@ export function GuideAttendenceTitle() {
       />
       <defs>
         <linearGradient id="paint0_linear_1647_1142" x1="91" y1="-7" x2="91" y2="59" gradientUnits="userSpaceOnUse">
-          <stop stop-color="white" />
-          <stop offset="1" stop-color="white" stop-opacity="0.5" />
+          <stop stopColor="white" />
+          <stop offset="1" stopColor="white" stopOpacity="0.5" />
         </linearGradient>
       </defs>
     </svg>

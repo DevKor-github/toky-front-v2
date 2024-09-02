@@ -126,7 +126,6 @@ const ScheduleHeader = styled.div`
 
 const ScheduleTitle = styled.div`
   color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
-  font-family: 'Spoqa Han Sans Neo';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;

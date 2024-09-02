@@ -14,8 +14,8 @@ export function GuideTicketTitle() {
           y2="70.5"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#D8CAEE" />
-          <stop offset="1" stop-color="#AE93DB" />
+          <stop stopColor="#D8CAEE" />
+          <stop offset="1" stopColor="#AE93DB" />
         </linearGradient>
       </defs>
     </svg>

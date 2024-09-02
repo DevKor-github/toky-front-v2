@@ -78,7 +78,6 @@ const Wrapper = styled.div<StyledProps<ActionButtonProps>>`
   height: ${({ $height }) => $height || 'auto'};
   border-radius: ${({ $borderRadius }) => $borderRadius || '0px'};
   font-size: ${({ $fontSize }) => $fontSize || '14px'};
-  font-family: 'Spoqa Han Sans Neo';
   cursor: pointer;
   padding: ${({ $padding }) => $padding || '0'};
   font-weight: ${({ $fontWeight }) => $fontWeight || '500'};
