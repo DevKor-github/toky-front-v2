@@ -84,6 +84,7 @@ export default function Home() {
             ))}
           </FreeModeCarousel>
         </ScheduleCarouselWrapper>
+        {/* TODO 불렛 처리 */}
         <AdWrapper>
           <Swiper
             autoplay={{

@@ -25,7 +25,7 @@ export function DrawBoard({ myDraws, tickets, giftItems }: DrawBoardProps) {
       </TitleWrapper>
       <Flex $gap={4} style={{ marginTop: 4, marginBottom: 12 }} $align="center" $justify="center">
         <Icon.Ticket />
-        <MyDraw>{tickets}</MyDraw>
+        <MyDraw>{tickets} 장</MyDraw>
       </Flex>
       <Title>내 응모 현황</Title>
       <CarouselWrapper>
@@ -56,6 +56,7 @@ const CarouselWrapper = styled.div`
   background: rgba(255, 255, 255, 0.1);
   margin-top: 8px;
   width: 100%;
+  min-height: 76px;
 `;
 
 const TitleWrapper = styled.div`

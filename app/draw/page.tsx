@@ -85,6 +85,7 @@ export default function Draw() {
                   totalDraw={gift.count}
                   productName={gift.name}
                   imgUrl={gift.photoUrl}
+                  productAlias={gift.alias}
                 />
               ))}
           </Flex>
