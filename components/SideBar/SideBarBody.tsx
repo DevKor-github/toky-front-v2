@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { PAGE_INFO_LIST } from './constants';
 import { CopyInviteCode } from '../CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '../KakaoLogin';
@@ -21,6 +21,7 @@ function SideBarBody({ isBarOpen = true }) {
   const { mutate: logout } = usePostLogout();
   const tickets = useTicketStore((state) => state.tickets);
   const university = userInfo?.university == 0 ? '고려대학교' : '연세대학교';
+  const router = useRouter();
 
   function openTokyInstagram() {
     window.open('https://instagram.com/official.toky?igshid=NjIwNzIyMDk2Mg==');
@@ -84,11 +85,15 @@ function SideBarBody({ isBarOpen = true }) {
               문의하기
             </NavItem>
             {isLogin && (
-              <Link href="/">
-                <NavItem $selected={false} onClick={() => logout}>
-                  로그아웃
-                </NavItem>
-              </Link>
+              <NavItem
+                $selected={false}
+                onClick={() => {
+                  logout();
+                  router.push('/');
+                }}
+              >
+                로그아웃
+              </NavItem>
             )}
           </Flex>
         </NavWrapper>
