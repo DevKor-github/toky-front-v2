@@ -5,7 +5,7 @@ import Link from 'next/link';
 import banner1 from '@/public/banner1.png';
 import MainCarouselContent from './MainCarouselContent';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -14,8 +14,13 @@ export function MainCarousel() {
   return (
     <Wrapper className="MainCarouselWrapper">
       <Swiper
-        modules={[Pagination]}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: true,
+        }}
+        modules={[Pagination, Autoplay]}
         spaceBetween={0}
+        loop
         slidesPerView={1}
         pagination={{
           type: 'fraction',
@@ -23,7 +28,6 @@ export function MainCarousel() {
             return `<span class="${currentClass}"></span> <span class="swiper-pagination-slash">/</span> <span class="${totalClass}"></span>`;
           },
         }}
-        loop
       >
         {bannersList.map((banner, index) => (
           <SwiperSlide key={`${banner.src}-${index}`}>
