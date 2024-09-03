@@ -85,7 +85,12 @@ export default function Home() {
             slidesPerView={1}
           >
             {AD_BANNER_LIST.map((banner, index) => (
-              <SwiperSlide key={`${banner.imgUrl}-${index}`}>
+              <SwiperSlide
+                key={`${banner.imgUrl}-${index}`}
+                onClick={() => {
+                  window.open(banner.link, '_blank');
+                }}
+              >
                 <BannerImage src={banner.imgUrl} alt="ad" fill sizes="100vw 100%" />
               </SwiperSlide>
             ))}
