@@ -10,7 +10,7 @@ import { refresh } from '@/libs/client/createAxiosInstance';
 import { useGetNeedSignup } from '@/libs/apis/auth';
 
 export function AuthProvider() {
-  const { isLogin, login, logout } = useAuthStore((state) => state);
+  const { isLogin, login, logout, setLogin } = useAuthStore((state) => state);
   const setProfile = useProfileStore((state) => state.setProfile);
   const setTickets = useTicketStore((state) => state.setTickets);
 
@@ -50,15 +50,28 @@ export function AuthProvider() {
     } else if (accessToken !== null) {
       checkAlreadySignUp();
     } else if (refreshToken !== null) {
-      refresh();
+      refresh().then((token) => {
+        if (token) {
+          checkAlreadySignUp();
+        } else {
+          logout();
+        }
+      });
     }
   }, [signIn, logout, checkAlreadySignUp]);
 
   useEffect(() => {
-    if (isGetNeedSignupSuccess && isAlreadySignup) {
-      login();
+    if (isGetNeedSignupSuccess) {
+      console.log(1);
+      if (isAlreadySignup) {
+        console.log(2);
+        login();
+      } else {
+        // 회원가입을 진행하진 않았지만, 토큰은 발급된 경우
+        setLogin(false);
+      }
     }
-  }, [isGetNeedSignupSuccess, isAlreadySignup, login]);
+  }, [isGetNeedSignupSuccess, isAlreadySignup, login, setLogin]);
 
   useEffect(() => {
     if (isLogin) {
