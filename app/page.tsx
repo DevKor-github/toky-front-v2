@@ -17,8 +17,6 @@ import { SuspenseParamProvider } from '@/libs/client/ParamProvider';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { Autoplay, Pagination } from 'swiper/modules';
-import { Icon } from '@/libs/design-system/icons';
-import ActionButton from '@/components/ActionButton';
 import { onClickKakaoLogin } from '@/libs/utils/kakaoLogin';
 
 export default function Home() {

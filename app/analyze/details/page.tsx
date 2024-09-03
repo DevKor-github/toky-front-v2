@@ -6,9 +6,9 @@ import SportsSelectionBar from '@/components/SportsSelectionBar';
 import { SelectionType } from '@/libs/constants/sports';
 import PlayerCard from '@/components/PlayerCard';
 import { PlayerCardContainer } from '@/components/Analyze/PlayerCardContainer';
-import { useEffect } from 'react';
 import Header from '@/components/Header';
 import { KOREA_PLAYER_CARD_LIST, YONSEI_PLAYER_CARD_LIST } from '../constants';
+import { RipRugby } from '@/components/RipRugby/RipRugby';
 
 export default function AnalyzeDetails() {
   const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>('baseball');
@@ -34,18 +34,21 @@ export default function AnalyzeDetails() {
           bgColor="var(--black_0, #121212)"
           isSticky={true}
         />
-        <ContentsWrapper scale={scale}>
-          <PlayerCardContainer school="고려대학교" scale={scale}>
-            {koreaPlayers.map((player, index) => (
-              <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
-            ))}
-          </PlayerCardContainer>
-          <PlayerCardContainer school="연세대학교" scale={scale}>
-            {yonseiPlayers.map((player, index) => (
-              <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
-            ))}
-          </PlayerCardContainer>
-        </ContentsWrapper>
+        {curNav === 'rugby' && <RipRugby />}
+        {curNav !== 'rugby' && (
+          <ContentsWrapper scale={scale}>
+            <PlayerCardContainer school="고려대학교" scale={scale}>
+              {koreaPlayers.map((player, index) => (
+                <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
+              ))}
+            </PlayerCardContainer>
+            <PlayerCardContainer school="연세대학교" scale={scale}>
+              {yonseiPlayers.map((player, index) => (
+                <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
+              ))}
+            </PlayerCardContainer>
+          </ContentsWrapper>
+        )}
       </Wrapper>
     </div>
   );

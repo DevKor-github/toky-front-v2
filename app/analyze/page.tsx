@@ -15,6 +15,7 @@ import styled from 'styled-components';
 import { BANNER_INFO, KOREA_PLAYER_CARD_LIST, YONSEI_PLAYER_CARD_LIST } from './constants';
 import Link from 'next/link';
 import { Icon } from '@/libs/design-system/icons';
+import { RipRugby } from '@/components/RipRugby/RipRugby';
 
 export default function Analyze() {
   const [curNav, setCurNav] = useState<SelectionType>('all');
@@ -45,7 +46,7 @@ export default function Analyze() {
           showAll
           bgColor="linear-gradient(180deg, rgba(18, 18, 18, 0.80) 0%, rgba(18, 18, 18, 0.00) 100%);"
         />
-        {curNav === 'rugby' && <></>}
+        {curNav === 'rugby' && <RipRugby />}
         {curNav !== 'rugby' && (
           <>
             <Banner $backgroundUrl={BANNER_INFO[curNav]} key={BANNER_INFO[curNav]}>

@@ -101,7 +101,8 @@ const NameContainer = styled.div<{ scale: number }>`
 const NamePosition = styled.div<{ scale: number }>`
   position: absolute;
   top: 2px;
-  left: ${(props) => 55 * props.scale}px;
+  right: ${(props) => 7 * props.scale}px;
+  white-space: nowrap;
 `;
 
 const InfoContainer = styled.div`
