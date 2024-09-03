@@ -48,10 +48,7 @@ export const usePostSignup = () => {
 
 export const usePostLogout = () => {
   const logout = useAuthStore((state) => state.logout);
-  const signOut = () => {
-    logout();
-  };
-  return useMutation({ mutationFn: postLogout, onSuccess: signOut });
+  return useMutation({ mutationFn: postLogout, onSuccess: logout });
 };
 
 export const useGetNeedSignup = () => {
