@@ -14,33 +14,7 @@ export const TOTAL_MATCH_LIST: AnalyzeItemProps[] = [
   { matchName: '빙구', koreaWin: 17, yonseiWin: 24 },
 ];
 
-const BANNER_INFO = [
-  {
-    bannerImageUrl: '/image-proxy/test-5-0.png',
-    recordImageUrl: '/image-proxy/test-5-0.png',
-  },
-  {
-    bannerImageUrl: '/image-proxy/test-5-0.png',
-    recordImageUrl: '/image-proxy/test-5-0.png',
-  },
-  {
-    bannerImageUrl: '/image-proxy/test-5-0.png',
-    recordImageUrl: '/image-proxy/test-5-0.png',
-  },
-  {
-    bannerImageUrl: '/image-proxy/test-5-0.png',
-    recordImageUrl: '/image-proxy/test-5-0.png',
-  },
-  {
-    bannerImageUrl: '/image-proxy/test-5-0.png',
-    recordImageUrl: '/image-proxy/test-5-0.png',
-  },
-];
-
-export const MATCH_INFO = MATCH_SCHEDULE.map((match, index) => ({
-  ...match,
-  ...BANNER_INFO[index],
-}));
+export const MATCH_INFO = MATCH_SCHEDULE;
 
 export interface BestPlayerInfo {
   alias: string;

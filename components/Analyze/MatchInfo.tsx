@@ -22,7 +22,7 @@ export function MatchInfo({ match }: MatchInfoProps) {
       <Flex $gap={12} $align="center">
         <Flex $gap={4} $align="center">
           <Text>고려대학교</Text>
-          <Image src={matchInfo.bannerImageUrl} alt="고려대학교" width={42} height={42} />
+          <Image src="/image-proxy/analyze/korea_symbol.png" alt="고려대학교" width={42} height={42} />
         </Flex>
         <Flex $align="center" $justify="center" $direction="column">
           <Text
@@ -45,7 +45,7 @@ export function MatchInfo({ match }: MatchInfoProps) {
           </Text>
         </Flex>
         <Flex $gap={4} $align="center">
-          <Image src="/image-proxy/test-5-0.png" alt="고려대학교" width={42} height={42} />
+          <Image src="/image-proxy/analyze/yonsei_symbol.png" alt="고려대학교" width={42} height={42} />
           <Text>연세대학교</Text>
         </Flex>
       </Flex>

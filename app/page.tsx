@@ -54,16 +54,6 @@ export default function Home() {
         <ScheduleCarouselWrapper>
           <ScheduleHeader>
             <ScheduleTitle>정기전 일정</ScheduleTitle>
-            <ActionButton
-              color="var(--white-medium-emphasis-60, rgba(255, 255, 255, 0.60))"
-              fontSize="14px"
-              href="/bets"
-            >
-              <Flex $gap={4} $align="center">
-                자세히보기
-                <Icon.ChevronForward />
-              </Flex>
-            </ActionButton>{' '}
           </ScheduleHeader>
           <FreeModeCarousel padding="0px 20px" spaceBetween={0}>
             {Object.entries(SCHEDULE_INFO).map(([date, events], index) => (

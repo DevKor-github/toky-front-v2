@@ -12,8 +12,9 @@ import { LastDate, SelectionType } from '@/libs/constants/sports';
 import { Flex } from '@/libs/design-system/flex';
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { KOREA_PLAYER_CARD_LIST, YONSEI_PLAYER_CARD_LIST } from './constants';
+import { BANNER_INFO, KOREA_PLAYER_CARD_LIST, YONSEI_PLAYER_CARD_LIST } from './constants';
 import Link from 'next/link';
+import { Icon } from '@/libs/design-system/icons';
 
 export default function Analyze() {
   const [curNav, setCurNav] = useState<SelectionType>('all');
@@ -44,46 +45,55 @@ export default function Analyze() {
           showAll
           bgColor="linear-gradient(180deg, rgba(18, 18, 18, 0.80) 0%, rgba(18, 18, 18, 0.00) 100%);"
         />
-        <Banner $backgroundUrl="/image-proxy/test-5-0.png">
-          <ButtonWrapper>
-            <ActionButton
-              color="#121212"
-              bgColor="rgba(255, 255, 255, 0.87)"
-              padding="8px 16px"
-              borderRadius="99px"
-              fontWeight="700"
-              href="/bets"
-            >
-              승부예측하러 가기
-            </ActionButton>
-          </ButtonWrapper>
-          {curNav === 'all' ? <Timer expiryTimestamp={LastDate} /> : <MatchInfo match={curNav} />}
-        </Banner>
-        {curNav === 'all' ? <AnalyzeTotal /> : <AnalyzeMatch match={curNav} />}
-        {curNav !== 'all' && curNav !== 'rugby' && (
+        {curNav === 'rugby' && <></>}
+        {curNav !== 'rugby' && (
           <>
-            <div style={{ height: 16, width: '100%', backgroundColor: '#1F1F1F' }} />
-            <CarouselWrapper>
-              <Flex $justify="space-between" $align="center" style={{ paddingLeft: 20, paddingRight: 14 }}>
-                <PlayerInfo>선수정보</PlayerInfo>
-              </Flex>
-              <div style={{ marginTop: 15 }}>
-                <PlayerCarousel>
-                  {koreaPlayers.map((player, index) => (
-                    <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
-                  ))}
-                </PlayerCarousel>
-                <Caption>SPORTS KU 제공</Caption>
+            <Banner $backgroundUrl={BANNER_INFO[curNav]} key={BANNER_INFO[curNav]}>
+              <ButtonWrapper>
+                <ActionButton
+                  color="#121212"
+                  bgColor="rgba(255, 255, 255, 0.87)"
+                  padding="8px 16px"
+                  borderRadius="99px"
+                  fontWeight="700"
+                  href="/bets"
+                >
+                  승부예측하러 가기
+                </ActionButton>
+              </ButtonWrapper>
+              {curNav === 'all' ? <Timer expiryTimestamp={LastDate} /> : <MatchInfo match={curNav} />}
+            </Banner>
+            {curNav === 'all' ? <AnalyzeTotal /> : <AnalyzeMatch match={curNav} />}
+            {curNav !== 'all' && (
+              <>
+                <div style={{ height: 16, width: '100%', backgroundColor: '#1F1F1F' }} />
+                <CarouselWrapper>
+                  <Flex $justify="space-between" $align="center" style={{ paddingLeft: 20, paddingRight: 14 }}>
+                    <PlayerInfo>선수정보</PlayerInfo>
+                    <MorePlayerInfo href={`/analyze/details?sports=${curNav}`}>
+                      자세히 보기
+                      <Icon.ChevronForward />
+                    </MorePlayerInfo>
+                  </Flex>
+                  <div style={{ marginTop: 15 }}>
+                    <PlayerCarousel>
+                      {koreaPlayers.map((player, index) => (
+                        <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
+                      ))}
+                    </PlayerCarousel>
+                    <Caption>SPORTS KU 제공</Caption>
 
-                <div style={{ height: 16 }} />
-                <PlayerCarousel>
-                  {yonseiPlayers.map((player, index) => (
-                    <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
-                  ))}
-                </PlayerCarousel>
-                <Caption>연세대학교 스포츠매거진 시스붐바 제공</Caption>
-              </div>
-            </CarouselWrapper>
+                    <div style={{ height: 16 }} />
+                    <PlayerCarousel>
+                      {yonseiPlayers.map((player, index) => (
+                        <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
+                      ))}
+                    </PlayerCarousel>
+                    <Caption>연세대학교 스포츠매거진 시스붐바 제공</Caption>
+                  </div>
+                </CarouselWrapper>
+              </>
+            )}
           </>
         )}
       </Wrapper>
