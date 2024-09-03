@@ -9,44 +9,52 @@ import DailyAttendanceQuiz from '@/components/DailyAttendanceQuiz';
 import { Icon } from '@/libs/design-system/icons';
 import { useGetAttendance } from '@/libs/apis/attendance';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
+import { useEffect } from 'react';
+import { useLoginModal } from '@/components/LoginModal/useLoginModal';
 
 export default function Attendance() {
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { data: attendanceInfo } = useGetAttendance();
+  const { data: attendanceInfo, refetch: refetchAttendance } = useGetAttendance();
 
-  //TODO: 백엔드에서 비로그인 상태의 attendanceInfo가 어떻게 처리되는지 확인 후 개발
-  //TODO: 백엔드에 오늘 정답여부 요청
+  const { openLoginModal } = useLoginModal();
 
-  const {
-    attendanceHistory = [],
-    today = '',
-    question = '',
-    quizId = 0,
-    todayAttendance = false,
-  } = attendanceInfo || {};
+  useEffect(() => {
+    if (isLogin) {
+      refetchAttendance();
+    } else {
+      openLoginModal();
+    }
+  }, [isLogin]);
 
   return (
     <div>
       <MainTopBar />
       <NavigationBar />
-      <Wrapper>
-        <AttendanceBanner>
-          매일매일 쏟아지는 응모권!
-          <Icon.AttendanceQuizBadge />
-        </AttendanceBanner>
-        <AttendanceStamp>
-          <Icon.AttendanceStamp />
-        </AttendanceStamp>
-        <AttendanceTicket>
-          <Icon.AttendanceTicket />
-        </AttendanceTicket>
-        <AttendanceCalendar attendanceHistory={attendanceHistory ?? []} today={today ?? ''} />
-        <DailyAttendanceQuiz
-          question={question ?? ''}
-          quizId={quizId ?? 0}
-          todayAttendance={todayAttendance ?? false}
-        />
-      </Wrapper>
+      {attendanceInfo && (
+        <Wrapper>
+          <AttendanceBanner>
+            매일매일 쏟아지는 응모권!
+            <Icon.AttendanceQuizBadge />
+          </AttendanceBanner>
+          <AttendanceStamp>
+            <Icon.AttendanceStamp />
+          </AttendanceStamp>
+          <AttendanceTicket>
+            <Icon.AttendanceTicket />
+          </AttendanceTicket>
+          <AttendanceCalendar
+            attendanceHistory={attendanceInfo?.attendanceHistory ?? []}
+            today={attendanceInfo?.today ?? ''}
+          />
+          <DailyAttendanceQuiz
+            question={attendanceInfo?.question ?? ''}
+            quizId={attendanceInfo?.quizId ?? 0}
+            todayAttendance={attendanceInfo?.todayAttendance ?? false}
+            isMyAnswerCorrect={attendanceInfo?.isMyAnswerCorrect ?? null}
+            todayAnswer={attendanceInfo?.todayAnswer ?? null}
+          />
+        </Wrapper>
+      )}
     </div>
   );
 }

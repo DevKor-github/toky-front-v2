@@ -9,20 +9,24 @@ interface DailyAttendanceQuizProps {
   question: string;
   quizId: number;
   todayAttendance: boolean;
+  isMyAnswerCorrect?: boolean | null;
+  todayAnswer?: boolean | null;
 }
 
-export function DailyAttendanceQuiz({ question, quizId, todayAttendance }: DailyAttendanceQuizProps) {
-  const [isAnswered, setIsAnswered] = useState<boolean>(false);
-  const [isCorrect, setIsCorrect] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+export function DailyAttendanceQuiz({
+  question,
+  quizId,
+  todayAttendance,
+  isMyAnswerCorrect,
+  todayAnswer,
+}: DailyAttendanceQuizProps) {
+  const [isAnswered, setIsAnswered] = useState<boolean>(todayAttendance);
+  const [isCorrect, setIsCorrect] = useState<boolean>(isMyAnswerCorrect ?? false);
 
-  useEffect(() => {
-    setIsAnswered(todayAttendance);
-  }, [todayAttendance]);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [isAnswered]);
+  const getColorMode = (type: boolean) => {
+    if (!todayAttendance) return false;
+    return type === todayAnswer;
+  };
 
   const { mutate: postAttendance, data, error } = usePostAttendance();
 
@@ -32,18 +36,10 @@ export function DailyAttendanceQuiz({ question, quizId, todayAttendance }: Daily
     if (data) {
       setIsAnswered(true);
       setIsCorrect(data.data.correct);
-    }
-
-    if (error) {
+    } else if (error) {
       console.log(error);
     }
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  //TODO: 정답 결과에 따라서 OX 버튼 색상 변경
 
   return (
     <Wrapper>
@@ -57,8 +53,8 @@ export function DailyAttendanceQuiz({ question, quizId, todayAttendance }: Daily
         </DailyAttendanceQuizTitleStroke>
         <DailyAttendanceQuizQuestion>{question}</DailyAttendanceQuizQuestion>
         <ButtonContainer $isAnswered={isAnswered}>
-          <QuizButton type={true} onAnswer={handleAnswer} />
-          <QuizButton type={false} onAnswer={handleAnswer} />
+          <QuizButton type={true} onAnswer={handleAnswer} colorMode={getColorMode(true)} />
+          <QuizButton type={false} onAnswer={handleAnswer} colorMode={getColorMode(false)} />
         </ButtonContainer>
         {isAnswered && <ResultBadge type={isCorrect} />}
       </DailyAttendanceQuizContainer>

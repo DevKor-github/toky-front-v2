@@ -15,7 +15,7 @@ export function ResultBadge({ type }: { type: boolean }) {
 
 const BadgeWrapper = styled.div`
   position: absolute;
-  top: 130px;
+  top: 143px;
   left: calc((100% - 250px) / 2);
   display: flex;
   width: 250px;

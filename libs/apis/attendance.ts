@@ -10,6 +10,8 @@ interface AttendanceInfo {
   quizId: number;
   question: string;
   todayAttendance: boolean;
+  isMyAnswerCorrect: boolean | null;
+  todayAnswer: boolean | null;
 }
 
 interface AnswerInfo {
