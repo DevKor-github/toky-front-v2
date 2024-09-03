@@ -13,7 +13,6 @@ import { Flex } from '@/libs/design-system/flex';
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { KOREA_PLAYER_CARD_LIST, YONSEI_PLAYER_CARD_LIST } from './constants';
-import { Icon } from '@/libs/design-system/icons';
 import Link from 'next/link';
 
 export default function Analyze() {
@@ -67,10 +66,6 @@ export default function Analyze() {
             <CarouselWrapper>
               <Flex $justify="space-between" $align="center" style={{ paddingLeft: 20, paddingRight: 14 }}>
                 <PlayerInfo>선수정보</PlayerInfo>
-                <MorePlayerInfo href={`/analyze/details?sports=${curNav}`}>
-                  자세히 보기
-                  <Icon.ChevronForward />
-                </MorePlayerInfo>
               </Flex>
               <div style={{ marginTop: 15 }}>
                 <PlayerCarousel>

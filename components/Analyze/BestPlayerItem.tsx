@@ -8,7 +8,7 @@ type PlayerProps = {
   player: BestPlayerInfo;
 };
 export default function BestPlayerItem({ player }: PlayerProps) {
-  const { alias, name, position, backNumber, body, stat, imageUrl, description, department, isKorea } = player;
+  const { alias, name, position, backNumber, body, imageUrl, description, department, isKorea } = player;
   return (
     <Wrapper $isKorea={isKorea}>
       {!isKorea ? <DropShadow /> : <></>}
@@ -25,7 +25,9 @@ export default function BestPlayerItem({ player }: PlayerProps) {
                 <Department>{department}</Department>
                 {!isKorea && <Name>{name}</Name>}
               </Flex>
-              <Description $isKorea={isKorea}>{description}</Description>
+              <Description $isKorea={isKorea}>
+                <pre>{description}</pre>
+              </Description>
             </Flex>
           </Flex>
           <PlayerInfoTable $isKorea={isKorea}>
@@ -33,16 +35,20 @@ export default function BestPlayerItem({ player }: PlayerProps) {
               <tr>
                 <th>포지션</th>
                 <td>{position}</td>
-                <th>신장/체중</th>
-                <td>{body}</td>
+                <th>백넘버</th>
+                <td>{backNumber}</td>
               </tr>
             </tbody>
             <tbody>
               <tr>
-                <th>백넘버</th>
-                <td>{backNumber}</td>
-                <th>지난 성적</th>
-                <td>{stat}</td>
+                {isKorea && (
+                  <>
+                    <th></th>
+                    <td></td>
+                  </>
+                )}
+                <th>신장/체중</th>
+                <td>{body}</td>
               </tr>
             </tbody>
           </PlayerInfoTable>
@@ -143,8 +149,10 @@ const Name = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 44px;
+  white-space: nowrap;
 `;
 const Department = styled.div`
+  white-space: nowrap;
   color: #fff;
   text-align: right;
   font-size: 14px;
@@ -171,27 +179,42 @@ const Description = styled.p<{ $isKorea: boolean }>`
 
 const PlayerInfoTable = styled.table<{ $isKorea: boolean }>`
   color: white;
+  & tr {
+    line-height: 20px;
+  }
   & th {
-    font-size: 9px;
+    font-size: 13px;
     font-weight: 700;
+
+    white-space: nowrap;
   }
   & td {
     font-size: 14px;
     font-weight: 500;
     padding: 0px 6px;
+    white-space: nowrap;
+  }
+  & tr:last-child {
+    margin-top: 10px;
   }
   ${(props) =>
     props.$isKorea &&
     css`
       & th {
         color: #f95b6e;
+        text-align: right;
+      }
+      & td {
+        text-align: right;
       }
     `}
   ${(props) =>
     !props.$isKorea &&
     css`
+      margin-right: auto;
       & th {
         color: #5b84ff;
+        text-align: left;
       }
     `};
 `;
