@@ -62,9 +62,7 @@ export function AuthProvider() {
 
   useEffect(() => {
     if (isGetNeedSignupSuccess) {
-      console.log(1);
       if (isAlreadySignup) {
-        console.log(2);
         login();
       } else {
         // 회원가입을 진행하진 않았지만, 토큰은 발급된 경우

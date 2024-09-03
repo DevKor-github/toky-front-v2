@@ -6,6 +6,7 @@ import { OverlayProvider } from '@/libs/design-system/overlay';
 import QueryProvider from '@/libs/client/QueryProvider';
 import { AuthProvider } from '@/libs/client/AuthProvider';
 import { StoreProvider } from '@/libs/store/Providers/StoreProvider';
+import { AuthLoader } from '@/libs/client/AuthLoader';
 
 export const metadata: Metadata = {
   title: '신나는 정기전 승부예측, TOKY',
@@ -23,7 +24,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <QueryProvider>
                 <OverlayProvider>
                   <AuthProvider />
-                  <main>{children}</main>
+                  <AuthLoader>
+                    <main>{children}</main>
+                  </AuthLoader>
                 </OverlayProvider>
               </QueryProvider>
             </StoreProvider>
