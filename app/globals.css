@@ -120,10 +120,50 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+a {
+  text-decoration: none;
+}
+div {
+  box-sizing: border-box;
+}
+button {
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+nav {
+  box-sizing: border-box;
+}
+html {
+  background: #121212;
+  position: relative;
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+
+@font-face {
+  font-family: 'HS-Regular';
+  src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/HS-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans Neo';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
