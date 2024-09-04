@@ -25,14 +25,14 @@ echo "> ecr registry name: $ECR_REGISTRY_NAME"
 aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY_NAME
 
 echo "> docker pull $IMAGE_NAME"
-docker pull $IMAGE_NAME
+sudo docker pull $IMAGE_NAME
 if [ $? -ne 0 ]; then
   echo "Docker 이미지 풀 실패"
   exit 1
 fi
 
 echo "> docker run -dp 3000:3000 --name $CONTAINER_NAME $IMAGE_NAME"
-docker run -dp 3000:3000 --name $CONTAINER_NAME $IMAGE_NAME
+sudo docker run -dp 3000:3000 --name $CONTAINER_NAME $IMAGE_NAME
 if [ $? -ne 0 ]; then
   echo "Docker 컨테이너 실행 실패"
   exit 1
