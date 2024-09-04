@@ -32,11 +32,11 @@ export default function SignUp() {
     swiperRef.current?.swiper.slideTo(progress);
   }, [progress]);
 
-  // useEffect(() => {
-  //   if ((isSuccess && isAlreadySignup) || isError) {
-  //     router.push('/');
-  //   }
-  // }, [isSuccess, router, isAlreadySignup, isError]);
+  useEffect(() => {
+    if ((isSuccess && isAlreadySignup) || isError) {
+      router.push('/');
+    }
+  }, [isSuccess, router, isAlreadySignup, isError]);
 
   const handlePrevButton = useCallback(() => {
     if (progress === 0) {
