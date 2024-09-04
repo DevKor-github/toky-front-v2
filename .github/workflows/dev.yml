@@ -1,0 +1,60 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["dev"]
+env:
+  AWS_S3_BUCKET_NAME: ${{secrets.AWS_S3_BUCKET_NAME}} #S3 버킷 이름
+  AWS_CODE_DEPLOY_NAME: ${{secrets.AWS_DEV_CODE_DEPLOY_NAME}} #CodeDeploy 애플리케이션 이름
+  AWS_CODE_DEPLOY_GROUP: ${{secrets.AWS_DEV_CODE_DEPLOY_GROUP}} #CodeDeploy 배포 그룹 이름
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials # AWS 설정
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Login in to Amazon ECR # ECR 로그인
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push docker image to Amazon ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: toky-docker
+          IMAGE_TAG: ${{ github.sha }}
+        # 생성된 이미지 이름 및 태그 정보 입력 및 ecr에 이미지 배포
+        run: |
+          rm .env
+          echo "${{env.REGISTRY}}" > registry.txt
+          echo "${{env.REGISTRY}}/${{env.REPOSITORY}}:${{env.IMAGE_TAG}}"  > image.txt 
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG ./
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+      - name: Create Zip file for AWS CodeDeploy
+        run: |
+          mkdir -p ${{ env.AWS_CODE_DEPLOY_NAME }}
+          cp -r appspec.yml scripts image.txt registry.txt ${{ env.AWS_CODE_DEPLOY_NAME }}
+          cd ${{ env.AWS_CODE_DEPLOY_NAME }} && zip -r ../${{ github.sha }}.zip .
+      # AWS S3로 파일 업로드
+      - name: Upload to AWS S3
+        run: |
+          cat image.txt
+          aws deploy push \
+          --application-name ${{env.AWS_CODE_DEPLOY_NAME}} \
+          --s3-location s3://${{env.AWS_S3_BUCKET_NAME}}/codedeploy/$GITHUB_SHA.zip \
+          --ignore-hidden-files \
+          --source ${{env.AWS_CODE_DEPLOY_NAME}}
+
+      # AWS EC2에 배포요청
+      - name: Deploy to AWS EC2
+        run: |
+          echo "Deploy to EC2" 
+          aws deploy create-deployment --application-name ${{env.AWS_CODE_DEPLOY_NAME}} --deployment-group-name ${{env.AWS_CODE_DEPLOY_GROUP}} --s3-location bucket=$AWS_S3_BUCKET_NAME,bundleType=zip,key=codedeploy/$GITHUB_SHA.zip
