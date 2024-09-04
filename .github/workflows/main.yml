@@ -2,20 +2,20 @@ name: Docker Image CI
 
 on:
   push:
-    branches: ["dev"]
+    branches: ['main']
 env:
   AWS_S3_BUCKET_NAME: ${{secrets.AWS_S3_BUCKET_NAME}} #S3 버킷 이름
-  AWS_CODE_DEPLOY_NAME: ${{secrets.AWS_DEV_CODE_DEPLOY_NAME}} #CodeDeploy 애플리케이션 이름
-  AWS_CODE_DEPLOY_GROUP: ${{secrets.AWS_DEV_CODE_DEPLOY_GROUP}} #CodeDeploy 배포 그룹 이름
+  AWS_CODE_DEPLOY_NAME: ${{secrets.AWS_PRODUCTION_CODE_DEPLOY_NAME}} #CodeDeploy 애플리케이션 이름
+  AWS_CODE_DEPLOY_GROUP: ${{secrets.AWS_PRODUCTION_CODE_DEPLOY_GROUP}} #CodeDeploy 배포 그룹 이름
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Configure AWS credentials # AWS 설정
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
