@@ -7,6 +7,7 @@ import QueryProvider from '@/libs/client/QueryProvider';
 import { AuthProvider } from '@/libs/client/AuthProvider';
 import { StoreProvider } from '@/libs/store/Providers/StoreProvider';
 import { AuthLoader } from '@/libs/client/AuthLoader';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   title: '신나는 정기전 승부예측, TOKY',
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </ThemeClient>
         </StyledComponentsRegistry>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ?? ''} />
     </html>
   );
 }
