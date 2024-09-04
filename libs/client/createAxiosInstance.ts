@@ -36,7 +36,6 @@ const errorHandler = async (error: any) => {
       const newAccessToken = await refresh();
 
       if (newAccessToken) {
-        console.log(`New Access Token :: ${newAccessToken}`);
         config.headers.Authorization = `Bearer ${newAccessToken}`;
         return client(config);
       } else {
