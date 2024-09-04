@@ -123,9 +123,13 @@ export default function SignUp() {
 
   return (
     <div>
-      <SignupTopBar handlePrevButton={handlePrevButton} />
-      <SignupProgress curProgress={progress} totalProgress={totalProgress} />
-      <SignupFunnel ref={swiperRef} preventSwiperTab={preventSwiperTab} />
+      {progress !== totalProgress && (
+        <>
+          <SignupTopBar handlePrevButton={handlePrevButton} />
+          <SignupProgress curProgress={progress} totalProgress={totalProgress - 1} />
+        </>
+      )}
+      <SignupFunnel ref={swiperRef} curProgress={progress} preventSwiperTab={preventSwiperTab} />
       <SignupFooter $isDone={clickable} onClick={handleNextButton}>
         {progress === totalProgress ? '토키 시작하기' : progress === totalProgress - 1 ? '회원가입 완료' : '다음'}
       </SignupFooter>
