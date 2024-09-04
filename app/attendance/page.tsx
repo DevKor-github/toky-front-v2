@@ -52,6 +52,7 @@ export default function Attendance() {
             todayAttendance={attendanceInfo?.todayAttendance ?? false}
             isMyAnswerCorrect={attendanceInfo?.isMyAnswerCorrect ?? null}
             todayAnswer={attendanceInfo?.todayAnswer ?? null}
+            refetchAttendance={refetchAttendance}
           />
         </Wrapper>
       )}

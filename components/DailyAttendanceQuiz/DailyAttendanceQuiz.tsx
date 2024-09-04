@@ -11,6 +11,7 @@ interface DailyAttendanceQuizProps {
   todayAttendance: boolean;
   isMyAnswerCorrect?: boolean | null;
   todayAnswer?: boolean | null;
+  refetchAttendance: () => void;
 }
 
 export function DailyAttendanceQuiz({
@@ -19,6 +20,7 @@ export function DailyAttendanceQuiz({
   todayAttendance,
   isMyAnswerCorrect,
   todayAnswer,
+  refetchAttendance,
 }: DailyAttendanceQuizProps) {
   const [isAnswered, setIsAnswered] = useState<boolean>(todayAttendance);
   const [isCorrect, setIsCorrect] = useState<boolean>(isMyAnswerCorrect ?? false);
@@ -36,6 +38,7 @@ export function DailyAttendanceQuiz({
     if (data) {
       setIsAnswered(true);
       setIsCorrect(data.data.correct);
+      refetchAttendance();
     } else if (error) {
       console.log(error);
     }
