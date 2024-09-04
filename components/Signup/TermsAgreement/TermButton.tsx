@@ -7,7 +7,7 @@ interface TermButtonProps {
   selected: boolean;
   onClick: () => void;
   text: string;
-  details: string;
+  details: JSX.Element;
 }
 export function TermButton({ selected, onClick, text, details }: TermButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -95,8 +95,9 @@ const Details = styled.div`
   padding-left: 32px;
 
   color: var(--white-medium-emphasis-60, rgba(255, 255, 255, 0.6));
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 400;
-  line-height: 160%; /* 22.4px */
-  letter-spacing: -0.56px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  word-break: keep-all;
 `;
