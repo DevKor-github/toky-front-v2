@@ -3,7 +3,7 @@
 import { useCallback, useEffect } from 'react';
 import { useGetProfile } from '@/libs/apis/users';
 import { useGetTickets } from '../apis/tickets';
-import { useAuthStore } from '../store/Providers/AuthStoreProvider';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 import { useProfileStore } from '../store/Providers/ProfileStoreProvider';
 import { useTicketStore } from '../store/Providers/TicketStoreProvider';
 import { refresh } from '@/libs/client/createAxiosInstance';
@@ -50,15 +50,13 @@ export function AuthProvider() {
     } else if (accessToken !== null) {
       checkAlreadySignUp();
     } else if (refreshToken !== null) {
-      refresh()
-        .then((token) => {
-          if (token) {
-            checkAlreadySignUp();
-          } else {
-            logout();
-          }
-        })
-        .catch(logout);
+      refresh().then((token) => {
+        if (token) {
+          checkAlreadySignUp();
+        } else {
+          logout();
+        }
+      });
     }
   }, [signIn, logout, checkAlreadySignUp]);
 
