@@ -19,6 +19,7 @@ export const refresh = mem(
       console.log(err);
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
+      throw new Error('refresh fail');
     }
 
     return null;

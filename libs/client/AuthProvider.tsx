@@ -50,13 +50,15 @@ export function AuthProvider() {
     } else if (accessToken !== null) {
       checkAlreadySignUp();
     } else if (refreshToken !== null) {
-      refresh().then((token) => {
-        if (token) {
-          checkAlreadySignUp();
-        } else {
-          logout();
-        }
-      });
+      refresh()
+        .then((token) => {
+          if (token) {
+            checkAlreadySignUp();
+          } else {
+            logout();
+          }
+        })
+        .catch(logout);
     }
   }, [signIn, logout, checkAlreadySignUp]);
 
