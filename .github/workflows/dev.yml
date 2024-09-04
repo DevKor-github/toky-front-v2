@@ -32,6 +32,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         # 생성된 이미지 이름 및 태그 정보 입력 및 ecr에 이미지 배포
         run: |
+          rm .env.production
           echo "${{env.REGISTRY}}" > registry.txt
           echo "${{env.REGISTRY}}/${{env.REPOSITORY}}:${{env.IMAGE_TAG}}"  > image.txt 
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG ./
