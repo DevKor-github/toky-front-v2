@@ -2,20 +2,20 @@ name: Docker Image CI
 
 on:
   push:
-    branches: ['main']
+    branches: ["dev"]
 env:
   AWS_S3_BUCKET_NAME: ${{secrets.AWS_S3_BUCKET_NAME}} #S3 버킷 이름
-  AWS_CODE_DEPLOY_NAME: ${{secrets.AWS_PRODUCTION_CODE_DEPLOY_NAME}} #CodeDeploy 애플리케이션 이름
-  AWS_CODE_DEPLOY_GROUP: ${{secrets.AWS_PRODUCTION_CODE_DEPLOY_GROUP}} #CodeDeploy 배포 그룹 이름
+  AWS_CODE_DEPLOY_NAME: ${{secrets.AWS_DEV_CODE_DEPLOY_NAME}} #CodeDeploy 애플리케이션 이름
+  AWS_CODE_DEPLOY_GROUP: ${{secrets.AWS_DEV_CODE_DEPLOY_GROUP}} #CodeDeploy 배포 그룹 이름
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configure AWS credentials # AWS 설정
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -32,7 +32,6 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         # 생성된 이미지 이름 및 태그 정보 입력 및 ecr에 이미지 배포
         run: |
-          rm .env.development
           echo "${{env.REGISTRY}}" > registry.txt
           echo "${{env.REGISTRY}}/${{env.REPOSITORY}}:${{env.IMAGE_TAG}}"  > image.txt 
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG ./
