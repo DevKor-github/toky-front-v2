@@ -39,6 +39,7 @@ export function PlayerCard({
         sizes="100% 100%"
         style={{ borderRadius: '4px' }}
         placeholder={skeletonImage}
+        fetchPriority="low"
       />
       <NameContainer className={isFlipped ? '' : 'visible'} scale={scale}>
         <NamePosition scale={scale}>{name}</NamePosition>
