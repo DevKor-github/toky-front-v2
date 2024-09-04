@@ -32,7 +32,8 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "> docker run -dp 3000:3000 --name $CONTAINER_NAME $IMAGE_NAME"
-sudo docker run -dp 3000:3000 --name toky-container $CONTAINER_NAME $IMAGE_NAME
+sudo docker run -dp 3000:3000 --name $CONTAINER_NAME $IMAGE_NAME
+
 if [ $? -ne 0 ]; then
   echo "Docker 컨테이너 실행 실패"
   exit 1
