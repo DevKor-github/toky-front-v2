@@ -10,10 +10,11 @@ import TermsAgreement from '@/components/Signup/TermsAgreement';
 import Welcome from '@/components/Signup/Welcome';
 
 interface SignupFunnelProps {
+  curProgress: number;
   preventSwiperTab: () => void;
 }
 export const SignupFunnel = forwardRef<SwiperRef, SignupFunnelProps>(function SignupContents(
-  { preventSwiperTab },
+  { curProgress, preventSwiperTab },
   ref,
 ) {
   return (
@@ -35,7 +36,7 @@ export const SignupFunnel = forwardRef<SwiperRef, SignupFunnelProps>(function Si
       </SwiperSlide>
       <SwiperSlide onFocus={preventSwiperTab}>
         <Contents>
-          <TermsAgreement />
+          <TermsAgreement curProgress={curProgress} />
         </Contents>
       </SwiperSlide>
       <SwiperSlide onFocus={preventSwiperTab}>

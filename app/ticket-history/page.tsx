@@ -4,9 +4,21 @@ import styled from 'styled-components';
 import Header from '@/components/Header';
 import { useGetTicketHistoryList } from '@/libs/apis/tickets';
 import { Flex } from '@/libs/design-system/flex';
+import { useEffect } from 'react';
+import { useLoginModal } from '@/components/LoginModal/useLoginModal';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 
 export default function TicketHistory() {
-  const { data: ticketHistoryList } = useGetTicketHistoryList() || [];
+  const { openLoginModal } = useLoginModal();
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const { data: ticketHistoryList, refetch: refetchTicketHistoryList } = useGetTicketHistoryList() || [];
+
+  useEffect(() => {
+    if (!isLogin) {
+      openLoginModal();
+    }
+    refetchTicketHistoryList();
+  });
 
   const dataFormat = (dateString: string) => {
     const regex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.\d{3}Z$/;
