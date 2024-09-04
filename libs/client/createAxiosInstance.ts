@@ -1,8 +1,9 @@
 import axios from 'axios';
 import type { AxiosInstance, InternalAxiosRequestConfig, RawAxiosRequestHeaders } from 'axios';
+import mem from 'mem';
 
 import client from '@/libs/client/client';
-import mem from 'mem';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 
 const REFRESH_URL = '/auth/refresh';
 
@@ -19,6 +20,8 @@ export const refresh = mem(
       console.log(err);
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
+      useAuthStore.getState().logout();
+      return Promise.reject(err);
     }
 
     return null;
