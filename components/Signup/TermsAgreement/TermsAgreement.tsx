@@ -61,7 +61,7 @@ export function TermsAgreement() {
             <TermButton
               key={term.key}
               text={term.text}
-              details={term.details}
+              details={term.details()}
               selected={terms[term.key]}
               onClick={() => handleTermAgree(term.key)}
             />
@@ -76,6 +76,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 34px;
+  padding-bottom: 64px;
 `;
 const Guide = styled.div`
   display: flex;

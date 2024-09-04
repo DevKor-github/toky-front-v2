@@ -32,11 +32,11 @@ export default function SignUp() {
     swiperRef.current?.swiper.slideTo(progress);
   }, [progress]);
 
-  useEffect(() => {
-    if ((isSuccess && isAlreadySignup) || isError) {
-      router.push('/');
-    }
-  }, [isSuccess, router, isAlreadySignup, isError]);
+  // useEffect(() => {
+  //   if ((isSuccess && isAlreadySignup) || isError) {
+  //     router.push('/');
+  //   }
+  // }, [isSuccess, router, isAlreadySignup, isError]);
 
   const handlePrevButton = useCallback(() => {
     if (progress === 0) {
@@ -127,7 +127,7 @@ export default function SignUp() {
       <SignupProgress curProgress={progress} totalProgress={totalProgress} />
       <SignupFunnel ref={swiperRef} preventSwiperTab={preventSwiperTab} />
       <SignupFooter $isDone={clickable} onClick={handleNextButton}>
-        {progress === totalProgress ? '토키 시작하기' : '다음'}
+        {progress === totalProgress ? '토키 시작하기' : progress === totalProgress - 1 ? '회원가입 완료' : '다음'}
       </SignupFooter>
     </div>
   );
@@ -159,4 +159,5 @@ const SignupFooter = styled.button<{ $isDone: boolean }>`
       : 'var(--white-15, rgba(255, 255, 255, 0.15))'};
 
   transition: all 0.2s;
+  z-index: 1;
 `;
