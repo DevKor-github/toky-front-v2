@@ -1,1 +1,1 @@
-export { SignupFunnel as default } from './SingupFunnel';
+export { SignupFunnel as default } from './SignupFunnel';
