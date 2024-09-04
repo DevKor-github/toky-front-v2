@@ -32,9 +32,7 @@ export function DailyAttendanceQuiz({
 
   const { mutate: postAttendance, data, error } = usePostAttendance();
 
-  const handleAnswer = (answer: boolean) => {
-    postAttendance({ answer: answer });
-
+  useEffect(() => {
     if (data) {
       setIsAnswered(true);
       setIsCorrect(data.data.correct);
@@ -42,6 +40,10 @@ export function DailyAttendanceQuiz({
     } else if (error) {
       console.log(error);
     }
+  }, [data, refetchAttendance]);
+
+  const handleAnswer = (answer: boolean) => {
+    postAttendance({ answer: answer });
   };
 
   return (
