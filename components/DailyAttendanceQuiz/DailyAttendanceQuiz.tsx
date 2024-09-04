@@ -46,6 +46,8 @@ export function DailyAttendanceQuiz({
     postAttendance({ answer: answer });
   };
 
+  console.log('test');
+
   return (
     <Wrapper>
       <DailyAttendanceQuizArrow>
