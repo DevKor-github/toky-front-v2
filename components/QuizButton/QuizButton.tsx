@@ -20,7 +20,6 @@ export function QuizButton({ type, onAnswer, colorMode }: QuizButtonProps) {
     if (colorMode) {
       setBgColor(color);
     }
-    console.log(colorMode);
   }, [color]);
 
   const onClickHandler = (type: boolean) => {

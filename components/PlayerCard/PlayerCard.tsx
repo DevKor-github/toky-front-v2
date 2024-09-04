@@ -80,7 +80,7 @@ const NameContainer = styled.div<{ scale: number }>`
   top: ${(props) => 86 * props.scale}px;
   left: 0px;
   width: 100%;
-  height: 24px;
+  height: ${(props) => 24 * props.scale}px;
   border-radius: 0px 0px 4px 4px;
   background: var(--_38, rgba(255, 255, 255, 0.38));
   backdrop-filter: blur(2px);
@@ -162,5 +162,5 @@ const FlipedNameContainer = styled.div<{ scale: number }>`
   letter-spacing: -0.56px;
   position: absolute;
   top: ${(props) => 88 * props.scale}px;
-  left: ${(props) => 55 * props.scale}px;
+  right: ${(props) => 7 * props.scale}px;
 `;
