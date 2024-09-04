@@ -1,16 +1,23 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Check } from '@/libs/design-system/icons/Check';
 
 interface TermButtonProps {
+  curProgress: number;
   selected: boolean;
   onClick: () => void;
   text: string;
   details: JSX.Element;
 }
-export function TermButton({ selected, onClick, text, details }: TermButtonProps) {
+export function TermButton({ selected, onClick, text, details, curProgress }: TermButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (curProgress !== 3) {
+      setIsOpen(false);
+    }
+  }, [curProgress]);
 
   return (
     <Wrapper $isOpen={isOpen}>

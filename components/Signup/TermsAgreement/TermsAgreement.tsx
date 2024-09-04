@@ -6,7 +6,10 @@ import { Check } from '@/libs/design-system/icons/Check';
 import { TERMS_LIST, TermsType } from '@/components/Signup/TermsAgreement/constants';
 import { TermButton } from '@/components/Signup/TermsAgreement/TermButton';
 
-export function TermsAgreement() {
+interface TermsAgreementProps {
+  curProgress: number;
+}
+export function TermsAgreement({ curProgress }: TermsAgreementProps) {
   const agreement = useSignupForm((state) => state.agreement);
   const setAgreement = useSignupForm((state) => state.setAgreement);
 
@@ -64,6 +67,7 @@ export function TermsAgreement() {
               details={term.details()}
               selected={terms[term.key]}
               onClick={() => handleTermAgree(term.key)}
+              curProgress={curProgress}
             />
           ))}
         </TermButtonLayout>
