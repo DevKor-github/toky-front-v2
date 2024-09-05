@@ -19,10 +19,38 @@ else
   sleep 4
 fi
 
-echo "> login to ECR"
-echo "> ecr registry name: $ECR_REGISTRY_NAME"
-sudo su
-aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY_NAME
+
+function login_to_ecr() {
+  echo "> login to ECR"
+  echo "> ecr registry name: $ECR_REGISTRY_NAME"
+  LOGIN_RESULT=$(aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$ECR_REGISTRY_NAME")
+
+  if echo "$LOGIN_RESULT" | grep -q "Login Succeeded"; then
+    echo "> ECR 로그인 성공"
+    return 0
+  else
+    echo "> ECR 로그인 실패. 로그아웃 후 다시 시도합니다."
+    docker logout "$ECR_REGISTRY_NAME"
+    echo "> 다시 로그인 시도 중..."
+    LOGIN_RESULT=$(aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$ECR_REGISTRY_NAME")
+
+    if echo "$LOGIN_RESULT" | grep -q "Login Succeeded"; then
+      echo "> 재로그인 성공"
+      return 0
+    else
+      echo "> 재로그인 실패"
+      echo "$LOGIN_RESULT"
+      return 1
+    fi
+  fi
+}
+
+# ECR 로그인 시도
+login_to_ecr
+if [ $? -ne 0 ]; then
+  echo "> ECR 로그인에 반복 실패. 스크립트를 종료합니다."
+  exit 1
+fi
 
 echo "> docker pull $IMAGE_NAME"
 sudo docker pull $IMAGE_NAME
