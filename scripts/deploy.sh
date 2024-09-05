@@ -7,6 +7,12 @@ CONTAINER_NAME="toky-container" # 원하는 컨테이너 이름으로 설정
 ECR_REGISTRY_NAME=$(cat "$REGISTRY_FILE_PATH") # registry.txt에 저장한 ECR 레지스트리 정보
 # 현재 실행 중인 컨테이너 ID 조회
 CURRENT_PID=$(sudo docker container ls -q --filter "name=$CONTAINER_NAME")
+
+echo "> login to ECR"
+echo "> ecr registry name: $ECR_REGISTRY_NAME"
+sudo su
+aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY_NAME
+
 # 현재 실행 중인 컨테이너가 있으면 중지하고 제거
 if [ -z "$CURRENT_PID" ]; then
   echo "> 현재 구동중인 Docker Container가 없습니다"
@@ -19,10 +25,6 @@ else
   sleep 4
 fi
 
-echo "> login to ECR"
-echo "> ecr registry name: $ECR_REGISTRY_NAME"
-sudo su
-aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY_NAME
 
 echo "> docker pull $IMAGE_NAME"
 sudo docker pull $IMAGE_NAME
