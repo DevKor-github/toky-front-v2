@@ -8,9 +8,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { BANNER_LIST } from '@/components/MainCarousel/constants';
 
 export function MainCarousel() {
-  const bannersList = [banner1, banner1, banner1]; // TODO: 서버에서 이미지 파일 가져와서 생성
   return (
     <Wrapper className="MainCarouselWrapper">
       <Swiper
@@ -29,9 +29,9 @@ export function MainCarousel() {
           },
         }}
       >
-        {bannersList.map((banner, index) => (
+        {BANNER_LIST.map((banner, index) => (
           <SwiperSlide key={`${banner.src}-${index}`}>
-            <MainCarouselContent src={banner.src} />
+            <MainCarouselContent src={banner.src} link={banner.link} />
           </SwiperSlide>
         ))}
       </Swiper>
