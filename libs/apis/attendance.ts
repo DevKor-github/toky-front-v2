@@ -40,6 +40,7 @@ export const useGetTodayQuiz = () => {
   return useQuery({
     queryKey: ['today-quiz'],
     queryFn: getTodayQuiz,
+    retry: false,
   });
 };
 

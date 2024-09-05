@@ -99,6 +99,7 @@ export function useCardShare() {
   }
 
   async function shareImage() {
+    let isShared = true;
     if (!navigator.share) {
       // TODO 모달로 변경
       alert('지원되지 않는 브라우저입니다. 모바일 크롬으로 접속해주세요!');
@@ -129,12 +130,15 @@ export function useCardShare() {
           // text: 'https://www.toky.com',
           // title: 'hi',
         });
-        postShare();
       } catch (e: any) {
+        isShared = false;
         if (name in e && e.name !== 'AbortError') {
           console.error(e);
         }
       } finally {
+        if (isShared) {
+          postShare();
+        }
         setIsShareLoading(false);
       }
     }
