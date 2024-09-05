@@ -27,9 +27,9 @@ export function BetInfo() {
             <Flex $gap={4} style={{ padding: '0 4px' }} $align="center ">
               <Text>야구</Text>
               <Icon.Dot size={2} />
-              <Text>농구</Text>
+              <Text>빙구</Text>
               <Icon.Dot size={2} />
-              <Text>빙구 마감</Text>
+              <Text>농구 마감</Text>
             </Flex>
             <Text style={{ color: '#CC84FF' }}>9/27(금)</Text>
           </Flex>
