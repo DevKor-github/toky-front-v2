@@ -32,6 +32,7 @@ export const useGetProfile = () => {
     queryKey: ['profile'],
     queryFn: getProfile,
     enabled: false,
+    retry: false,
   });
 };
 

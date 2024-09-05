@@ -70,6 +70,7 @@ export const useGetBetQuestions = () => {
   return useQuery({
     queryKey: ['bets-question'],
     queryFn: getBetQuestions,
+    retry: false,
   });
 };
 
@@ -81,6 +82,7 @@ export const useGetMyBets = () => {
     queryKey: ['my-bets'],
     queryFn: getMyBets,
     enabled: false,
+    retry: false,
   });
 };
 
