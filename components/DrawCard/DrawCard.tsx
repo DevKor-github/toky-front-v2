@@ -7,6 +7,7 @@ import { Icon } from '@/libs/design-system/icons';
 import { useToast } from '../Toast';
 import { useDrawOneGift } from '@/libs/apis/tickets';
 import { useLoginModal } from '../LoginModal/useLoginModal';
+import { useNeedTicketModal } from '../NeedTicketModal/useNeedTicketModal';
 
 interface DrawCardProps {
   totalDraw: number;
@@ -21,6 +22,7 @@ export function DrawCard({ totalDraw, productName, productAlias, id, canDraw, im
   const [isClicked, setIsClicked] = useState(false);
   const { openToast } = useToast();
   const { openLoginModal } = useLoginModal();
+  const { openNeedTikcetModal } = useNeedTicketModal();
   const ticketControls = useAnimation();
 
   async function ticketAnimation() {
@@ -46,8 +48,10 @@ export function DrawCard({ totalDraw, productName, productAlias, id, canDraw, im
 
   const handleClick = async () => {
     if (openLoginModal() !== false) return;
-    // TODO : 응모권이 없을 때 처리
-    if (!canDraw) return;
+    if (!canDraw) {
+      openNeedTikcetModal();
+      return;
+    }
     setIsClicked(true);
     ticketAnimation();
     onDraw(id);

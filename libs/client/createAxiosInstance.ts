@@ -17,7 +17,6 @@ export const refresh = mem(
         return data.accessToken as string;
       }
     } catch (err) {
-      console.log(err);
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       useAuthStore.getState().logout();
