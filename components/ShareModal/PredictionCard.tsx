@@ -182,11 +182,11 @@ const ScoreBox = styled.div<{ $predictionResult: PredictionResult }>`
   }}
   width: 34px;
   border-radius: 4px;
-  padding: 5px 0 0 0;
+  padding: 3px 0px 1px 0px;
   text-align: center;
   font-size: 38px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 38px;
   background: ${({ theme }) => theme.colors.white87};
 `;
