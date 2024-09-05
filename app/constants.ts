@@ -106,4 +106,12 @@ export const AD_BANNER_LIST: AdBannerInfo[] = [
     imgUrl: '/image-proxy/home/yonseisports_recurit.png',
     link: 'https://post.naver.com/my.naver?memberNo=1322423',
   },
+  {
+    imgUrl: '/image-proxy/home/easy_ai.png',
+    link: 'https://www.medicisoft.com',
+  },
+  {
+    imgUrl: '/image-proxy/home/jaypub.png',
+    link: 'https://jpub.tistory.com/',
+  },
 ];
