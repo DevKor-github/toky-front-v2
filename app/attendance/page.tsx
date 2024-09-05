@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 export default function Attendance() {
   const isLogin = useAuthStore((state) => state.isLogin);
   const { data: todayQuizInfo } = useGetTodayQuiz();
-  const { data: attendanceInfo, refetch: refetchAttendance } = useGetMyAttendance();
+  const { data: attendanceInfo, isLoading: isAttendanceLoading, refetch: refetchAttendance } = useGetMyAttendance();
 
   useEffect(() => {
     if (isLogin) {
@@ -37,7 +37,7 @@ export default function Attendance() {
         <AttendanceTicket>
           <Icon.AttendanceTicket />
         </AttendanceTicket>
-        {todayQuizInfo && (
+        {todayQuizInfo && !isAttendanceLoading && (
           <>
             <AttendanceCalendar
               attendanceHistory={attendanceInfo?.attendanceHistory ?? []}
