@@ -6,7 +6,7 @@ function MainCarouselContent({ src }: { src: string }) {
   return (
     <Wrapper
       onClick={() =>
-        sendGAEvent('event', 'banner-click', {
+        sendGAEvent('event', 'banner_click', {
           src: src,
           screen_name: 'Home',
         })
