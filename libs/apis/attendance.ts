@@ -1,14 +1,17 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import client from '../client/client';
 
-interface AttendanceInfo {
+interface TodayQuizInfo {
+  today: string;
+  quizId: number;
+  question: string;
+}
+
+interface MyAttendanceInfo {
   attendanceHistory: {
     attendanceDate: string;
     isAnswerCorrect: boolean;
   }[];
-  today: string;
-  quizId: number;
-  question: string;
   todayAttendance: boolean;
   isMyAnswerCorrect: boolean | null;
   todayAnswer: boolean | null;
@@ -18,8 +21,13 @@ interface AnswerInfo {
   answer: boolean;
 }
 
-const getAttendance = async () => {
-  const response = await client.get<AttendanceInfo>('/attendance-check');
+const getTodayQuiz = async () => {
+  const response = await client.get<TodayQuizInfo>('/attendance-check/today-quiz');
+  return response.data;
+};
+
+const getMyAttendance = async () => {
+  const response = await client.get<MyAttendanceInfo>('/attendance-check/my-attendance');
   return response.data;
 };
 
@@ -28,11 +36,19 @@ const postAttendance = async (params: AnswerInfo) => {
   return response;
 };
 
-export const useGetAttendance = () => {
+export const useGetTodayQuiz = () => {
+  return useQuery({
+    queryKey: ['today-quiz'],
+    queryFn: getTodayQuiz,
+  });
+};
+
+export const useGetMyAttendance = () => {
   return useQuery({
     queryKey: ['attendance-check'],
-    queryFn: getAttendance,
+    queryFn: getMyAttendance,
     retry: false,
+    enabled: false,
   });
 };
 

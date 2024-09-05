@@ -7,22 +7,18 @@ import NavigationBar from '@/components/NavigationBar';
 import AttendanceCalendar from '@/components/AttendanceCalendar';
 import DailyAttendanceQuiz from '@/components/DailyAttendanceQuiz';
 import { Icon } from '@/libs/design-system/icons';
-import { useGetAttendance } from '@/libs/apis/attendance';
+import { useGetMyAttendance, useGetTodayQuiz } from '@/libs/apis/attendance';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 import { useEffect } from 'react';
-import { useLoginModal } from '@/components/LoginModal/useLoginModal';
 
 export default function Attendance() {
   const isLogin = useAuthStore((state) => state.isLogin);
-  const { data: attendanceInfo, refetch: refetchAttendance } = useGetAttendance();
-
-  const { openLoginModal } = useLoginModal();
+  const { data: todayQuizInfo } = useGetTodayQuiz();
+  const { data: attendanceInfo, refetch: refetchAttendance } = useGetMyAttendance();
 
   useEffect(() => {
     if (isLogin) {
       refetchAttendance();
-    } else {
-      openLoginModal();
     }
   }, [isLogin]);
 
@@ -44,11 +40,11 @@ export default function Attendance() {
           </AttendanceTicket>
           <AttendanceCalendar
             attendanceHistory={attendanceInfo?.attendanceHistory ?? []}
-            today={attendanceInfo?.today ?? ''}
+            today={todayQuizInfo?.today ?? ''}
           />
           <DailyAttendanceQuiz
-            question={attendanceInfo?.question ?? ''}
-            quizId={attendanceInfo?.quizId ?? 0}
+            question={todayQuizInfo?.question ?? ''}
+            quizId={todayQuizInfo?.quizId ?? 0}
             todayAttendance={attendanceInfo?.todayAttendance ?? false}
             isMyAnswerCorrect={attendanceInfo?.isMyAnswerCorrect ?? null}
             todayAnswer={attendanceInfo?.todayAnswer ?? null}
