@@ -4,6 +4,7 @@ import { useProfileStore } from '@/libs/store/Providers/ProfileStoreProvider';
 import html2canvas from 'html2canvas';
 import { useEffect, useRef, useState } from 'react';
 import { useToast } from '../Toast';
+import { sendGAEvent } from '@next/third-parties/google';
 
 export function useCardShare() {
   const [isDownloding, setIsDownloading] = useState(false);
@@ -124,6 +125,9 @@ export function useCardShare() {
 
     if (navigator.canShare({ files: filesArray })) {
       try {
+        sendGAEvent('event', 'share', {
+          type: 'instagram-image-share',
+        });
         await navigator.share({
           files: filesArray,
           // text: 'https://www.toky.com',

@@ -8,6 +8,7 @@ import { useToast } from '../Toast';
 import { useDrawOneGift } from '@/libs/apis/tickets';
 import { useLoginModal } from '../LoginModal/useLoginModal';
 import { useNeedTicketModal } from '../NeedTicketModal/useNeedTicketModal';
+import { sendGAEvent } from '@next/third-parties/google';
 
 interface DrawCardProps {
   totalDraw: number;
@@ -40,6 +41,10 @@ export function DrawCard({ totalDraw, productName, productAlias, id, canDraw, im
 
   function drawSuccess() {
     openToast({ message: `${productAlias ?? productName} 응모 완료!` });
+    sendGAEvent('event', 'draw', {
+      productName,
+      totalDraw,
+    });
     setTimeout(() => {
       setIsClicked(false);
     }, 400);
