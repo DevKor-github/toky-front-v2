@@ -13,6 +13,13 @@ echo "> ecr registry name: $ECR_REGISTRY_NAME"
 sudo su
 aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY_NAME
 
+echo "> docker pull $IMAGE_NAME"
+sudo docker pull $IMAGE_NAME
+if [ $? -ne 0 ]; then
+  echo "Docker 이미지 풀 실패"
+  exit 1
+fi
+
 # 현재 실행 중인 컨테이너가 있으면 중지하고 제거
 if [ -z "$CURRENT_PID" ]; then
   echo "> 현재 구동중인 Docker Container가 없습니다"
@@ -23,14 +30,6 @@ else
   echo "> docker rm $CURRENT_PID"
   sudo docker rm $CURRENT_PID
   sleep 4
-fi
-
-
-echo "> docker pull $IMAGE_NAME"
-sudo docker pull $IMAGE_NAME
-if [ $? -ne 0 ]; then
-  echo "Docker 이미지 풀 실패"
-  exit 1
 fi
 
 echo "> docker run -dp 3000:3000 --name $CONTAINER_NAME $IMAGE_NAME"
