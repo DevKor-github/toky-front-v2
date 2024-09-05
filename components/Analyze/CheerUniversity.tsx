@@ -74,13 +74,13 @@ export function CheerUniversity() {
         yonseiPercentage,
       });
     }
-  }, [participantsData]);
+  }, [participantsData, cheerInfo?.myAnswer]);
 
   useEffect(() => {
     if (isLogin) {
       getMyCheer();
     }
-  }, [isLogin]);
+  }, [isLogin, getMyCheer]);
 
   useEffect(() => {
     if (!myCheerData) return;

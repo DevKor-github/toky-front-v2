@@ -29,14 +29,14 @@ export default function Draw() {
     if (queriedTickets) {
       setTickets(queriedTickets);
     }
-  }, [queriedTickets]);
+  }, [queriedTickets, setTickets]);
 
   useEffect(() => {
     if (isLogin) {
       refetchTickets();
       refetchMyTicketsUse();
     }
-  }, [isLogin]);
+  }, [isLogin, refetchTickets, refetchMyTicketsUse]);
 
   useEffect(() => {
     if (tickets > 0) {

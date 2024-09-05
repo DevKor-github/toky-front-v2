@@ -20,7 +20,7 @@ export default function Attendance() {
     if (isLogin) {
       refetchAttendance();
     }
-  }, [isLogin]);
+  }, [isLogin, refetchAttendance]);
 
   return (
     <div>
