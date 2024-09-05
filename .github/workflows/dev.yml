@@ -36,6 +36,7 @@ jobs:
           echo "NEXT_PUBLIC_API_URL=${{ secrets.DEV_API_URL }}" >> .env
           echo "NEXT_PUBLIC_AWS_S3_BUCKET_REGION=${{ secrets.AWS_REGION }}" >> .env
           echo "NEXT_PUBLIC_AWS_S3_BUCKET_NAME=${{ secrets.AWS_S3_IMAGE_BUCKET_NAME }}" >> .env
+          echo "NEXT_PUBLIC_GA_ID=${{ secrets.GA_ID }}" >> .env
           cat .env
 
           echo "${{env.REGISTRY}}" > registry.txt

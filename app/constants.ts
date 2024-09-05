@@ -99,11 +99,11 @@ interface AdBannerInfo {
 
 export const AD_BANNER_LIST: AdBannerInfo[] = [
   {
-    imgUrl: '/image-proxy/home/sportsku_ad_bannerv2.png',
+    imgUrl: '/image-proxy/home/sportsku_recurit.png',
     link: 'https://blog.naver.com/sportsku',
   },
   {
-    imgUrl: '/image-proxy/home/sis_ad_banner.png',
-    link: 'https://blog.naver.com/PostList.naver?blogId=sis_boom_bah&tab=1',
+    imgUrl: '/image-proxy/home/yonseisports_recurit.png',
+    link: 'https://post.naver.com/my.naver?memberNo=1322423',
   },
 ];

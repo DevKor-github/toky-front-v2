@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { ResultBadge } from './ResultBadge';
 import { Icon } from '@/libs/design-system/icons';
 import { usePostAttendance } from '@/libs/apis/attendance';
+import { useLoginModal } from '@/components/LoginModal/useLoginModal';
 
 interface DailyAttendanceQuizProps {
   question: string;
@@ -30,23 +31,27 @@ export function DailyAttendanceQuiz({
     return type === todayAnswer;
   };
 
-  const { mutate: postAttendance, data, error } = usePostAttendance();
+  const { mutate: postAttendance, data } = usePostAttendance();
+  const { openLoginModal } = useLoginModal();
 
   useEffect(() => {
     if (data) {
       setIsAnswered(true);
       setIsCorrect(data.data.correct);
       refetchAttendance();
-    } else if (error) {
-      console.log(error);
     }
   }, [data, refetchAttendance]);
 
   const handleAnswer = (answer: boolean) => {
-    postAttendance({ answer: answer });
+    postAttendance(
+      { answer: answer },
+      {
+        onError: (error) => {
+          error.response?.status === 401 && openLoginModal();
+        },
+      },
+    );
   };
-
-  console.log('test');
 
   return (
     <Wrapper>
