@@ -26,6 +26,7 @@ export const useGetCheersParticipants = () => {
     queryKey: ['cheers-participants'],
     queryFn: getCheersParticipants,
     staleTime: 1000 * 60 * 5,
+    retry: false,
   });
 };
 
@@ -34,6 +35,7 @@ export const useGetMyCheer = () => {
     queryKey: ['cheers-my'],
     queryFn: getMyCheer,
     enabled: false,
+    retry: false,
   });
 };
 
