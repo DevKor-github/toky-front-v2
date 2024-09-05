@@ -32,6 +32,7 @@ export const useGetAttendance = () => {
   return useQuery({
     queryKey: ['attendance-check'],
     queryFn: getAttendance,
+    retry: false,
   });
 };
 

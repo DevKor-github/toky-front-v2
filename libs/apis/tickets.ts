@@ -66,6 +66,7 @@ export const useGetTickets = () => {
     queryKey: ['tickets'],
     queryFn: getTickets,
     enabled: false,
+    retry: false,
   });
 };
 
@@ -73,6 +74,7 @@ export const useGetGiftItems = () => {
   return useQuery({
     queryKey: ['gift-items'],
     queryFn: getGiftItems,
+    retry: false,
   });
 };
 
@@ -81,6 +83,7 @@ export const useGetMyTicketsUse = () => {
     queryKey: ['my-tickets-use'],
     queryFn: getMyTicketsUse,
     enabled: false,
+    retry: false,
   });
 };
 
@@ -144,5 +147,6 @@ export const useGetTicketHistoryList = () => {
   return useQuery({
     queryKey: ['ticket-history'],
     queryFn: getTicketHistoryList,
+    retry: false,
   });
 };
