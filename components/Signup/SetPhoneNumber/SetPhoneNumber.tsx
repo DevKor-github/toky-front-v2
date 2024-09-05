@@ -25,6 +25,7 @@ export function SetPhoneNumber() {
       <FormWrapper>
         <InputBox
           placeholder="전화번호"
+          inputType="number"
           value={phoneNumber}
           setValue={setValue}
           error={error === 'phoneNumber'}

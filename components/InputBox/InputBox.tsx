@@ -7,6 +7,7 @@ type StatusType = 'default' | 'focus' | 'filled';
 
 interface InputBoxProps {
   type?: 'new' | 'edit';
+  inputType?: 'number' | 'text';
   value: string;
   setValue: (value: string) => void;
   placeholder?: string;
@@ -21,6 +22,7 @@ interface InputBoxProps {
 }
 export function InputBox({
   type = 'new',
+  inputType = 'text',
   value,
   setValue,
   placeholder,
@@ -36,6 +38,7 @@ export function InputBox({
   return (
     <Wrapper>
       <Input
+        inputMode={inputType === 'number' ? 'numeric' : undefined}
         $status={status}
         $error={error}
         $changeable={changeable}
