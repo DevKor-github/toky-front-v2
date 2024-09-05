@@ -60,6 +60,7 @@ export const useGetShareScore = () => {
     queryKey: ['bets-share'],
     queryFn: getShareScore,
     enabled: false,
+    retry: false,
   });
 };
 
