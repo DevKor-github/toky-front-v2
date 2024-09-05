@@ -14,7 +14,12 @@ export function AuthProvider() {
   const setProfile = useProfileStore((state) => state.setProfile);
   const setTickets = useTicketStore((state) => state.setTickets);
 
-  const { data: isAlreadySignup, refetch: checkAlreadySignUp, isSuccess: isGetNeedSignupSuccess } = useGetNeedSignup();
+  const {
+    data: isAlreadySignup,
+    refetch: checkAlreadySignUp,
+    isSuccess: isGetNeedSignupSuccess,
+    isError: isGetNeedSignupError,
+  } = useGetNeedSignup();
   const { data: updateProfile, refetch: getProfile, isSuccess: isGetProfileSuccess } = useGetProfile();
   const { data: tickets, refetch: getTickets, isSuccess: isGetTicketsSuccess } = useGetTickets();
 
@@ -70,6 +75,12 @@ export function AuthProvider() {
       }
     }
   }, [isGetNeedSignupSuccess, isAlreadySignup, login, setLogin]);
+
+  useEffect(() => {
+    if (isGetNeedSignupError) {
+      logout();
+    }
+  }, [isGetNeedSignupError, logout]);
 
   useEffect(() => {
     if (isLogin) {
