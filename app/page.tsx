@@ -80,7 +80,7 @@ export default function Home() {
               disableOnInteraction: true,
             }}
             modules={[Pagination, Autoplay]}
-            spaceBetween={0}
+            spaceBetween={10}
             loop
             slidesPerView={1}
           >

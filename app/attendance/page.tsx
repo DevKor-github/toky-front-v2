@@ -26,32 +26,30 @@ export default function Attendance() {
     <div>
       <MainTopBar />
       <NavigationBar />
-      {attendanceInfo && (
-        <Wrapper>
-          <AttendanceBanner>
-            매일매일 쏟아지는 응모권!
-            <Icon.AttendanceQuizBadge />
-          </AttendanceBanner>
-          <AttendanceStamp>
-            <Icon.AttendanceStamp />
-          </AttendanceStamp>
-          <AttendanceTicket>
-            <Icon.AttendanceTicket />
-          </AttendanceTicket>
-          <AttendanceCalendar
-            attendanceHistory={attendanceInfo?.attendanceHistory ?? []}
-            today={todayQuizInfo?.today ?? ''}
-          />
-          <DailyAttendanceQuiz
-            question={todayQuizInfo?.question ?? ''}
-            quizId={todayQuizInfo?.quizId ?? 0}
-            todayAttendance={attendanceInfo?.todayAttendance ?? false}
-            isMyAnswerCorrect={attendanceInfo?.isMyAnswerCorrect ?? null}
-            todayAnswer={attendanceInfo?.todayAnswer ?? null}
-            refetchAttendance={refetchAttendance}
-          />
-        </Wrapper>
-      )}
+      <Wrapper>
+        <AttendanceBanner>
+          매일매일 쏟아지는 응모권!
+          <Icon.AttendanceQuizBadge />
+        </AttendanceBanner>
+        <AttendanceStamp>
+          <Icon.AttendanceStamp />
+        </AttendanceStamp>
+        <AttendanceTicket>
+          <Icon.AttendanceTicket />
+        </AttendanceTicket>
+        <AttendanceCalendar
+          attendanceHistory={attendanceInfo?.attendanceHistory ?? []}
+          today={todayQuizInfo?.today ?? ''}
+        />
+        <DailyAttendanceQuiz
+          question={todayQuizInfo?.question ?? ''}
+          quizId={todayQuizInfo?.quizId ?? 0}
+          todayAttendance={attendanceInfo?.todayAttendance ?? false}
+          isMyAnswerCorrect={attendanceInfo?.isMyAnswerCorrect ?? null}
+          todayAnswer={attendanceInfo?.todayAnswer ?? null}
+          refetchAttendance={refetchAttendance}
+        />
+      </Wrapper>
     </div>
   );
 }
