@@ -44,7 +44,7 @@ function SideBarBody({ isBarOpen = true }) {
               </Flex>
             </Flex>
             <InfoWrapper>
-              <Flex $direction="column" $gap={6}>
+              <Flex $direction="column" $gap={6} onClick={() => router.push('ticket-history')}>
                 <MyTicketCaption>내 응모권</MyTicketCaption>
                 <Flex $gap={4}>
                   <Icon.Ticket size={22} /> <MyTicket>{tickets}장</MyTicket>
