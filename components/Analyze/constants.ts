@@ -8,10 +8,10 @@ export interface AnalyzeItemProps {
 
 export const TOTAL_MATCH_LIST: AnalyzeItemProps[] = [
   { matchName: '야구', koreaWin: 25, yonseiWin: 19 },
-  { matchName: '농구', koreaWin: 24, yonseiWin: 22 },
   { matchName: '빙구', koreaWin: 17, yonseiWin: 24 },
-  { matchName: '럭비', koreaWin: 21, yonseiWin: 25 },
+  { matchName: '농구', koreaWin: 24, yonseiWin: 22 },
   { matchName: '축구', koreaWin: 21, yonseiWin: 17 },
+  { matchName: '럭비', koreaWin: 21, yonseiWin: 25 },
 ];
 
 export const MATCH_INFO = MATCH_SCHEDULE;
