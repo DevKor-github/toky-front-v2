@@ -12,7 +12,7 @@ function MainCarouselContent({ src }: { src: string }) {
         })
       }
     >
-      <Image src={src} alt="banner1" />
+      <img src={src} alt="banner1" />
     </Wrapper>
   );
 }
