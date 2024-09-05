@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 export function AuthLoader({ children }: { children: React.ReactNode }) {
   const isLogin = useAuthStore((state) => state.isLogin);
-  console.log(`isLogin: ${isLogin}`);
   return <>{isLogin === null ? <Loader /> : children}</>;
 }
 

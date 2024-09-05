@@ -22,9 +22,6 @@ export function CopyInviteCode() {
           if (isCopied) {
             // TODO toast 수정
             openToast({ message: '초대링크 복사!' });
-          } else {
-            // TODO 복사할 수 있게 모달 띄우기?
-            console.log('Failed');
           }
         })
         .catch((e) => {
