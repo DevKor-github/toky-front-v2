@@ -41,6 +41,8 @@ export default function Draw() {
   useEffect(() => {
     if (tickets > 0) {
       setCanDraw(true);
+    } else {
+      setCanDraw(false);
     }
   }, [tickets]);
 
