@@ -22,6 +22,7 @@ import PredictionBanner from '@/components/PredictionBanner';
 import SportsSelectionBar from '@/components/SportsSelectionBar';
 import PredictionQuestion from '@/components/PredictionQuestion';
 import PredictionBottomBar from '@/components/PredictionBottomBar';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const checkIsDones = (data: QuestionType[]) => {
   let isDone = true;
@@ -85,6 +86,13 @@ export default function Bets() {
         return { ...question };
       });
 
+      sendGAEvent('event', 'bet', {
+        type: 'click',
+        questionID: qid,
+        sports: curNav,
+        answer,
+      });
+
       bet(
         { answer, questionId: qid, sports: curNav },
         {
@@ -92,6 +100,12 @@ export default function Bets() {
             if (prevAnswer === null) {
               openToast({ message: '응모권 1장 획득!' });
               addTickets(1);
+              sendGAEvent('event', 'bet', {
+                type: 'first-click',
+                questionID: qid,
+                sports: curNav,
+                answer,
+              });
             }
           },
         },
