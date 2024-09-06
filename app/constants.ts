@@ -47,38 +47,38 @@ const ICON_INFO: IconInfo = {
 };
 
 export const SCHEDULE_INFO: ScheduleInfo = {
-  '9/25 (수)': [
+  '9/20 (금)': [
     {
       title: '합동응원전',
       time: '18:00',
-      location: '고려대학교 화정체육관',
+      location: '연세대학교 노천극장',
       img: '/image-proxy/home/cheerv2.png',
     },
   ],
   '9/27 (금)': [
     {
       title: '야구',
-      time: '12:00',
+      time: '11:00',
       location: '목동 야구장',
       img: '/image-proxy/home/baseballv2.png',
     },
     {
-      title: '농구',
-      time: '16:00',
-      location: '고양 농구장',
-      img: '/image-proxy/home/basketballv2.png',
-    },
-    {
       title: '아이스하키',
-      time: '16:00',
+      time: '14:00',
       location: '목동 아이스링크',
       img: '/image-proxy/home/icehockeyv2.png',
+    },
+    {
+      title: '농구',
+      time: '17:00',
+      location: '고양 운동장',
+      img: '/image-proxy/home/basketballv2.png',
     },
   ],
   '9/28 (토)': [
     {
       title: '축구',
-      time: '16:00',
+      time: '14:00',
       location: '고양 운동장',
       img: '/image-proxy/home/footballv2.png',
     },
