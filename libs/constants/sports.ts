@@ -26,31 +26,30 @@ export const SelectionMap: { [key in Exclude<SelectionType, 'all'>]: number } = 
 
 export const LastDate = new Date('2024-09-28T23:59:59+09:00');
 
-// TODO: 일정 수정
 export const MATCH_SCHEDULE = [
   {
     title: '야구',
     day: '9/27 (금)',
-    time: '14:30',
-    startDate: new Date('2024-09-27T14:30:00'),
+    time: '11:00',
+    startDate: new Date('2024-09-27T11:00:00'),
   },
   {
     title: '빙구',
     day: '9/27 (금)',
-    time: '14:30',
-    startDate: new Date('2024-09-27T14:30:00'),
+    time: '14:00',
+    startDate: new Date('2024-09-27T14:00:00'),
   },
   {
     title: '농구',
     day: '9/27 (금)',
-    time: '14:30',
-    startDate: new Date('2024-09-27T14:30:00'),
+    time: '17:00',
+    startDate: new Date('2024-09-27T17:00:00'),
   },
   {
     title: '축구',
-    day: '9/27 (금)',
-    time: '14:30',
-    startDate: new Date('2024-09-27T14:30:00'),
+    day: '9/28 (토)',
+    time: '14:00',
+    startDate: new Date('2024-09-28T14:00:00'),
   },
   {
     title: '럭비',
