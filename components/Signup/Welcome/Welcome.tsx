@@ -51,8 +51,8 @@ const StyledImage = styled(Image)`
 
 const WelcomeMessage = styled.div`
   position: absolute;
-  left: 51%;
-  top: 380px;
+  right: 4.5%;
+  top: 44%;
 
   color: var(--_60, rgba(255, 255, 255, 0.6));
   font-size: 20px;
