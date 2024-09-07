@@ -154,5 +154,6 @@ export function useCardShare() {
     downloadImage,
     scoreData,
     profile,
+    isFetchLoading,
   };
 }
