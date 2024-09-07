@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import FreeModeCarousel from '../FreeModeCarousel';
 import { DrawHistory } from './DrawHistory';
 import { Icon } from '@/libs/design-system/icons';
-import { DrawGift, DrawGiftItem, MyDrawGifts } from '@/libs/apis/tickets';
-import Link from 'next/link';
+import { DrawGift, DrawGiftItem } from '@/libs/apis/tickets';
+import { useLoginModal } from '../LoginModal/useLoginModal';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 
 interface DrawBoardProps {
   giftItems: DrawGiftItem[];
@@ -13,15 +15,27 @@ interface DrawBoardProps {
 }
 
 export function DrawBoard({ myDraws, tickets, giftItems }: DrawBoardProps) {
+  const router = useRouter();
+  const isLogin = useAuthStore((store) => store.isLogin);
+  const { openLoginModal } = useLoginModal();
+
   return (
     <Wrapper>
       <TitleWrapper>
-        <Link href="/ticket-history">
+        <div
+          onClick={() => {
+            if (!isLogin) {
+              openLoginModal();
+              return;
+            }
+            router.push('/ticket-history');
+          }}
+        >
           <Flex $gap={4} $align="center" $justify="center">
             <Title>내 응모권 내역</Title>
             <Icon.ChevronForward />
           </Flex>
-        </Link>
+        </div>
       </TitleWrapper>
       <Flex $gap={4} style={{ marginTop: 4, marginBottom: 12 }} $align="center" $justify="center">
         <Icon.Ticket />
