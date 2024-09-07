@@ -3,6 +3,7 @@ import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
 import { ForwardedRef, forwardRef } from 'react';
 import styled, { css } from 'styled-components';
+import { DRAW_IMAGE_LIST, KOREA_WIN_IMAGE_LIST, YONSEI_WIN_IMAGE_LIST } from './constants';
 
 type PredictionResult = 'KOREA' | 'YONSEI' | 'DRAW';
 
@@ -10,13 +11,19 @@ interface PredictionCardProps {
   nickname: string;
   numWinKorea: number;
   numWinYonsei: number;
-  predictionImgSrc: string;
 }
 export function PredictionCardFC(
-  { nickname, numWinKorea, numWinYonsei, predictionImgSrc }: PredictionCardProps,
+  { nickname, numWinKorea, numWinYonsei }: PredictionCardProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const predictionResult = numWinKorea > numWinYonsei ? 'KOREA' : numWinKorea == numWinYonsei ? 'DRAW' : 'YONSEI';
+  const charaterSrcList =
+    predictionResult === 'KOREA'
+      ? KOREA_WIN_IMAGE_LIST
+      : predictionResult === 'YONSEI'
+        ? YONSEI_WIN_IMAGE_LIST
+        : DRAW_IMAGE_LIST;
+  const predictionImgSrc = charaterSrcList[Math.floor(Math.random() * charaterSrcList.length)];
 
   return (
     <ShareCardWrapper ref={ref}>
