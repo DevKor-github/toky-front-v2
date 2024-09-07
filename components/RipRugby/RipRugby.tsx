@@ -15,4 +15,5 @@ const Wrapper = styled.div`
   align-items: center;
   min-height: 390px;
   position: relative;
+  margin-top: ${({ theme }) => theme.space.sportsSelectionBarHeight}px;
 `;
