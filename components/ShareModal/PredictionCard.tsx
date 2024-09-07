@@ -23,7 +23,8 @@ export function PredictionCardFC(
       : predictionResult === 'YONSEI'
         ? YONSEI_WIN_IMAGE_LIST
         : DRAW_IMAGE_LIST;
-  const predictionImgSrc = useRef(charaterSrcList[Math.floor(Math.random() * charaterSrcList.length)]).current;
+
+  const predictionImgSrcRef = useRef<string>(charaterSrcList[Math.floor(Math.random() * charaterSrcList.length)]);
 
   return (
     <ShareCardWrapper ref={ref}>
@@ -43,7 +44,7 @@ export function PredictionCardFC(
           <Icon.Divider />
           <p>@official.toky</p>
         </ShareFooter>
-        <CharacterImage key={predictionImgSrc} src={predictionImgSrc} alt="character" />
+        <CharacterImage src={predictionImgSrcRef.current} alt="character" />
       </ShareCard>
     </ShareCardWrapper>
   );
