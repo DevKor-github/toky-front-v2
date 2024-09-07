@@ -21,7 +21,7 @@ export function DrawInfo() {
           </DrawContent>
           <LimitText>
             <Image src="/image-proxy/guide/coin.png" width={14} height={14} alt="coin" />
-            20명 추첨
+            5명 추첨
           </LimitText>
         </Flex>
         <Flex $direction="column" $align="center" $gap={10}>
@@ -39,7 +39,7 @@ export function DrawInfo() {
           </DrawContent>
           <LimitText>
             <Image src="/image-proxy/guide/coin.png" width={14} height={14} alt="coin" />
-            20명 추첨
+            30명 추첨
           </LimitText>
         </Flex>
       </Flex>
