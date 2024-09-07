@@ -108,7 +108,7 @@ export function useCardShare() {
 
     if (!canvasImageUrl) {
       //TODO : 이미지 준비중 alert
-      alert('이미지가 준비되지 않았습니다.');
+      alert('이미지를 준비 중입니다. 다시 한 번 시도해주세요');
       return;
     }
     setIsShareLoading(true);

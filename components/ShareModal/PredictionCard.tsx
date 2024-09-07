@@ -16,9 +16,15 @@ export function PredictionCardFC(
   { nickname, numWinKorea, numWinYonsei }: PredictionCardProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const predictionResult = numWinKorea > numWinYonsei ? 'KOREA' : numWinKorea == numWinYonsei ? 'DRAW' : 'YONSEI';
+  const [predictionResult, setPredictionResult] = useState<PredictionResult>();
   const [isLoaded, setIsLoaded] = useState(false);
   const [src, setSrc] = useState<string>();
+
+  useEffect(() => {
+    if (numWinKorea > numWinYonsei) setPredictionResult('KOREA');
+    else if (numWinKorea < numWinYonsei) setPredictionResult('YONSEI');
+    else setPredictionResult('DRAW');
+  }, [numWinKorea, numWinYonsei]);
 
   useEffect(() => {
     setIsLoaded(false);
@@ -35,7 +41,7 @@ export function PredictionCardFC(
 
   return (
     <>
-      {src && isLoaded && (
+      {src && isLoaded && predictionResult ? (
         <ShareCardWrapper ref={ref}>
           <ShareCard $predictionResult={predictionResult}>
             <UserContainer $predictionResult={predictionResult}>{nickname}님의 예측</UserContainer>
@@ -56,6 +62,8 @@ export function PredictionCardFC(
             <CharacterImage key={src} src={src} alt="character" />
           </ShareCard>
         </ShareCardWrapper>
+      ) : (
+        <div ref={ref}></div>
       )}
     </>
   );
