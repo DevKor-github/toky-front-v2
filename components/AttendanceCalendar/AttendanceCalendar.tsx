@@ -32,9 +32,9 @@ export function AttendanceCalendar(attendanceCalendarProps: AttendanceCalendarPr
 }
 
 const Wrapper = styled.div`
-  padding: 0 10vw;
+  padding: 0 calc((100 / 390) * 50vw);
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  row-gap: 8px;
-  column-gap: 18px;
+  row-gap: calc((100 / 390) * 8vw);
+  column-gap: calc((100 / 390) * 18vw);
 `;

@@ -14,8 +14,8 @@ export function DateButton({ type, date }: DateButtonProps) {
 }
 
 const StyledDateButton = styled.button<{ type: string }>`
-  width: 26px;
-  height: 26px;
+  width: calc(100 / 390 * 26vw);
+  height: calc(100 / 390 * 26vw);
   border-radius: 99px;
   background-color: ${({ type }) => (type === 'checked' ? '#C33DEF' : 'transparent')};
   color: rgba(255, 255, 255, 0.87);
