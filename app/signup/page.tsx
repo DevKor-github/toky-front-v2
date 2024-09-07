@@ -129,7 +129,12 @@ export default function SignUp() {
           <SignupProgress curProgress={progress} totalProgress={totalProgress - 1} />
         </>
       )}
-      <SignupFunnel ref={swiperRef} curProgress={progress} preventSwiperTab={preventSwiperTab} />
+      <SignupFunnel
+        ref={swiperRef}
+        curProgress={progress}
+        preventSwiperTab={preventSwiperTab}
+        nickname={formState.nickname}
+      />
       <SignupFooter $isDone={clickable} onClick={handleNextButton}>
         {progress === totalProgress ? '토키 시작하기' : progress === totalProgress - 1 ? '회원가입 완료' : '다음'}
       </SignupFooter>
