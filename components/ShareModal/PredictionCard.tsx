@@ -43,7 +43,7 @@ export function PredictionCardFC(
           <Icon.Divider />
           <p>@official.toky</p>
         </ShareFooter>
-        <CharacterImage src={predictionImgSrc} alt="character" />
+        <CharacterImage key={predictionImgSrc} src={predictionImgSrc} alt="character" />
       </ShareCard>
     </ShareCardWrapper>
   );

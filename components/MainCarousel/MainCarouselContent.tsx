@@ -22,6 +22,7 @@ function MainCarouselContent({ src, link }: { src: string; link: string }) {
 
 const Wrapper = styled.div`
   aspect-ratio: 390/210;
+  position: relative;
   img {
     width: 100%;
     height: 100%;
