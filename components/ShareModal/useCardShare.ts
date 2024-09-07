@@ -21,7 +21,6 @@ export function useCardShare() {
   const imageRef = useRef(null);
   const [predictionResult, setPredictionResult] = useState<PredictionResult>();
   const [imgSrc, setImgSrc] = useState<string>();
-
   const isLoading = isFetchLoading || isCanvasLoading || isDownloding || isShareLoading;
 
   useEffect(() => {
@@ -32,6 +31,7 @@ export function useCardShare() {
   }, [scoreData]);
 
   useEffect(() => {
+    setImgSrc(undefined);
     const charaterSrcList =
       predictionResult === 'KOREA'
         ? KOREA_WIN_IMAGE_LIST
