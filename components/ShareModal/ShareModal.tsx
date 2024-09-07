@@ -26,7 +26,6 @@ export function ShareModal({ isModalOpen = true, onClose }: ShareModalProps) {
                   nickname={profile?.name ?? ''}
                   numWinKorea={scoreData?.numWinKorea ?? 0}
                   numWinYonsei={scoreData?.numWinYonsei ?? 0}
-                  predictionImgSrc="/image-proxy/test-5-0.png"
                 />
               </div>
               <Flex $gap={10} $direction="column" $align="center" style={{ marginTop: -60 }}>
