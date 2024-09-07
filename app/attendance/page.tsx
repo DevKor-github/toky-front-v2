@@ -6,6 +6,7 @@ import MainTopBar from '@/components/MainTopBar';
 import NavigationBar from '@/components/NavigationBar';
 import AttendanceCalendar from '@/components/AttendanceCalendar';
 import DailyAttendanceQuiz from '@/components/DailyAttendanceQuiz';
+import AttendancePolicy from '@/components/AttendancePolicy';
 import { Icon } from '@/libs/design-system/icons';
 import { useGetMyAttendance, useGetTodayQuiz } from '@/libs/apis/attendance';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
@@ -53,6 +54,7 @@ export default function Attendance() {
             />
           </>
         )}
+        <AttendancePolicy />
       </Wrapper>
     </div>
   );
