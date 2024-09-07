@@ -16,7 +16,7 @@ export function ShareModal({ isModalOpen = true, onClose }: ShareModalProps) {
 
   return (
     <>
-      {isModalOpen && (
+      {isModalOpen && scoreData && (
         <Wrapper>
           <Content>
             <Flex $direction="column" $gap={0} $align="center" style={{ height: '100%' }}>
@@ -24,8 +24,8 @@ export function ShareModal({ isModalOpen = true, onClose }: ShareModalProps) {
                 <PredictionCard
                   ref={shareRef}
                   nickname={profile?.name ?? ''}
-                  numWinKorea={scoreData?.numWinKorea ?? 0}
-                  numWinYonsei={scoreData?.numWinYonsei ?? 0}
+                  numWinKorea={scoreData.numWinKorea}
+                  numWinYonsei={scoreData.numWinYonsei}
                 />
               </div>
               <Flex $gap={10} $direction="column" $align="center" style={{ marginTop: -60 }}>
