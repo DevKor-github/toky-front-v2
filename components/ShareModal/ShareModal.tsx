@@ -12,11 +12,11 @@ interface ShareModalProps {
 }
 // TODO loading spinner 추가 && 공유하기 버튼 클릭시 로딩 추가 && 버튼 위치 변경
 export function ShareModal({ isModalOpen = true, onClose }: ShareModalProps) {
-  const { shareImage, shareRef, imageRef, profile, scoreData, isLoading } = useCardShare();
+  const { shareImage, shareRef, imageRef, profile, scoreData, isLoading, isFetchLoading } = useCardShare();
 
   return (
     <>
-      {isModalOpen && scoreData && profile && (
+      {isModalOpen && scoreData && profile && !isFetchLoading && (
         <Wrapper>
           <Content>
             <Flex $direction="column" $gap={0} $align="center" style={{ height: '100%' }}>
