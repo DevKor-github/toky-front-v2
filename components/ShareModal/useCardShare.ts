@@ -5,6 +5,9 @@ import html2canvas from 'html2canvas';
 import { useEffect, useRef, useState } from 'react';
 import { useToast } from '../Toast';
 import { sendGAEvent } from '@next/third-parties/google';
+import { DRAW_IMAGE_LIST, KOREA_WIN_IMAGE_LIST, YONSEI_WIN_IMAGE_LIST } from './constants';
+
+export type PredictionResult = 'KOREA' | 'YONSEI' | 'DRAW';
 
 export function useCardShare() {
   const [isDownloding, setIsDownloading] = useState(false);
@@ -16,15 +19,35 @@ export function useCardShare() {
   const { data: scoreData, refetch: fetchMyScore, isLoading: isFetchLoading } = useGetShareScore();
   const { mutate: postShare } = usePostShare(openShareSuccessToast);
   const imageRef = useRef(null);
+  const [predictionResult, setPredictionResult] = useState<PredictionResult>();
+  const [imgSrc, setImgSrc] = useState<string>();
 
   const isLoading = isFetchLoading || isCanvasLoading || isDownloding || isShareLoading;
 
+  useEffect(() => {
+    if (!scoreData) return;
+    if (scoreData.numWinKorea > scoreData.numWinYonsei) setPredictionResult('KOREA');
+    else if (scoreData.numWinKorea < scoreData.numWinYonsei) setPredictionResult('YONSEI');
+    else setPredictionResult('DRAW');
+  }, [scoreData]);
+
+  useEffect(() => {
+    const charaterSrcList =
+      predictionResult === 'KOREA'
+        ? KOREA_WIN_IMAGE_LIST
+        : predictionResult === 'YONSEI'
+          ? YONSEI_WIN_IMAGE_LIST
+          : DRAW_IMAGE_LIST;
+    const randomIndex = Math.floor(Math.random() * charaterSrcList.length);
+    setImgSrc(charaterSrcList[randomIndex]);
+  }, [predictionResult]);
+
   const shareRef = useRefEffect(
     (div: HTMLDivElement) => {
-      if (!profile || !scoreData) return;
+      if (!profile || !imgSrc) return;
       makeImageUrl(div);
     },
-    [profile, scoreData],
+    [profile, imgSrc],
   );
 
   useEffect(() => {
@@ -74,8 +97,8 @@ export function useCardShare() {
       imageTimeout: 15000,
     });
     const imgUrl = canvas.toDataURL('image/png', 1.0);
-    setIsCanvasLoading(false);
     setCanvasImageUrl(imgUrl);
+    setIsCanvasLoading(false);
   }
 
   async function imageUrlToBlob(imageUrl: string) {
@@ -155,5 +178,7 @@ export function useCardShare() {
     scoreData,
     profile,
     isFetchLoading,
+    predictionResult,
+    imgSrc,
   };
 }

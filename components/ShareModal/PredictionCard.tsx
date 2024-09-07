@@ -4,44 +4,22 @@ import { Icon } from '@/libs/design-system/icons';
 import { ForwardedRef, forwardRef, use, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { DRAW_IMAGE_LIST, KOREA_WIN_IMAGE_LIST, YONSEI_WIN_IMAGE_LIST } from './constants';
-
-type PredictionResult = 'KOREA' | 'YONSEI' | 'DRAW';
+import { PredictionResult } from './useCardShare';
 
 interface PredictionCardProps {
   nickname: string;
   numWinKorea: number;
   numWinYonsei: number;
+  predictionResult: PredictionResult;
+  src: string;
 }
 export function PredictionCardFC(
-  { nickname, numWinKorea, numWinYonsei }: PredictionCardProps,
+  { nickname, numWinKorea, numWinYonsei, predictionResult, src }: PredictionCardProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const [predictionResult, setPredictionResult] = useState<PredictionResult>();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [src, setSrc] = useState<string>();
-
-  useEffect(() => {
-    if (numWinKorea > numWinYonsei) setPredictionResult('KOREA');
-    else if (numWinKorea < numWinYonsei) setPredictionResult('YONSEI');
-    else setPredictionResult('DRAW');
-  }, [numWinKorea, numWinYonsei]);
-
-  useEffect(() => {
-    setIsLoaded(false);
-    const charaterSrcList =
-      predictionResult === 'KOREA'
-        ? KOREA_WIN_IMAGE_LIST
-        : predictionResult === 'YONSEI'
-          ? YONSEI_WIN_IMAGE_LIST
-          : DRAW_IMAGE_LIST;
-    const randomIndex = Math.floor(Math.random() * charaterSrcList.length);
-    setSrc(charaterSrcList[randomIndex]);
-    setIsLoaded(true);
-  }, [predictionResult]);
-
   return (
     <>
-      {src && isLoaded && predictionResult ? (
+      {src && predictionResult ? (
         <ShareCardWrapper ref={ref}>
           <ShareCard $predictionResult={predictionResult}>
             <UserContainer $predictionResult={predictionResult}>{nickname}님의 예측</UserContainer>
