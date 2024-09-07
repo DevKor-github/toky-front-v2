@@ -22,7 +22,7 @@ export default function Guide() {
         <Banner>
           <KoreaLogo src="/image-proxy/guide/korea_symbol.png" width={130} height={221} alt={'Korea Univ Logo'} />
           <YonseiLogo src="/image-proxy/guide/yonsei_symbol.png" width={144} height={205} alt={'Yonsei Univ Logo'} />
-          <TokyImage src="/image-proxy/guide/toky_guide_banner.png" priority={true} alt={'Toky Image'} fill={true} />
+          <TokyImage src="/image-proxy/guide/info_banner.png" priority={true} alt={'Toky Image'} fill={true} />
           <Shadow />
           <Flex $direction="column" $align="center" $gap={10} style={{ position: 'relative' }}>
             <Typo.GuideBanner />

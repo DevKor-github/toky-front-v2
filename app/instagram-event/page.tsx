@@ -9,15 +9,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function InstagramEvent() {
   const swiperImage = [
-    '/image-proxy/instagram-event/test.png',
-    '/image-proxy/instagram-event/test.png',
-    '/image-proxy/instagram-event/test.png',
-    '/image-proxy/instagram-event/test.png',
-    '/image-proxy/instagram-event/test.png',
-    '/image-proxy/instagram-event/test.png',
-    '/image-proxy/instagram-event/test.png',
-    '/image-proxy/instagram-event/test.png',
+    '/image-proxy/instagram-event/card1.png',
+    '/image-proxy/instagram-event/card2.png',
+    '/image-proxy/instagram-event/card3.png',
+    '/image-proxy/instagram-event/card4.png',
+    '/image-proxy/instagram-event/card5.png',
+    '/image-proxy/instagram-event/card6.png',
   ];
+
   return (
     <>
       <Header title="내 예측 인스타로 공유하기" withSideBar />

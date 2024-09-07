@@ -15,7 +15,7 @@ function MainCarouselContent({ src, link }: { src: string; link: string }) {
         router.push(link);
       }}
     >
-      <Image src="/image-proxy/test.png" alt="banner1" fill />
+      <Image src={src} alt="banner1" fill />
     </Wrapper>
   );
 }
