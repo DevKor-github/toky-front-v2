@@ -109,21 +109,21 @@ const ShareCard = styled.div<{ $predictionResult: PredictionResult }>`
   height: 430px;
   flex-shrink: 0;
   color: white;
-
+  background-color: transparent;
   ${(props) => {
     if (props.$predictionResult === 'KOREA')
       return css`
-        background: linear-gradient(180deg, #f84853 0%, #ffb1b1 100%);
+        //background: linear-gradient(180deg, #f84853 0%, #ffb1b1 100%);
         color: #f3233c;
       `;
     else if (props.$predictionResult === 'YONSEI')
       return css`
-        background: linear-gradient(180deg, #8bd5ff 0%, #445fff 100%);
+        //background: linear-gradient(180deg, #8bd5ff 0%, #445fff 100%);
         color: #2948ff;
       `;
     else
       return css`
-        background: linear-gradient(360deg, #d0b2ff 0%, #7e41ff 100%, #6e2bff 100%);
+        //background: linear-gradient(360deg, #d0b2ff 0%, #7e41ff 100%, #6e2bff 100%);
         color: #4c0eb0;
       `;
   }}
