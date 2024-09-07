@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 import { useState, useCallback } from 'react';
 import SportsSelectionBar from '@/components/SportsSelectionBar';
@@ -11,7 +12,12 @@ import { KOREA_PLAYER_CARD_LIST, YONSEI_PLAYER_CARD_LIST } from '../constants';
 import { RipRugby } from '@/components/RipRugby/RipRugby';
 
 export default function AnalyzeDetails() {
-  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>('baseball');
+  const searchParams = useSearchParams();
+  const sports = searchParams.get('sports') as SelectionType | null;
+
+  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>(
+    sports ? (sports as Exclude<SelectionType, 'all'>) : 'baseball',
+  );
   const handleNav = useCallback((selection: SelectionType) => {
     if (selection === 'all') return;
     setCurNav(selection);
