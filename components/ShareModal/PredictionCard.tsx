@@ -4,45 +4,22 @@ import { Icon } from '@/libs/design-system/icons';
 import { ForwardedRef, forwardRef, use, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { DRAW_IMAGE_LIST, KOREA_WIN_IMAGE_LIST, YONSEI_WIN_IMAGE_LIST } from './constants';
-
-type PredictionResult = 'KOREA' | 'YONSEI' | 'DRAW';
+import { PredictionResult } from './useCardShare';
 
 interface PredictionCardProps {
   nickname: string;
   numWinKorea: number;
   numWinYonsei: number;
+  predictionResult: PredictionResult;
+  src: string;
 }
 export function PredictionCardFC(
-  { nickname, numWinKorea, numWinYonsei }: PredictionCardProps,
+  { nickname, numWinKorea, numWinYonsei, predictionResult, src }: PredictionCardProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const predictionResult = numWinKorea > numWinYonsei ? 'KOREA' : numWinKorea == numWinYonsei ? 'DRAW' : 'YONSEI';
-  const [isLoaded, setIsLoaded] = useState(true);
-  const [list, setList] = useState<string[]>();
-  const [src, setSrc] = useState<string>();
-
-  useEffect(() => {
-    const charaterSrcList =
-      predictionResult === 'KOREA'
-        ? KOREA_WIN_IMAGE_LIST
-        : predictionResult === 'YONSEI'
-          ? YONSEI_WIN_IMAGE_LIST
-          : DRAW_IMAGE_LIST;
-    setList(charaterSrcList);
-  }, [predictionResult]);
-
-  useEffect(() => {
-    setIsLoaded(false);
-    if (list) {
-      const randomIndex = Math.floor(Math.random() * list.length);
-      setSrc(list[randomIndex]);
-    }
-    setIsLoaded(true);
-  }, [list]);
-
   return (
     <>
-      {src && isLoaded && (
+      {src && predictionResult ? (
         <ShareCardWrapper ref={ref}>
           <ShareCard $predictionResult={predictionResult}>
             <UserContainer $predictionResult={predictionResult}>{nickname}님의 예측</UserContainer>
@@ -60,9 +37,11 @@ export function PredictionCardFC(
               <Icon.Divider />
               <p>@official.toky</p>
             </ShareFooter>
-            <CharacterImage src={src} alt="character" />
+            <CharacterImage key={src} src={src} alt="character" />
           </ShareCard>
         </ShareCardWrapper>
+      ) : (
+        <div ref={ref}></div>
       )}
     </>
   );

@@ -8,7 +8,6 @@ import { usePatchProfile } from '@/libs/apis/users';
 import { useProfileStore } from '@/libs/store/Providers/ProfileStoreProvider';
 import { useDoneEditModal } from '@/components/DoneEditModal/useDoneEditModal';
 import { getCheckName } from '@/libs/apis/auth';
-import TODO_DUMMY_IMAGE from '@/public/banner1.png';
 import UserInfoTopBar from '@/components/UserInfoTopBar';
 import InputBox from '@/components/InputBox';
 
@@ -93,7 +92,7 @@ export default function UserInfo() {
       <UserInfoTopBar />
       <Wrapper>
         <UserProfileImage>
-          <Image alt="user profile" src={TODO_DUMMY_IMAGE} width={70} height={70} />
+          <Image alt="user profile" src={`/image-proxy/profile_${school}.png`} width={70} height={70} />
         </UserProfileImage>
         <FormList>
           <FormWrapper>

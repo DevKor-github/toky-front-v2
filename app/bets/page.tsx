@@ -8,7 +8,7 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 import { useGetBetQuestions, useGetMyBets, usePostBet } from '@/libs/apis/bets';
-import { PlaySportsArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
+import { PlaySportsArray, SelectionArray, SelectionMap, SelectionType } from '@/libs/constants/sports';
 import { NavScrollProvider } from '@/app/bets/NavScrollProvider';
 import { QuestionType } from '@/libs/types/bets';
 import { createQuestions } from '@/libs/utils/createQuestions';
@@ -115,9 +115,8 @@ export default function Bets() {
         // 이전에 응답을 덜 했었고,
         // 이번 응답으로 현재 종목의 모든 응답이 완료된 경우
         let allDone = true;
-        const questionKeyArray = Object.keys(questionData) as Array<keyof typeof questionData>;
-        for (let i = 0; i < questionKeyArray.length; i++) {
-          const key = questionKeyArray[i];
+        for (let i = 0; i < PlaySportsArray.length; i++) {
+          const key = PlaySportsArray[i].type;
           if (key !== curNav) {
             if (!checkIsDones(questionData[key])) {
               allDone = false;
