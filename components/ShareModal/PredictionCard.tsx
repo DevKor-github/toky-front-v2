@@ -1,7 +1,7 @@
 'use client';
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
-import { ForwardedRef, forwardRef, use, useRef } from 'react';
+import { ForwardedRef, forwardRef, use, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { DRAW_IMAGE_LIST, KOREA_WIN_IMAGE_LIST, YONSEI_WIN_IMAGE_LIST } from './constants';
 
@@ -24,7 +24,11 @@ export function PredictionCardFC(
         ? YONSEI_WIN_IMAGE_LIST
         : DRAW_IMAGE_LIST;
 
-  const predictionImgSrc = useRef(charaterSrcList[Math.floor(Math.random() * charaterSrcList.length)]).current;
+  const predictionImgSrc = useRef(charaterSrcList[Math.floor(Math.random() * charaterSrcList.length)]);
+
+  useEffect(() => {
+    predictionImgSrc.current = charaterSrcList[Math.floor(Math.random() * charaterSrcList.length)];
+  }, [charaterSrcList]);
 
   return (
     <ShareCardWrapper ref={ref}>
@@ -44,7 +48,7 @@ export function PredictionCardFC(
           <Icon.Divider />
           <p>@official.toky</p>
         </ShareFooter>
-        <CharacterImage src={predictionImgSrc} alt="character" />
+        <CharacterImage src={predictionImgSrc.current} alt="character" />
       </ShareCard>
     </ShareCardWrapper>
   );
