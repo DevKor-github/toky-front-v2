@@ -1,4 +1,4 @@
-export const YONSEI_WIN_IMAGE_LIST = [
+export const KOREA_WIN_IMAGE_LIST = [
   '/image-proxy/card/korea1.png',
   '/image-proxy/card/korea2.png',
   '/image-proxy/card/korea3.png',
@@ -11,7 +11,7 @@ export const YONSEI_WIN_IMAGE_LIST = [
   '/image-proxy/card/korea10.png',
 ];
 
-export const KOREA_WIN_IMAGE_LIST = [
+export const YONSEI_WIN_IMAGE_LIST = [
   '/image-proxy/card/yonsei1.png',
   '/image-proxy/card/yonsei2.png',
   '/image-proxy/card/yonsei3.png',
