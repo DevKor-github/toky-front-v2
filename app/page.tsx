@@ -104,6 +104,7 @@ export default function Home() {
 const Wrapper = styled.div`
   padding-top: ${({ theme }) => theme.space.mainTopBarHeight}px;
   background-color: ${({ theme }) => theme.colors.background};
+  padding-bottom: 32px;
 `;
 
 const Date = styled.div`
@@ -154,7 +155,6 @@ const ScheduleTitle = styled.div`
 
 const AdWrapper = styled.div`
   padding: 0px 20px;
-  margin-bottom: 32px;
   margin-top: 32px;
   width: 100%;
   position: relative;
