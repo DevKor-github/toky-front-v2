@@ -11,6 +11,7 @@ CURRENT_PID=$(sudo docker container ls -q --filter "name=$CONTAINER_NAME")
 echo "> login to ECR"
 echo "> ecr registry name: $ECR_REGISTRY_NAME"
 sudo su
+docker logout
 aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY_NAME
 
 echo "> docker pull $IMAGE_NAME"
