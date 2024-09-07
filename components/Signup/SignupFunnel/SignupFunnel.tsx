@@ -12,13 +12,14 @@ import Welcome from '@/components/Signup/Welcome';
 interface SignupFunnelProps {
   curProgress: number;
   preventSwiperTab: () => void;
+  nickname: string;
 }
 export const SignupFunnel = forwardRef<SwiperRef, SignupFunnelProps>(function SignupContents(
-  { curProgress, preventSwiperTab },
+  { curProgress, preventSwiperTab, nickname },
   ref,
 ) {
   return (
-    <SwiperWrapper slidesPerView={1} allowTouchMove={false} ref={ref}>
+    <SwiperWrapper slidesPerView={1} allowTouchMove={false} ref={ref} curProgress={curProgress}>
       <SwiperSlide onFocus={preventSwiperTab}>
         <Contents>
           <SetUniv />
@@ -40,21 +41,22 @@ export const SignupFunnel = forwardRef<SwiperRef, SignupFunnelProps>(function Si
         </Contents>
       </SwiperSlide>
       <SwiperSlide onFocus={preventSwiperTab}>
-        <Contents>
-          <Welcome />
+        <Contents hasPadding={false}>
+          <Welcome curProgress={curProgress} nickname={nickname} />
         </Contents>
       </SwiperSlide>
     </SwiperWrapper>
   );
 });
 
-const SwiperWrapper = styled(Swiper)`
-  padding-top: ${({ theme }) => theme.space.signupTopBarHeight + theme.space.signupStatusBarHeight}px;
+const SwiperWrapper = styled(Swiper)<{ curProgress: number }>`
+  padding-top: ${({ theme, curProgress }) =>
+    curProgress === 4 ? 0 : theme.space.signupTopBarHeight + theme.space.signupStatusBarHeight}px;
 
   font-family: 'Spoqa Han Sans Neo';
 `;
 
-const Contents = styled.section`
-  padding: 43px 24px;
+const Contents = styled.section<{ hasPadding?: boolean }>`
+  padding: ${({ hasPadding = true }) => (hasPadding ? `43px 24px` : 0)};
   color: white;
 `;
