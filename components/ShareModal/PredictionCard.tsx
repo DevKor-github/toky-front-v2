@@ -17,7 +17,7 @@ export function PredictionCardFC(
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const predictionResult = numWinKorea > numWinYonsei ? 'KOREA' : numWinKorea == numWinYonsei ? 'DRAW' : 'YONSEI';
-
+  const [isLoaded, setIsLoaded] = useState(true);
   const [list, setList] = useState<string[]>();
   const [src, setSrc] = useState<string>();
 
@@ -32,15 +32,17 @@ export function PredictionCardFC(
   }, [predictionResult]);
 
   useEffect(() => {
+    setIsLoaded(false);
     if (list) {
       const randomIndex = Math.floor(Math.random() * list.length);
       setSrc(list[randomIndex]);
     }
+    setIsLoaded(true);
   }, [list]);
 
   return (
     <>
-      {src && (
+      {src && isLoaded && (
         <ShareCardWrapper ref={ref}>
           <ShareCard $predictionResult={predictionResult}>
             <UserContainer $predictionResult={predictionResult}>{nickname}님의 예측</UserContainer>
