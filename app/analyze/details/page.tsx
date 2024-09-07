@@ -43,12 +43,12 @@ export default function AnalyzeDetails() {
         {curNav === 'rugby' && <RipRugby />}
         {curNav !== 'rugby' && (
           <ContentsWrapper scale={scale}>
-            <PlayerCardContainer school="고려대학교" scale={scale}>
+            <PlayerCardContainer school="고려대학교" scale={scale} caption="SPORTS KU 제공">
               {koreaPlayers.map((player, index) => (
                 <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
               ))}
             </PlayerCardContainer>
-            <PlayerCardContainer school="연세대학교" scale={scale}>
+            <PlayerCardContainer school="연세대학교" scale={scale} caption="연세대학교 스포츠매거진 시스붐바 제공">
               {yonseiPlayers.map((player, index) => (
                 <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
               ))}
