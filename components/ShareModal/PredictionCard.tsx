@@ -17,28 +17,21 @@ export function PredictionCardFC(
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const predictionResult = numWinKorea > numWinYonsei ? 'KOREA' : numWinKorea == numWinYonsei ? 'DRAW' : 'YONSEI';
-  const [isLoaded, setIsLoaded] = useState(true);
-  const [list, setList] = useState<string[]>();
+  const [isLoaded, setIsLoaded] = useState(false);
   const [src, setSrc] = useState<string>();
 
   useEffect(() => {
+    setIsLoaded(false);
     const charaterSrcList =
       predictionResult === 'KOREA'
         ? KOREA_WIN_IMAGE_LIST
         : predictionResult === 'YONSEI'
           ? YONSEI_WIN_IMAGE_LIST
           : DRAW_IMAGE_LIST;
-    setList(charaterSrcList);
-  }, [predictionResult]);
-
-  useEffect(() => {
-    setIsLoaded(false);
-    if (list) {
-      const randomIndex = Math.floor(Math.random() * list.length);
-      setSrc(list[randomIndex]);
-    }
+    const randomIndex = Math.floor(Math.random() * charaterSrcList.length);
+    setSrc(charaterSrcList[randomIndex]);
     setIsLoaded(true);
-  }, [list]);
+  }, [predictionResult]);
 
   return (
     <>
