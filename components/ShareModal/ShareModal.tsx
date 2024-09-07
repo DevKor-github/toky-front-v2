@@ -16,14 +16,14 @@ export function ShareModal({ isModalOpen = true, onClose }: ShareModalProps) {
 
   return (
     <>
-      {isModalOpen && scoreData && (
+      {isModalOpen && scoreData && profile && (
         <Wrapper>
           <Content>
             <Flex $direction="column" $gap={0} $align="center" style={{ height: '100%' }}>
               <div ref={imageRef}>
                 <PredictionCard
                   ref={shareRef}
-                  nickname={profile?.name ?? ''}
+                  nickname={profile.name}
                   numWinKorea={scoreData.numWinKorea}
                   numWinYonsei={scoreData.numWinYonsei}
                 />
