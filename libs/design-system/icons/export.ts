@@ -33,3 +33,6 @@ export { AttendanceQuizRightBackground } from './AttendanceQuizRightBackground';
 export { AttendanceQuizLeftBackground } from './AttendanceQuizLeftBackground';
 export { Plus } from './Plus';
 export { Hit } from './Hit';
+export { AttendancePolicyOX } from './AttendancePolicyOX';
+export { AttendancePolicyTickets } from './AttendancePolicyTickets';
+export { AttendancePolicyGift } from './AttendancePolicyGift';

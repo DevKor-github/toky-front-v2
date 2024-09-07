@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 import { useState, useCallback } from 'react';
 import SportsSelectionBar from '@/components/SportsSelectionBar';
@@ -11,7 +12,12 @@ import { KOREA_PLAYER_CARD_LIST, YONSEI_PLAYER_CARD_LIST } from '../constants';
 import { RipRugby } from '@/components/RipRugby/RipRugby';
 
 export default function AnalyzeDetails() {
-  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>('baseball');
+  const searchParams = useSearchParams();
+  const sports = searchParams.get('sports') as SelectionType | null;
+
+  const [curNav, setCurNav] = useState<Exclude<SelectionType, 'all'>>(
+    sports ? (sports as Exclude<SelectionType, 'all'>) : 'baseball',
+  );
   const handleNav = useCallback((selection: SelectionType) => {
     if (selection === 'all') return;
     setCurNav(selection);
@@ -37,12 +43,12 @@ export default function AnalyzeDetails() {
         {curNav === 'rugby' && <RipRugby />}
         {curNav !== 'rugby' && (
           <ContentsWrapper scale={scale}>
-            <PlayerCardContainer school="고려대학교" scale={scale}>
+            <PlayerCardContainer school="고려대학교" scale={scale} caption="SPORTS KU 제공">
               {koreaPlayers.map((player, index) => (
                 <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
               ))}
             </PlayerCardContainer>
-            <PlayerCardContainer school="연세대학교" scale={scale}>
+            <PlayerCardContainer school="연세대학교" scale={scale} caption="연세대학교 스포츠매거진 시스붐바 제공">
               {yonseiPlayers.map((player, index) => (
                 <PlayerCard key={`${player.image}-${index}`} scale={scale} {...player} />
               ))}
