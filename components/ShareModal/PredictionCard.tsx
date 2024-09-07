@@ -1,7 +1,7 @@
 'use client';
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
-import { ForwardedRef, forwardRef, useEffect, useRef } from 'react';
+import { ForwardedRef, forwardRef, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { DRAW_IMAGE_LIST, KOREA_WIN_IMAGE_LIST, YONSEI_WIN_IMAGE_LIST } from './constants';
 
@@ -16,52 +16,37 @@ export function PredictionCardFC(
   { nickname, numWinKorea, numWinYonsei }: PredictionCardProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
-  const predictionResultRef = useRef<PredictionResult>();
-  const charaterSrcListRef = useRef<string[]>();
-  const predictionImgSrcRef = useRef<string>();
+  const predictionResult = numWinKorea > numWinYonsei ? 'KOREA' : numWinKorea == numWinYonsei ? 'DRAW' : 'YONSEI';
+  const charaterSrcList =
+    predictionResult === 'KOREA'
+      ? KOREA_WIN_IMAGE_LIST
+      : predictionResult === 'YONSEI'
+        ? YONSEI_WIN_IMAGE_LIST
+        : DRAW_IMAGE_LIST;
 
-  // numWinKorea, numWinYonsei가 변경될 때마다 업데이트
-  useEffect(() => {
-    const newPredictionResult: PredictionResult =
-      numWinKorea > numWinYonsei ? 'KOREA' : numWinKorea === numWinYonsei ? 'DRAW' : 'YONSEI';
-    predictionResultRef.current = newPredictionResult;
-
-    const newCharaterSrcList =
-      newPredictionResult === 'KOREA'
-        ? KOREA_WIN_IMAGE_LIST
-        : newPredictionResult === 'YONSEI'
-          ? YONSEI_WIN_IMAGE_LIST
-          : DRAW_IMAGE_LIST;
-
-    charaterSrcListRef.current = newCharaterSrcList;
-    predictionImgSrcRef.current = newCharaterSrcList[Math.floor(Math.random() * newCharaterSrcList.length)];
-  }, [numWinKorea, numWinYonsei]);
+  const predictionImgSrc = charaterSrcList[Math.floor(Math.random() * charaterSrcList.length)];
 
   return (
-    <>
-      {predictionResultRef.current && charaterSrcListRef.current && predictionImgSrcRef.current && (
-        <ShareCardWrapper ref={ref}>
-          <ShareCard $predictionResult={predictionResultRef.current}>
-            <UserContainer $predictionResult={predictionResultRef.current}>{nickname}님의 예측</UserContainer>
-            <ScoreContainer>
-              <UnivName>고려대학교</UnivName>
-              <Flex $gap={8} $align="center">
-                <ScoreBox $predictionResult={predictionResultRef.current}>{numWinKorea}</ScoreBox>
-                <Colon>:</Colon>
-                <ScoreBox $predictionResult={predictionResultRef.current}>{numWinYonsei}</ScoreBox>
-              </Flex>
-              <UnivName>연세대학교</UnivName>
-            </ScoreContainer>
-            <ShareFooter>
-              <p>2024 정기전 승부예측 토키</p>
-              <Icon.Divider />
-              <p>@official.toky</p>
-            </ShareFooter>
-            <CharacterImage src={predictionImgSrcRef.current} alt="character" />
-          </ShareCard>
-        </ShareCardWrapper>
-      )}
-    </>
+    <ShareCardWrapper ref={ref}>
+      <ShareCard $predictionResult={predictionResult}>
+        <UserContainer $predictionResult={predictionResult}>{nickname}님의 예측</UserContainer>
+        <ScoreContainer>
+          <UnivName>고려대학교</UnivName>
+          <Flex $gap={8} $align="center">
+            <ScoreBox $predictionResult={predictionResult}>{numWinKorea}</ScoreBox>
+            <Colon>:</Colon>
+            <ScoreBox $predictionResult={predictionResult}>{numWinYonsei}</ScoreBox>
+          </Flex>
+          <UnivName>연세대학교</UnivName>
+        </ScoreContainer>
+        <ShareFooter>
+          <p>2024 정기전 승부예측 토키</p>
+          <Icon.Divider />
+          <p>@official.toky</p>
+        </ShareFooter>
+        <CharacterImage src={predictionImgSrc} alt="character" />
+      </ShareCard>
+    </ShareCardWrapper>
   );
 }
 
