@@ -17,7 +17,7 @@ export default function SignUp() {
   const router = useRouter();
 
   const { data: isAlreadySignup, isSuccess, isError, refetch: checkAlreadySignUp } = useGetNeedSignup();
-  const { mutate: singup } = usePostSignup();
+  const { mutate: signup } = usePostSignup();
   const login = useAuthStore((state) => state.login);
 
   const formState = useSignupForm();
@@ -94,7 +94,7 @@ export default function SignUp() {
         case 3:
           const inviteCode = sessionStorage.getItem('invite-code');
           sessionStorage.removeItem('invite-code');
-          singup(
+          signup(
             {
               name: formState.nickname,
               phoneNumber: formState.phoneNumber,
