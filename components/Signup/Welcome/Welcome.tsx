@@ -18,7 +18,7 @@ export function Welcome({ curProgress, nickname }: WelcomeProps) {
   return (
     <Wrapper>
       <Motion initial={{ opacity: 1 }} animate={{ opacity: startAnimation ? 0 : 1 }} transition={AnimatieTransition}>
-        <StyledImage src="/image-proxy/welcome1.png" alt="welcome" width={0} height={0} sizes="100vw" />
+        <StyledImage src="/image-proxy/welcome1.png" alt="welcome" fill />
       </Motion>
       <Motion initial={{ opacity: 0 }} animate={{ opacity: startAnimation ? 1 : 0 }} transition={AnimatieTransition}>
         <WelcomeMessage>
@@ -26,7 +26,7 @@ export function Welcome({ curProgress, nickname }: WelcomeProps) {
           <br />
           <Nickname>{nickname}</Nickname>님
         </WelcomeMessage>
-        <StyledImage src="/image-proxy/welcome2.png" alt="welcome" width={0} height={0} sizes="100vw" />
+        <StyledImage src="/image-proxy/welcome2.png" alt="welcome" fill />
       </Motion>
     </Wrapper>
   );
@@ -39,23 +39,26 @@ const Wrapper = styled.div`
 `;
 
 const Motion = styled(motion.div)`
+  aspect-ratio: 390/731;
   width: 100%;
-  height: 100%;
   position: absolute;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
 `;
 
 const StyledImage = styled(Image)`
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const WelcomeMessage = styled.div`
   position: absolute;
-  right: 4.5%;
-  top: 44%;
+  left: 50%;
+  top: 50%;
 
   color: var(--_60, rgba(255, 255, 255, 0.6));
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 140%;
   letter-spacing: -0.8px;
