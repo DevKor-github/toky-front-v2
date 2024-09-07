@@ -32,7 +32,7 @@ export function AttendanceCalendar(attendanceCalendarProps: AttendanceCalendarPr
 }
 
 const Wrapper = styled.div`
-  padding: 0 50px 0 50px;
+  padding: 0 10vw;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   row-gap: 8px;
