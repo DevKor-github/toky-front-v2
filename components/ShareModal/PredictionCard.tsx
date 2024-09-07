@@ -1,7 +1,7 @@
 'use client';
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
-import { ForwardedRef, forwardRef, use, useEffect, useRef } from 'react';
+import { ForwardedRef, forwardRef, use, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { DRAW_IMAGE_LIST, KOREA_WIN_IMAGE_LIST, YONSEI_WIN_IMAGE_LIST } from './constants';
 
@@ -17,40 +17,52 @@ export function PredictionCardFC(
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   const predictionResult = numWinKorea > numWinYonsei ? 'KOREA' : numWinKorea == numWinYonsei ? 'DRAW' : 'YONSEI';
-  const charaterSrcList =
-    predictionResult === 'KOREA'
-      ? KOREA_WIN_IMAGE_LIST
-      : predictionResult === 'YONSEI'
-        ? YONSEI_WIN_IMAGE_LIST
-        : DRAW_IMAGE_LIST;
 
-  const predictionImgSrc = useRef(charaterSrcList[Math.floor(Math.random() * charaterSrcList.length)]);
+  const [list, setList] = useState<string[]>();
+  const [src, setSrc] = useState<string>();
 
   useEffect(() => {
-    predictionImgSrc.current = charaterSrcList[Math.floor(Math.random() * charaterSrcList.length)];
-  }, [charaterSrcList]);
+    const charaterSrcList =
+      predictionResult === 'KOREA'
+        ? KOREA_WIN_IMAGE_LIST
+        : predictionResult === 'YONSEI'
+          ? YONSEI_WIN_IMAGE_LIST
+          : DRAW_IMAGE_LIST;
+    setList(charaterSrcList);
+  }, [predictionResult]);
+
+  useEffect(() => {
+    if (list) {
+      const randomIndex = Math.floor(Math.random() * list.length);
+      setSrc(list[randomIndex]);
+    }
+  }, [list]);
 
   return (
-    <ShareCardWrapper ref={ref}>
-      <ShareCard $predictionResult={predictionResult}>
-        <UserContainer $predictionResult={predictionResult}>{nickname}님의 예측</UserContainer>
-        <ScoreContainer>
-          <UnivName>고려대학교</UnivName>
-          <Flex $gap={8} $align="center">
-            <ScoreBox $predictionResult={predictionResult}>{numWinKorea}</ScoreBox>
-            <Colon>:</Colon>
-            <ScoreBox $predictionResult={predictionResult}>{numWinYonsei}</ScoreBox>
-          </Flex>
-          <UnivName>연세대학교</UnivName>
-        </ScoreContainer>
-        <ShareFooter>
-          <p>2024 정기전 승부예측 토키</p>
-          <Icon.Divider />
-          <p>@official.toky</p>
-        </ShareFooter>
-        <CharacterImage src={predictionImgSrc.current} alt="character" />
-      </ShareCard>
-    </ShareCardWrapper>
+    <>
+      {src && (
+        <ShareCardWrapper ref={ref}>
+          <ShareCard $predictionResult={predictionResult}>
+            <UserContainer $predictionResult={predictionResult}>{nickname}님의 예측</UserContainer>
+            <ScoreContainer>
+              <UnivName>고려대학교</UnivName>
+              <Flex $gap={8} $align="center">
+                <ScoreBox $predictionResult={predictionResult}>{numWinKorea}</ScoreBox>
+                <Colon>:</Colon>
+                <ScoreBox $predictionResult={predictionResult}>{numWinYonsei}</ScoreBox>
+              </Flex>
+              <UnivName>연세대학교</UnivName>
+            </ScoreContainer>
+            <ShareFooter>
+              <p>2024 정기전 승부예측 토키</p>
+              <Icon.Divider />
+              <p>@official.toky</p>
+            </ShareFooter>
+            <CharacterImage src={src} alt="character" />
+          </ShareCard>
+        </ShareCardWrapper>
+      )}
+    </>
   );
 }
 
