@@ -4,16 +4,15 @@ IMAGE_NAME=$(cat "$IMAGE_FILE_PATH") # image.txt에 저장한 도커 이미지 �
 CONTAINER_NAME="toky-container" # 원하는 컨테이너 이름으로 설정
 ECR_REGISTRY_NAME=$(cat "$REGISTRY_FILE_PATH") # registry.txt에 저장한 ECR 레지스트리 정보
 # 현재 실행 중인 컨테이너 ID 조회
-CURRENT_PID=$(sudo docker container ls -q --filter "name=$CONTAINER_NAME")
+CURRENT_PID=$(docker container ls -q --filter "name=$CONTAINER_NAME")
 
 echo "> login to ECR"
 echo "> ecr registry name: $ECR_REGISTRY_NAME"
-sudo su
 docker logout $ECR_REGISTRY_NAME
-aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 960881113651.dkr.ecr.ap-northeast-2.amazonaws.com
+aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY_NAME
 
 echo "> docker pull $IMAGE_NAME"
-sudo docker pull $IMAGE_NAME
+docker pull $IMAGE_NAME
 if [ $? -ne 0 ]; then
   echo "Docker 이미지 풀 실패"
   exit 1
@@ -24,15 +23,15 @@ if [ -z "$CURRENT_PID" ]; then
   echo "> 현재 구동중인 Docker Container가 없습니다"
 else
   echo "> docker stop $CURRENT_PID"
-  sudo docker stop $CURRENT_PID
+  docker stop $CURRENT_PID
 
   echo "> docker rm $CURRENT_PID"
-  sudo docker rm $CURRENT_PID
+  docker rm $CURRENT_PID
   sleep 4
 fi
 
 echo "> docker run -dp 3000:3000 --name $CONTAINER_NAME $IMAGE_NAME"
-sudo docker run -dp 3000:3000 --name $CONTAINER_NAME $IMAGE_NAME
+docker run -dp 3000:3000 --name $CONTAINER_NAME $IMAGE_NAME
 
 if [ $? -ne 0 ]; then
   echo "Docker 컨테이너 실행 실패"
@@ -43,7 +42,7 @@ echo "> 새 Docker 컨테이너가 성공적으로 실행되었습니다: $CONTA
 
 # 사용하지 않는 도커 이미지 제거
 echo "> 사용하지 않는 도커 이미지 정리"
-sudo docker image prune -a
+docker image prune -f
 
 if [ $? -ne 0 ]; then
   echo "사용하지 않는 Docker 이미지 정리 실패"
