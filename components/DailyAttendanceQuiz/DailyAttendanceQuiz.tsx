@@ -29,7 +29,7 @@ export function DailyAttendanceQuiz({
 
   const getColorMode = (type: boolean) => {
     if (!todayAttendance) return false;
-    return type === todayAnswer;
+    return type === (isCorrect ? todayAnswer : !todayAnswer);
   };
 
   const { mutate: postAttendance, data } = usePostAttendance();
