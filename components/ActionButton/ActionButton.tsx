@@ -13,6 +13,7 @@ interface ActionButtonProps extends PropsWithChildren {
   href?: string;
   padding?: string;
   fontWeight?: string;
+  gap?: string;
 }
 
 type StyledProps<T> = {
@@ -31,6 +32,7 @@ export function ActionButton({
   fontSize,
   padding,
   fontWeight,
+  gap,
 }: ActionButtonProps) {
   return (
     <>
@@ -45,6 +47,7 @@ export function ActionButton({
             $fontSize={fontSize}
             $padding={padding}
             $fontWeight={fontWeight}
+            $gap={gap}
           >
             {children}
           </Wrapper>
@@ -59,6 +62,7 @@ export function ActionButton({
           $fontSize={fontSize}
           $padding={padding}
           $fontWeight={fontWeight}
+          $gap={gap}
           onClick={onClick}
         >
           {children}
@@ -81,4 +85,5 @@ const Wrapper = styled.div<StyledProps<ActionButtonProps>>`
   cursor: pointer;
   padding: ${({ $padding }) => $padding || '0'};
   font-weight: ${({ $fontWeight }) => $fontWeight || '500'};
+  gap: ${({ $gap }) => $gap || '0'};
 `;

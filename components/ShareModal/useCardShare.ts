@@ -117,7 +117,6 @@ export function useCardShare() {
 
       return blob;
     } catch (error) {
-      console.error('There was an error!', error);
       alert('에러가 발생했습니다 다시 시도해주세요');
     }
   }

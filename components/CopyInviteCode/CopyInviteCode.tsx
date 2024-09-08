@@ -20,15 +20,12 @@ export function CopyInviteCode() {
       copy(generateInviteCode(inviteCode))
         .then((isCopied) => {
           if (isCopied) {
-            // TODO toast 수정
             openToast({ message: '초대링크 복사!' });
           }
         })
         .catch((e) => {
-          console.error(e);
+          alert('에러가 발생했습니다 다시 시도해주세요');
         });
-    } else {
-      // TODO: Error handling (프로필이 안 받아와졌거나, inviteCode가 없는 경우)
     }
   });
 
@@ -40,9 +37,10 @@ export function CopyInviteCode() {
       padding="8px 16px"
       fontSize="14px"
       fontWeight="700"
+      gap="2px"
       onClick={handleCopy}
     >
       <Icon.TablerCopy />내 초대링크
     </ActionButton>
-  ); // TODO: 간격 설정 필요, 초대링크 복사 기능 추가 필요
+  );
 }
