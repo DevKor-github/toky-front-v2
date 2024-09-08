@@ -24,4 +24,8 @@ export const ATTENDANCE_DATES: AttendanceDatesInfo[] = [
   { attendanceDate: '2024-09-27' },
   { attendanceDate: '2024-09-28' },
   { attendanceDate: '2024-09-29' },
+  { attendanceDate: '2024-09-30' },
+  { attendanceDate: '2024-10-01' },
+  { attendanceDate: '2024-10-02' },
+  { attendanceDate: '2024-10-03' },
 ];
