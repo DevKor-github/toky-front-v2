@@ -7,11 +7,11 @@ type PlayerCardListProps = {
   [key in PlaySports]: PlayerCardProps[];
 };
 export const BANNER_INFO = {
-  all: '/total_banner.png',
-  baseball: '/baseball_banner.png',
-  basketball: '/basketball_banner.png',
-  icehockey: '/icehockey_banner.png',
-  football: '/football_banner.png',
+  all: '/total_banner.webp',
+  baseball: '/baseball_banner.webp',
+  basketball: '/basketball_banner.webp',
+  icehockey: '/icehockey_banner.webp',
+  football: '/football_banner.webp',
 };
 
 export const KOREA_PLAYER_CARD_LIST: PlayerCardListProps = {
