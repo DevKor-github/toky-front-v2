@@ -5,7 +5,7 @@ import { BestPlayer } from './BestPlayer';
 export function AnalyzeMatch({ match }: { match: Exclude<SelectionType, 'all'> }) {
   return (
     <>
-      <RecordWrapper $backgroundUrl={`/image-proxy/analyze/${match}_history.png`} />
+      <RecordWrapper $backgroundUrl={`/${match}_history.png`} />
       <BestPlayer match={match} />
     </>
   );
