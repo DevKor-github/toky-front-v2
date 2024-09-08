@@ -6,6 +6,7 @@ import { Icon } from '@/libs/design-system/icons';
 import { usePostAttendance } from '@/libs/apis/attendance';
 import { useLoginModal } from '@/components/LoginModal/useLoginModal';
 import { useToast } from '@/components/Toast';
+import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 
 interface DailyAttendanceQuizProps {
   question: string;
@@ -24,6 +25,7 @@ export function DailyAttendanceQuiz({
   todayAnswer,
   refetchAttendance,
 }: DailyAttendanceQuizProps) {
+  const addTickets = useTicketStore((state) => state.addTickets);
   const [isAnswered, setIsAnswered] = useState<boolean>(todayAttendance);
   const [isCorrect, setIsCorrect] = useState<boolean>(isMyAnswerCorrect ?? false);
 
@@ -41,9 +43,10 @@ export function DailyAttendanceQuiz({
       setIsAnswered(true);
       setIsCorrect(data.data.correct);
       openToast({ message: `응모권 ${data.data.correct ? 2 : 1}장 획득!` });
+      addTickets(data.data.correct ? 2 : 1);
       refetchAttendance();
     }
-  }, [data, refetchAttendance, openToast]);
+  }, [data, refetchAttendance, openToast, addTickets]);
 
   const handleAnswer = (answer: boolean) => {
     postAttendance(
