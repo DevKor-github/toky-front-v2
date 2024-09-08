@@ -89,7 +89,7 @@ const DailyAttendanceQuizArrow = styled.div`
 const DailyAttendanceQuizContainer = styled.div`
   position: relative;
   width: calc(100% - 40px);
-  height: 310px;
+  padding-bottom: 32px;
   margin: 0 20px 20px 20px;
   border-radius: 16px;
   background: var(
@@ -119,7 +119,9 @@ const DailyAttendanceQuizTitleStroke = styled.div`
 `;
 
 const DailyAttendanceQuizQuestion = styled.div`
+  padding: 0 10px;
   padding-top: 18px;
+  word-break: keep-all;
   color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
   text-align: center;
   font-family: 'Spoqa Han Sans Neo';
