@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export function RipRugby() {
   return (
     <Wrapper>
-      <Image src="/image-proxy/rip.png" alt="선수 추모 사진" width={195} height={201} />
+      <Image src="/rip.webp" alt="선수 추모 사진" width={195} height={201} />
     </Wrapper>
   );
 }
