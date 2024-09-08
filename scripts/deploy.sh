@@ -10,7 +10,7 @@ echo "> login to ECR"
 echo "> ecr registry name: $ECR_REGISTRY_NAME"
 sudo su
 docker logout $ECR_REGISTRY_NAME
-aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY_NAME
+aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 960881113651.dkr.ecr.ap-northeast-2.amazonaws.com
 
 echo "> docker pull $IMAGE_NAME"
 sudo docker pull $IMAGE_NAME
@@ -43,7 +43,7 @@ echo "> 새 Docker 컨테이너가 성공적으로 실행되었습니다: $CONTA
 
 # 사용하지 않는 도커 이미지 제거
 echo "> 사용하지 않는 도커 이미지 정리"
-sudo docker image prune -f
+sudo docker image prune -a
 
 if [ $? -ne 0 ]; then
   echo "사용하지 않는 Docker 이미지 정리 실패"
