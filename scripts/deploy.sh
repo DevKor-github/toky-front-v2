@@ -1,5 +1,3 @@
-#!/bin/bash
-
 IMAGE_FILE_PATH="/home/ubuntu/app/image.txt"
 REGISTRY_FILE_PATH="/home/ubuntu/app/registry.txt"
 IMAGE_NAME=$(cat "$IMAGE_FILE_PATH") # image.txt에 저장한 도커 이미지 정보
@@ -42,3 +40,14 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "> 새 Docker 컨테이너가 성공적으로 실행되었습니다: $CONTAINER_NAME"
+
+# 사용하지 않는 도커 이미지 제거
+echo "> 사용하지 않는 도커 이미지 정리"
+sudo docker image prune -f
+
+if [ $? -ne 0 ]; then
+  echo "사용하지 않는 Docker 이미지 정리 실패"
+  exit 1
+fi
+
+echo "> 사용하지 않는 Docker 이미지가 성공적으로 제거되었습니다."
