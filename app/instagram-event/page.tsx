@@ -7,16 +7,17 @@ import styled from 'styled-components';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-export default function InstagramEvent() {
-  const swiperImage = [
-    '/image-proxy/instagram-event/card1.png',
-    '/image-proxy/instagram-event/card2.png',
-    '/image-proxy/instagram-event/card3.png',
-    '/image-proxy/instagram-event/card4.png',
-    '/image-proxy/instagram-event/card5.png',
-    '/image-proxy/instagram-event/card6.png',
-  ];
+const swiperImage = [
+  '/image-proxy/instagram-event/card1.png',
+  '/image-proxy/instagram-event/card2.png',
+  '/image-proxy/instagram-event/card3.png',
+  '/image-proxy/instagram-event/card4.png',
+  '/image-proxy/instagram-event/card5.png',
+  '/image-proxy/instagram-event/card6.png',
+];
+const cardPercentage = [1, 5, 10, 30];
 
+export default function InstagramEvent() {
   return (
     <>
       <Header title="내 예측 인스타로 공유하기" withSideBar />
@@ -50,6 +51,53 @@ export default function InstagramEvent() {
             ))}
           </SwiperWrapper>
         </Banner>
+        <Flex
+          $direction="column"
+          $align="center"
+          style={{
+            padding: '30px 20px 40px 20px',
+            background:
+              'var(--Background-3, linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.03) 100%), #121212)',
+          }}
+        >
+          <Flex
+            $direction="column"
+            $gap={20}
+            style={{
+              maxWidth: '345px',
+            }}
+          >
+            <RankingHeader>
+              <h2>랭킹별 특별 카드</h2>
+              <p>승부예측 순위에 따라 특별한 공유카드를 받을 수 있어요</p>
+            </RankingHeader>
+            <RankingCardsWrapper>
+              {Array(2)
+                .fill(true)
+                .map((_, rowIndex) => (
+                  <RankingCardsRow key={`${rowIndex} row`}>
+                    {Array(2)
+                      .fill(true)
+                      .map((_, cardIndex) => (
+                        <CardWrapper key={`${rowIndex}-${cardIndex}`}>
+                          <Card>
+                            <StyledImage
+                              src={`/image-proxy/guide/card${rowIndex * 2 + cardIndex + 1}.png`}
+                              alt={`instagram card ${rowIndex * 2 + cardIndex + 1}`}
+                              fill
+                            />
+                          </Card>
+                          <CardToken>
+                            <Image src={'/image-proxy/guide/coin.png'} alt="coin" width={14} height={14} />
+                            <p>상위 {cardPercentage[rowIndex * 2 + cardIndex]}%</p>
+                          </CardToken>
+                        </CardWrapper>
+                      ))}
+                  </RankingCardsRow>
+                ))}
+            </RankingCardsWrapper>
+          </Flex>
+        </Flex>
         <Flex $direction="column" style={{ padding: '40px 20px 60px 20px' }} $gap={40} $align="center">
           <Flex $direction="column" $align="center" $gap={8}>
             <Typo.SharePredictionTypo />
@@ -82,6 +130,7 @@ const Banner = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.colors.primary};
   padding-top: 29px;
+  padding-bottom: 40px;
 `;
 
 const Title = styled.h2`
@@ -161,4 +210,71 @@ const StarbucksImage = styled(Image)`
   position: absolute;
   bottom: 0;
   right: 0;
+`;
+
+const RankingHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #fff;
+  align-items: flex-start;
+  & h2 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.8px;
+  }
+  & p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 160%; /* 22.4px */
+    letter-spacing: -0.56px;
+  }
+`;
+
+const RankingCardsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+`;
+const RankingCardsRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+`;
+const CardWrapper = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+`;
+const CardToken = styled.div`
+  display: flex;
+  height: 24px;
+  padding: 4px 8px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 5px;
+  background: var(--Purple-Gradient, linear-gradient(90deg, #c33def -12.75%, #672bf3 113.73%));
+  & p {
+    color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: -0.48px;
+  }
+`;
+const Card = styled.div`
+  position: relative;
+  width: 100%;
+  border-radius: 13px;
+  overflow: hidden;
+  background: var(--Background-0, #121212);
+`;
+
+const StyledImage = styled(Image)`
+  position: relative !important;
+  height: unset !important;
 `;
