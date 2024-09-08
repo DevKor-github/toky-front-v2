@@ -1,8 +1,5 @@
-import { Icon } from '@/libs/design-system/icons';
 import styled from 'styled-components';
 import { css } from 'styled-components';
-import Link from 'next/link';
-import banner1 from '@/public/banner1.png';
 import MainCarouselContent from './MainCarouselContent';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
