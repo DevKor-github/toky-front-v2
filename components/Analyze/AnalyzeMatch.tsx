@@ -5,7 +5,7 @@ import { BestPlayer } from './BestPlayer';
 export function AnalyzeMatch({ match }: { match: Exclude<SelectionType, 'all'> }) {
   return (
     <>
-      <RecordWrapper $backgroundUrl={`/${match}_history.png`} />
+      <RecordWrapper $backgroundUrl={`/${match}_history.webp`} />
       <BestPlayer match={match} />
     </>
   );
