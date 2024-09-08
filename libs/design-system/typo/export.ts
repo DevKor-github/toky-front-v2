@@ -6,3 +6,5 @@ export { GuideAttendenceTitle } from './GuideAttendenceTitle';
 export { GuideTicketTitle } from './GuideTicketTitle';
 export { ShareInstagram } from './ShareInstagram';
 export { SharePredictionTypo } from './SharePredictionTypo';
+export { Right } from './Right';
+export { Wrong } from './Wrong';
