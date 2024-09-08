@@ -67,8 +67,8 @@ export function DailyAttendanceQuiz({
         <ButtonContainer $isAnswered={isAnswered}>
           <QuizButton type={true} onAnswer={handleAnswer} colorMode={getColorMode(true)} />
           <QuizButton type={false} onAnswer={handleAnswer} colorMode={getColorMode(false)} />
+          {isAnswered && <ResultBadge type={isCorrect} />}
         </ButtonContainer>
-        {isAnswered && <ResultBadge type={isCorrect} />}
       </DailyAttendanceQuizContainer>
     </Wrapper>
   );
@@ -139,4 +139,5 @@ const ButtonContainer = styled.div<{ $isAnswered: Boolean }>`
   justify-content: center;
   margin-top: 20px;
   gap: 20px;
+  position: relative;
 `;

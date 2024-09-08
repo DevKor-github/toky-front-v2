@@ -55,7 +55,6 @@ const ParticipationPeriodWrapper = styled.div`
 
 const ParticipationPeriodTitle = styled.div`
   color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
-  font-family: Challan;
   font-size: 16px;
   font-style: normal;
   font-weight: 800;
@@ -108,7 +107,6 @@ const QuizInstructionIndex = styled.div`
 
 const QuizInstructionTitle = styled.div`
   color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
-  font-family: Challan;
   font-size: 16px;
   font-weight: 800;
   line-height: 160%; /* 25.6px */
