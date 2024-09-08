@@ -5,6 +5,7 @@ import { ResultBadge } from './ResultBadge';
 import { Icon } from '@/libs/design-system/icons';
 import { usePostAttendance } from '@/libs/apis/attendance';
 import { useLoginModal } from '@/components/LoginModal/useLoginModal';
+import { useToast } from '@/components/Toast';
 
 interface DailyAttendanceQuizProps {
   question: string;
@@ -33,14 +34,16 @@ export function DailyAttendanceQuiz({
 
   const { mutate: postAttendance, data } = usePostAttendance();
   const { openLoginModal } = useLoginModal();
+  const { openToast } = useToast();
 
   useEffect(() => {
     if (data) {
       setIsAnswered(true);
       setIsCorrect(data.data.correct);
+      openToast({ message: `응모권 ${data.data.correct ? 2 : 1}장 획득!` });
       refetchAttendance();
     }
-  }, [data, refetchAttendance]);
+  }, [data, refetchAttendance, openToast]);
 
   const handleAnswer = (answer: boolean) => {
     postAttendance(

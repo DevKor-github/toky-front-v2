@@ -2,10 +2,11 @@ import styled from 'styled-components';
 import { Icon } from '@/libs/design-system/icons';
 import { Right } from '@/libs/design-system/typo/Right';
 import { Wrong } from '@/libs/design-system/typo/Wrong';
+import { motion } from 'framer-motion';
 
 export function ResultBadge({ type }: { type: boolean }) {
   return (
-    <BadgeWrapper>
+    <BadgeWrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       <Icon.AttendanceQuizResultBadgeTopStroke />
       {type ? <Right /> : <Wrong />}
       <Icon.AttendanceQuizResultBadgeBottomStroke />
@@ -13,7 +14,7 @@ export function ResultBadge({ type }: { type: boolean }) {
   );
 }
 
-const BadgeWrapper = styled.div`
+const BadgeWrapper = styled(motion.div)`
   position: absolute;
   top: 50%;
   transform: translate3d(0, -50%, 0);
