@@ -36,6 +36,7 @@ export function DailyAttendanceQuiz({
 
   function onSuccess(ticket: number) {
     addTickets(ticket);
+    openToast({ message: `응모권 ${ticket}장 획득!` });
   }
 
   const { mutate: postAttendance, data } = usePostAttendance(onSuccess);
@@ -46,8 +47,6 @@ export function DailyAttendanceQuiz({
     if (data) {
       setIsAnswered(true);
       setIsCorrect(data.data.correct);
-      openToast({ message: `응모권 ${data.data.correct ? 2 : 1}장 획득!` });
-
       refetchAttendance();
     }
   }, [data, refetchAttendance, openToast, addTickets]);
