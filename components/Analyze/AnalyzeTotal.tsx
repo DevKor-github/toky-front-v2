@@ -8,7 +8,7 @@ export function AnalyzeTotal() {
   return (
     <>
       <Wrapper>
-        <TitleContainer>역대 고연전 종합 성적</TitleContainer>
+        <TitleContainer>역대 정기전 종합 성적</TitleContainer>
         <Divider top={68} />
         <HistoryContainer>
           <div>
