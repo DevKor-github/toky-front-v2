@@ -28,6 +28,17 @@ export function PredictionQuestion({
 
   const totalOptionNumber = options.length - 1;
 
+  let restSum = 0;
+  const editedPercent = percentage.map((val, index) => {
+    if (val === null) return 0;
+    if (index !== percentage.length - 1) {
+      const newVal = Math.round(val * 100);
+      restSum += newVal;
+      return newVal;
+    }
+    return 100 - restSum < 0 ? 0 : 100 - restSum;
+  });
+
   return (
     <QuestionWrapper>
       <Question>
@@ -44,7 +55,7 @@ export function PredictionQuestion({
               index={index}
               handleAnswer={handleAnswer}
               position={position}
-              percentage={percentage[index] ? Math.round(percentage[index] * 100) : 0}
+              percentage={editedPercent[index]}
               myAnswer={myAnswer}
               realAnswer={realAnswer}
             />
