@@ -49,4 +49,5 @@ const ToastContainer = styled(motion.div)`
   color: var(--Background-0, #121212);
   font-size: 16px;
   letter-spacing: -0.64px;
+  white-space: nowrap;
 `;
