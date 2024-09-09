@@ -34,6 +34,7 @@ export function useCardShare() {
 
   useEffect(() => {
     setImgSrc(undefined);
+    if (!predictionResult) return;
     const charaterSrcList =
       predictionResult === 'KOREA'
         ? KOREA_WIN_IMAGE_LIST
@@ -46,10 +47,10 @@ export function useCardShare() {
 
   const shareRef = useRefEffect(
     (div: HTMLDivElement) => {
-      if (!profile || !imgSrc) return;
+      if (!profile || !imgSrc || !scoreData) return;
       makeImageUrl(div);
     },
-    [profile, imgSrc],
+    [profile, imgSrc, scoreData],
   );
 
   useEffect(() => {
