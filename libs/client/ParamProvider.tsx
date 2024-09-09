@@ -3,14 +3,11 @@ import { useSearchParams } from 'next/navigation';
 
 function ParamProvider() {
   const param = useSearchParams();
+  const inviteCode = param.get('referer');
 
-  useEffect(() => {
-    // invite-code가 있다면 세션에 저장
-    const inviteCode = param.get('referer');
-    if (inviteCode) {
-      sessionStorage.setItem('invite-code', inviteCode);
-    }
-  }, [param]);
+  if (typeof window !== 'undefined' && inviteCode) {
+    sessionStorage.setItem('invite-code', inviteCode);
+  }
 
   return <></>;
 }
