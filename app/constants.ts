@@ -59,7 +59,7 @@ export const SCHEDULE_INFO: ScheduleInfo = {
     {
       title: '야구',
       time: '11:00',
-      location: '목동 야구장',
+      location: '잠실 야구장',
       img: '/image-proxy/home/baseballv2.png',
     },
     {
