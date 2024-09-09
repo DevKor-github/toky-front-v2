@@ -5,7 +5,7 @@ export function SetUniv() {
   return (
     <Wrapper>
       <label>
-        <strong>학교</strong>를 선택해주세요.
+        응원하는 <strong>학교</strong>를 선택해주세요.
       </label>
       <ButtonWrapper>
         <UnivButton school="korea" />
