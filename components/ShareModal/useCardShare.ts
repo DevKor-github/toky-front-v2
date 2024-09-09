@@ -27,7 +27,6 @@ export function useCardShare() {
 
   useEffect(() => {
     if (!scoreData) return;
-    setPredictionResult(undefined);
     if (scoreData.numWinKorea > scoreData.numWinYonsei) setPredictionResult('KOREA');
     else if (scoreData.numWinKorea < scoreData.numWinYonsei) setPredictionResult('YONSEI');
     else setPredictionResult('DRAW');
@@ -47,10 +46,10 @@ export function useCardShare() {
 
   const shareRef = useRefEffect(
     (div: HTMLDivElement) => {
-      if (!profile || !imgSrc) return;
+      if (!profile || !imgSrc || !scoreData) return;
       makeImageUrl(div);
     },
-    [profile, imgSrc],
+    [profile, imgSrc, scoreData],
   );
 
   useEffect(() => {
