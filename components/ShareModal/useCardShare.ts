@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useToast } from '../Toast';
 import { sendGAEvent } from '@next/third-parties/google';
 import { DRAW_IMAGE_LIST, KOREA_WIN_IMAGE_LIST, YONSEI_WIN_IMAGE_LIST } from './constants';
+import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 
 export type PredictionResult = 'KOREA' | 'YONSEI' | 'DRAW';
 
@@ -15,6 +16,7 @@ export function useCardShare() {
   const [isShareLoading, setIsShareLoading] = useState(false);
   const [canvasImageUrl, setCanvasImageUrl] = useState('');
   const profile = useProfileStore((state) => state.profile);
+  const addtickets = useTicketStore((state) => state.addTickets);
   const { openToast } = useToast();
   const { data: scoreData, refetch: fetchMyScore, isLoading: isFetchLoading } = useGetShareScore();
   const { mutate: postShare } = usePostShare(openShareSuccessToast);
@@ -56,6 +58,7 @@ export function useCardShare() {
 
   function openShareSuccessToast(ticket: number) {
     // TODO : 공유 성공 토스트
+    addtickets(1);
     openToast({ message: `응모권 1장 획득!` });
   }
 
