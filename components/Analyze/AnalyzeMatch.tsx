@@ -1,11 +1,13 @@
 import { SelectionType } from '@/libs/constants/sports';
 import styled from 'styled-components';
 import { BestPlayer } from './BestPlayer';
+import { RecentMatch } from '@/components/Analyze/RecentMatch';
 
 export function AnalyzeMatch({ match }: { match: Exclude<SelectionType, 'all'> }) {
   return (
     <>
       <RecordWrapper $backgroundUrl={`/${match}_history.webp`} />
+      <RecentMatch match={match} />
       <BestPlayer match={match} />
     </>
   );

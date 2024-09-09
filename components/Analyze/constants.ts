@@ -157,9 +157,9 @@ export const BEST_PLAYER_LIST: BestPlayer = {
 };
 
 export const BEST_PLAYER_IMAGE = {
-  baseball: '/image-proxy/analyze/baseball_mainplayer.png',
-  basketball: '/image-proxy/analyze/basketball_mainplayer.png',
-  icehockey: '/image-proxy/analyze/icehockey_mainplayer.png',
-  rugby: '/image-proxy/analyze/rugby_mainplayer.png',
-  football: '/image-proxy/analyze/football_mainplayer.png',
+  baseball: '/baseball_mainplayer.webp',
+  basketball: '/basketball_mainplayer.webp',
+  icehockey: '/icehockey_mainplayer.webp',
+  rugby: '/rugby_mainplayer.webp',
+  football: '/football_mainplayer.webp',
 };
