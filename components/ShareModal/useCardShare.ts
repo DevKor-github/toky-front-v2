@@ -158,12 +158,12 @@ export function useCardShare() {
           // text: 'https://www.toky.com',
           // title: 'hi',
         });
-        postShare();
       } catch (e: any) {
         if (name in e && e.name !== 'AbortError') {
           console.error(e);
         }
       } finally {
+        postShare();
         setIsShareLoading(false);
       }
     }
