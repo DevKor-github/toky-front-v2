@@ -87,7 +87,7 @@ export const SCHEDULE_INFO: ScheduleInfo = {
 
 export const MESSAGE_INFO: MessageInfo = {
   kakaoLogin: '10초만에 로그인하고\n승부예측 참여하세요',
-  inviteFriends: '친구 초대하면\n둘다 응모권 1장!',
+  inviteFriends: '친구 초대하면\n둘다 응모권 5장!',
 };
 
 export const ICON_INFO_LIST = Object.values(ICON_INFO);
