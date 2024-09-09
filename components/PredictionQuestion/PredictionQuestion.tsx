@@ -36,7 +36,7 @@ export function PredictionQuestion({
       restSum += newVal;
       return newVal;
     }
-    return 100 - restSum;
+    return 100 - restSum < 0 ? 0 : 100 - restSum;
   });
 
   return (
