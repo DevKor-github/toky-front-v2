@@ -4,6 +4,7 @@ import ActionButton from '../ActionButton';
 import { Icon } from '@/libs/design-system/icons';
 import { useProfileStore } from '@/libs/store/Providers/ProfileStoreProvider';
 import { useToast } from '@/components/Toast';
+import { sendGAEvent } from '@next/third-parties/google';
 
 export function CopyInviteCode() {
   const [copiedText, copy] = useCopyToClipboard();
@@ -17,6 +18,7 @@ export function CopyInviteCode() {
 
   const handleCopy = usePreservedCallback(() => {
     if (inviteCode) {
+      sendGAEvent('event', 'invite_friend', { inviteCode });
       copy(generateInviteCode(inviteCode))
         .then((isCopied) => {
           if (isCopied) {
