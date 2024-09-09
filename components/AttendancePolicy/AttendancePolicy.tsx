@@ -14,7 +14,7 @@ export function AttendancePolicy() {
   ];
 
   const startDate = '2024.09.09 (월)';
-  const endDate = '2024.09.28 (토)';
+  const endDate = '2024.10.3 (목)';
 
   return (
     <Wrapper>
