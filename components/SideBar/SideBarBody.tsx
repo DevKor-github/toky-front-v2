@@ -13,6 +13,7 @@ import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
 import { onClickKakaoLogin } from '@/libs/utils/kakaoLogin';
 import { usePostLogout } from '@/libs/apis/auth';
+import { sendGAEvent } from '@next/third-parties/google';
 
 function SideBarBody({ isBarOpen = true }) {
   const nowPage = usePathname();
@@ -24,6 +25,7 @@ function SideBarBody({ isBarOpen = true }) {
   const router = useRouter();
 
   function openTokyInstagram() {
+    sendGAEvent('event', 'contact');
     window.open('https://instagram.com/official.toky?igshid=NjIwNzIyMDk2Mg==');
   }
 

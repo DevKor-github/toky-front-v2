@@ -3,6 +3,7 @@ import SideBarBody from './SideBarBody';
 import { useOverlay } from '@/libs/design-system/overlay';
 import { OutsideClick } from '../OutsideClick/OutsideClick';
 import styled from 'styled-components';
+import { sendGAEvent } from '@next/third-parties/google';
 
 export function SideBar() {
   const overlay = useOverlay();
@@ -27,6 +28,7 @@ export function SideBar() {
 
   async function openBar() {
     await openSideBar();
+    sendGAEvent('event', 'open_sidebar');
   }
 
   return (

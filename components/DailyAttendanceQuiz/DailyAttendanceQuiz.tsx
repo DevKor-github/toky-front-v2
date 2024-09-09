@@ -7,6 +7,7 @@ import { usePostAttendance } from '@/libs/apis/attendance';
 import { useLoginModal } from '@/components/LoginModal/useLoginModal';
 import { useToast } from '@/components/Toast';
 import { useTicketStore } from '@/libs/store/Providers/TicketStoreProvider';
+import { sendGAEvent } from '@next/third-parties/google';
 
 interface DailyAttendanceQuizProps {
   question: string;
@@ -52,6 +53,7 @@ export function DailyAttendanceQuiz({
   }, [data, refetchAttendance, openToast, addTickets]);
 
   const handleAnswer = (answer: boolean) => {
+    sendGAEvent('event', 'attendance', { answer, date: new Date().toISOString() });
     postAttendance(
       { answer: answer },
       {

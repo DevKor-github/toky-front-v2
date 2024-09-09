@@ -11,6 +11,7 @@ import { Flex } from '@/libs/design-system/flex';
 import { TicketInfo } from './TicketInfo';
 import { KakaoLogin } from '../KakaoLogin';
 import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
+import { sendGAEvent } from '@next/third-parties/google';
 
 export function MainTopBar() {
   const pathname = usePathname();
@@ -39,7 +40,7 @@ export function MainTopBar() {
       animate={navControls}
       transition={{ duration: 1.2, ease: easeInOut }}
     >
-      <Link href={'/'}>
+      <Link href={'/'} onClick={() => sendGAEvent('event', 'click_home_logo')}>
         <Icon.TokyLogo />
       </Link>
       <Flex $gap={12} $align="center">
