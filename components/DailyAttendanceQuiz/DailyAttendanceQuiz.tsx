@@ -34,7 +34,11 @@ export function DailyAttendanceQuiz({
     return type === (isCorrect ? todayAnswer : !todayAnswer);
   };
 
-  const { mutate: postAttendance, data } = usePostAttendance();
+  function onSuccess(ticket: number) {
+    addTickets(ticket);
+  }
+
+  const { mutate: postAttendance, data } = usePostAttendance(onSuccess);
   const { openLoginModal } = useLoginModal();
   const { openToast } = useToast();
 
@@ -43,7 +47,7 @@ export function DailyAttendanceQuiz({
       setIsAnswered(true);
       setIsCorrect(data.data.correct);
       openToast({ message: `응모권 ${data.data.correct ? 2 : 1}장 획득!` });
-      addTickets(data.data.correct ? 2 : 1);
+
       refetchAttendance();
     }
   }, [data, refetchAttendance, openToast, addTickets]);

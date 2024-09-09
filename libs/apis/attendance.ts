@@ -21,6 +21,11 @@ interface AnswerInfo {
   answer: boolean;
 }
 
+interface AttendaceResponse {
+  attendanceDate: string;
+  correct: boolean;
+}
+
 const getTodayQuiz = async () => {
   const response = await client.get<TodayQuizInfo>('/attendance-check/today-quiz');
   return response.data;
@@ -32,7 +37,7 @@ const getMyAttendance = async () => {
 };
 
 const postAttendance = async (params: AnswerInfo) => {
-  const response = await client.post('/attendance-check', params);
+  const response = await client.post<AttendaceResponse>('/attendance-check', params);
   return response;
 };
 
@@ -53,6 +58,6 @@ export const useGetMyAttendance = () => {
   });
 };
 
-export const usePostAttendance = () => {
-  return useMutation({ mutationFn: postAttendance });
+export const usePostAttendance = (onSuccess: (ticket: number) => void) => {
+  return useMutation({ mutationFn: postAttendance, onSuccess: (data) => onSuccess(data.data.correct ? 2 : 1) });
 };
