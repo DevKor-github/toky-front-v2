@@ -6,7 +6,7 @@ function ParamProvider() {
   const inviteCode = param.get('referer');
 
   if (typeof window !== 'undefined' && inviteCode) {
-    sessionStorage.setItem('invite-code', inviteCode);
+    localStorage.setItem('invite-code', inviteCode);
   }
 
   return <></>;

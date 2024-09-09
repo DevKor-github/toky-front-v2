@@ -92,8 +92,8 @@ export default function SignUp() {
           setProgress((prev) => prev + 1);
           break;
         case 3:
-          const inviteCode = sessionStorage.getItem('invite-code');
-          sessionStorage.removeItem('invite-code');
+          const inviteCode = localStorage.getItem('invite-code');
+          localStorage.removeItem('invite-code');
           signup(
             {
               name: formState.nickname,
