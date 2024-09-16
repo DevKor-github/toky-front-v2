@@ -1,4 +1,4 @@
-import styled, { CSSProperties } from 'styled-components';
+import styled, { css, CSSProperties } from 'styled-components';
 
 interface FlexProps {
   $align?: CSSProperties['alignItems'];
@@ -14,5 +14,9 @@ export const Flex = styled.div<FlexProps>`
   align-items: ${(props) => props.$align ?? 'flex-start'};
   justify-content: ${(props) => props.$justify ?? 'flex-start'};
   flex-wrap: ${(props) => props.$wrap ?? 'nowrap'};
-  gap: ${(props) => (typeof props.$gap == 'number' ? (`${props.$gap}px` ?? '0') : (props.$gap ?? '0'))};
+  ${(props) =>
+    props.$gap &&
+    css`
+      gap: ${typeof props.$gap == 'number' ? `${props.$gap}px` : props.$gap};
+    `}
 `;
