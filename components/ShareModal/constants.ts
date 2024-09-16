@@ -9,6 +9,8 @@ export const KOREA_WIN_IMAGE_LIST = [
   '/image-proxy/card/korea8v2.png',
   '/image-proxy/card/korea9v2.png',
   '/image-proxy/card/korea10.png',
+  '/image-proxy/card/korea11.png',
+  '/image-proxy/card/korea12.png',
 ];
 
 export const YONSEI_WIN_IMAGE_LIST = [
@@ -22,6 +24,8 @@ export const YONSEI_WIN_IMAGE_LIST = [
   '/image-proxy/card/yonsei8.png',
   '/image-proxy/card/yonsei9v3.png',
   '/image-proxy/card/yonsei10.png',
+  '/image-proxy/card/yonsei11.png',
+  '/image-proxy/card/yonsei12.png',
 ];
 
 export const DRAW_IMAGE_LIST = [
