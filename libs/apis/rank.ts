@@ -1,13 +1,17 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import client from '../client/client';
+
+interface RankItem {
+  rank: number;
+  correctAnswerPercentage: number;
+  name: string;
+  university: number;
+}
 
 interface RankResponse {
   data: {
-    rank: number;
-    correctAnswerPercentage: number;
-    name: string;
-    university: number;
-  }[];
+    rank: RankItem[];
+  };
   meta: {
     hasNextData: boolean;
     customCursor: string;
@@ -16,9 +20,9 @@ interface RankResponse {
 
 const PAGE_SIZE = 10;
 
-const useGetRankInfiniteScroll = () => {
+export const useGetRankInfiniteScroll = () => {
   const fetchRank = async ({ pageParam }: { pageParam: string | undefined }) => {
-    const response = await client.get<RankResponse>(`/api/rank?cursor=${pageParam}&size=${PAGE_SIZE}`);
+    const response = await client.get<RankResponse>(`/bets/rank?cursor=${pageParam}&size=${PAGE_SIZE}`);
     return response.data;
   };
 
@@ -40,4 +44,15 @@ const useGetRankInfiniteScroll = () => {
   };
 };
 
-export default useGetRankInfiniteScroll;
+const getMyRank = async () => {
+  const response = await client.get<RankItem>('/bets/rank/my');
+  return response.data;
+};
+
+export const useGetMyRank = () => {
+  return useQuery({
+    queryKey: ['my-rank'],
+    queryFn: getMyRank,
+    retry: false,
+  });
+};
