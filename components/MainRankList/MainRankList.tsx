@@ -21,13 +21,13 @@ export function MainRankList() {
       <RankContainer>
         <MyRankContainer>
           <RankInfo>
-            <Rank>1000</Rank>
+            <Rank>{myRank?.rank}</Rank>
             <UserInfo>
               <MyRankText>내 랭킹</MyRankText>
-              <Username>토키토키</Username>
+              <Username>{myRank?.name}</Username>
             </UserInfo>
           </RankInfo>
-          <CorrectAnswerPercentage>4%</CorrectAnswerPercentage>
+          <CorrectAnswerPercentage>{myRank?.correctAnswerPercentage}%</CorrectAnswerPercentage>
         </MyRankContainer>
       </RankContainer>
     </Wrapper>

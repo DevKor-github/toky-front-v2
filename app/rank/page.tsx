@@ -4,22 +4,24 @@ import styled from 'styled-components';
 import Header from '@/components/Header';
 import { Icon } from '@/libs/design-system/icons';
 import { useIntersectionObserver, useWindowScroll } from '@uidotdev/usehooks';
-import { useCallback, useEffect, useState } from 'react';
-import { additionalData1, additionalData2, initialData } from './constant';
+import { useCallback, useEffect } from 'react';
+import { useGetRankInfiniteScroll, useGetMyRank } from '@/libs/apis/rank';
 import RankList from './__components/rankList';
 import MyRank from './__components/myRank';
 import { useShareModal } from '@/components/ShareModal';
 
 export default function Rank() {
+  const { data: myRank } = useGetMyRank();
+
+  const { data, fetchNextPage, isFetchingNextPage } = useGetRankInfiniteScroll();
+
   const { openShareModal } = useShareModal();
 
   const openModal = useCallback(async () => {
     await openShareModal();
   }, [openShareModal]);
 
-  const [data, setData] = useState(initialData);
-  const [hasMore, setHasMore] = useState(true);
-  const currentUser = '토키파이팅';
+  const currentUser = myRank?.name ?? '';
 
   const [ref, entry] = useIntersectionObserver({
     threshold: 0,
@@ -31,25 +33,20 @@ export default function Rank() {
 
   useEffect(() => {
     if (isIntersecting) {
-      loadMoreData();
+      fetchNextPage();
     }
   }, [isIntersecting]);
 
-  const loadMoreData = () => {
-    if (hasMore) {
-      setData((prevData) => [...prevData, ...additionalData1]);
-      setHasMore(false); // Simulate no more data
-    }
-  };
-
   const [{ x, y }, scrollTo] = useWindowScroll();
+
+  const rankItems = data?.pages.flatMap((page) => page.data) ?? [];
 
   return (
     <>
       <Header title="적중률 랭킹" withSideBar={true} />
-      <MyRank shareHandler={openModal} />
-      <RankList data={data} currentUser={currentUser}>
-        <div ref={ref} />
+      <MyRank shareHandler={openModal} myRank={myRank} />
+      <RankList data={rankItems} currentUser={currentUser}>
+        {!isFetchingNextPage && <div ref={ref} />}
       </RankList>
       <ScrollToTopButton onClick={() => scrollTo({ left: 0, top: 0, behavior: 'smooth' })}>
         <Icon.VerticalAlignTop />

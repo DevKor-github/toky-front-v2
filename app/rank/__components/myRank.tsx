@@ -3,24 +3,26 @@ import Link from 'next/link';
 import ActionButton from '@/components/ActionButton';
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
+import type { RankItem } from '@/libs/apis/rank';
 
 interface MyRankProps {
   shareHandler: () => void;
+  myRank: RankItem | undefined;
 }
 
-export default function MyRank({ shareHandler }: MyRankProps) {
+export default function MyRank({ shareHandler, myRank }: MyRankProps) {
   return (
     <Wrapper>
       <MyRankContainer>
-        <MyRankText>토키파이팅님의 랭킹</MyRankText>
+        <MyRankText>{myRank?.name}님의 랭킹</MyRankText>
         <MyRankDetail>
           <MyRankInfo>
-            <MyRankNumber>100</MyRankNumber>
+            <MyRankNumber>{myRank?.rank}</MyRankNumber>
             <MyRankText>등</MyRankText>
           </MyRankInfo>
           <Icon.RankStroke />
           <MyCorrectAnswerPercentageInfo>
-            <MyCorrectAnswerPercentageNumber>40</MyCorrectAnswerPercentageNumber>
+            <MyCorrectAnswerPercentageNumber>{myRank?.correctAnswerPercentage}</MyCorrectAnswerPercentageNumber>
             <MyCorrectAnswerPercentageText>% 적중</MyCorrectAnswerPercentageText>
           </MyCorrectAnswerPercentageInfo>
         </MyRankDetail>

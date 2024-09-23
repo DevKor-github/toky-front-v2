@@ -1,7 +1,7 @@
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import client from '../client/client';
 
-interface RankItem {
+export interface RankItem {
   rank: number;
   correctAnswerPercentage: number;
   name: string;
@@ -9,28 +9,26 @@ interface RankItem {
 }
 
 interface RankResponse {
-  data: {
-    rank: RankItem[];
-  };
+  data: RankItem[];
   meta: {
     hasNextData: boolean;
-    customCursor: string;
+    nextCursor: string;
   };
 }
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 15;
 
 export const useGetRankInfiniteScroll = () => {
-  const fetchRank = async ({ pageParam }: { pageParam: string | undefined }) => {
-    const response = await client.get<RankResponse>(`/bets/rank?cursor=${pageParam}&size=${PAGE_SIZE}`);
+  const fetchRank = async ({ pageParam }: { pageParam: string }) => {
+    const response = await client.get<RankResponse>(`/bets/rank?take=${PAGE_SIZE}&cursor=${pageParam}`);
     return response.data;
   };
 
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ['rank'],
     queryFn: fetchRank,
-    initialPageParam: undefined as string | undefined,
-    getNextPageParam: ({ meta: { hasNextData, customCursor } }) => (hasNextData ? customCursor : undefined),
+    initialPageParam: '' as string,
+    getNextPageParam: ({ meta: { hasNextData, nextCursor } }) => (hasNextData ? nextCursor : undefined),
   });
 
   return {

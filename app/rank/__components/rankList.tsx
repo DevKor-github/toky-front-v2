@@ -1,12 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-interface RankItem {
-  rank: number;
-  correctAnswerPercentage: number;
-  name: string;
-  university: number;
-}
+import type { RankItem } from '@/libs/apis/rank';
 
 export default function RankList({
   data,
