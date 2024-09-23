@@ -38,3 +38,4 @@ export { AttendancePolicyTickets } from './AttendancePolicyTickets';
 export { AttendancePolicyGift } from './AttendancePolicyGift';
 export { VerticalAlignTop } from './VerticalAlignTop';
 export { RankStroke } from './RankStroke';
+export { MainRankListStroke } from './MainRankListStroke';

@@ -22,7 +22,9 @@ export default function MyRank({ shareHandler, myRank }: MyRankProps) {
           </MyRankInfo>
           <Icon.RankStroke />
           <MyCorrectAnswerPercentageInfo>
-            <MyCorrectAnswerPercentageNumber>{myRank?.correctAnswerPercentage}</MyCorrectAnswerPercentageNumber>
+            <MyCorrectAnswerPercentageNumber>
+              {myRank ? Math.round(myRank.correctAnswerPercentage) : ''}
+            </MyCorrectAnswerPercentageNumber>
             <MyCorrectAnswerPercentageText>% 적중</MyCorrectAnswerPercentageText>
           </MyCorrectAnswerPercentageInfo>
         </MyRankDetail>

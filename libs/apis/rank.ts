@@ -16,16 +16,14 @@ interface RankResponse {
   };
 }
 
-const PAGE_SIZE = 15;
-
-export const useGetRankInfiniteScroll = () => {
+export const useGetRankInfiniteScroll = (pageSize: number, queryKey: string) => {
   const fetchRank = async ({ pageParam }: { pageParam: string }) => {
-    const response = await client.get<RankResponse>(`/bets/rank?take=${PAGE_SIZE}&cursor=${pageParam}`);
+    const response = await client.get<RankResponse>(`/bets/rank?take=${pageSize}&cursor=${pageParam}`);
     return response.data;
   };
 
   const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
-    queryKey: ['rank'],
+    queryKey: [queryKey],
     queryFn: fetchRank,
     initialPageParam: '' as string,
     getNextPageParam: ({ meta: { hasNextData, nextCursor } }) => (hasNextData ? nextCursor : undefined),

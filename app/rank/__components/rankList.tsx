@@ -14,9 +14,9 @@ export default function RankList({
   return (
     <RankListContainer>
       {data.map((item) => (
-        <RankItem key={item.rank} $isCurrentUser={item.name === currentUser}>
+        <RankItemContainer key={item.name} $isCurrentUser={item.name === currentUser}>
           <RankInfo>
-            <RankNumber>{item.rank}</RankNumber>
+            <Rank $digits={item.rank.toString().length}>{item.rank}</Rank>
             <UserInfo>
               <University $university={item.university}>
                 {item.university === 0 ? '고려대학교' : '연세대학교'}
@@ -24,8 +24,8 @@ export default function RankList({
               <Username>{item.name}</Username>
             </UserInfo>
           </RankInfo>
-          <CorrectAnswerPercentage>{item.correctAnswerPercentage}%</CorrectAnswerPercentage>
-        </RankItem>
+          <CorrectAnswerPercentage>{Math.round(item.correctAnswerPercentage)}%</CorrectAnswerPercentage>
+        </RankItemContainer>
       ))}
       {children}
     </RankListContainer>
@@ -39,7 +39,7 @@ const RankListContainer = styled.div`
   margin: 20px 0;
 `;
 
-const RankItem = styled.div<{ $isCurrentUser: boolean }>`
+const RankItemContainer = styled.div<{ $isCurrentUser: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -90,11 +90,18 @@ const RankInfo = styled.div`
   gap: 12px;
 `;
 
-const RankNumber = styled.div`
+const fontSizeMap: { [key: number]: number } = {
+  1: 24,
+  2: 22,
+  3: 20,
+  4: 18,
+};
+
+const Rank = styled.div<{ $digits: number }>`
   color: var(--_87, rgba(255, 255, 255, 0.87));
   text-align: center;
   font-family: 'Spoqa Han Sans Neo';
-  font-size: 24px;
+  font-size: ${(props) => fontSizeMap[props.$digits] || 18}px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;

@@ -2,33 +2,58 @@ import { useGetMyRank } from '@/libs/apis/rank';
 import ActionButton from '@/components/ActionButton';
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
+import Link from 'next/link';
+import { useGetRankInfiniteScroll } from '@/libs/apis/rank';
 
 import styled from 'styled-components';
 
 export function MainRankList() {
   const { data: myRank } = useGetMyRank();
+  const { data: rankList } = useGetRankInfiniteScroll(3, 'top-rank');
+
+  const flattenRankList = rankList?.pages.flatMap((page) => page.data) ?? [];
+
   return (
     <Wrapper>
       <RankHeader>
         <RankTitle>적중률 랭킹</RankTitle>
         <ActionButton color="var(--white-medium-emphasis-60, rgba(255, 255, 255, 0.60))" fontSize="14px">
-          <Flex $gap={4} $align="center">
-            자세히보기
-            <Icon.ChevronForward />
-          </Flex>
+          <Details href="/rank">
+            <Flex $gap={4} $align="center">
+              자세히보기
+              <Icon.ChevronForward />
+            </Flex>
+          </Details>
         </ActionButton>
       </RankHeader>
       <RankContainer>
         <MyRankContainer>
           <RankInfo>
-            <Rank>{myRank?.rank}</Rank>
+            <Rank $digits={myRank ? myRank.rank.toString().length : 0}>{myRank?.rank}</Rank>
             <UserInfo>
               <MyRankText>내 랭킹</MyRankText>
               <Username>{myRank?.name}</Username>
             </UserInfo>
           </RankInfo>
-          <CorrectAnswerPercentage>{myRank?.correctAnswerPercentage}%</CorrectAnswerPercentage>
+          <CorrectAnswerPercentage>{myRank ? Math.round(myRank.correctAnswerPercentage) : ''}%</CorrectAnswerPercentage>
         </MyRankContainer>
+        <Icon.MainRankListStroke />
+        <RankListContainer>
+          {flattenRankList?.map((item, index) => (
+            <RankItemContainer key={item.rank} $isCurrentUser={item.name === myRank?.name}>
+              <RankInfo>
+                <Rank $digits={item.rank.toString().length}>{item.rank}</Rank>
+                <UserInfo>
+                  <University $university={item.university}>
+                    {item.university === 0 ? '고려대학교' : '연세대학교'}
+                  </University>
+                  <Username>{item.name}</Username>
+                </UserInfo>
+              </RankInfo>
+              <CorrectAnswerPercentage>{Math.round(item.correctAnswerPercentage)}%</CorrectAnswerPercentage>
+            </RankItemContainer>
+          ))}
+        </RankListContainer>
       </RankContainer>
     </Wrapper>
   );
@@ -63,6 +88,7 @@ const RankContainer = styled.div`
   flex-direction: column;
   gap: 12px;
   padding: 20px;
+  margin-right: 6px;
   border-radius: 10px;
   background: var(
     --Background-5,
@@ -84,14 +110,22 @@ const RankInfo = styled.div`
   gap: 12px;
 `;
 
-const Rank = styled.div`
+const fontSizeMap: { [key: number]: number } = {
+  1: 24,
+  2: 22,
+  3: 20,
+  4: 18,
+};
+
+const Rank = styled.div<{ $digits: number }>`
   color: var(--_87, rgba(255, 255, 255, 0.87));
   text-align: center;
   font-family: 'Spoqa Han Sans Neo';
-  font-size: 18px;
+  font-size: ${(props) => fontSizeMap[props.$digits] || 18}px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  width: 56px;
 `;
 
 const UserInfo = styled.div`
@@ -122,6 +156,7 @@ const Username = styled.div`
   font-weight: 700;
   line-height: 150%; /* 24px */
   letter-spacing: -0.64px;
+  height: 24px;
 `;
 
 const CorrectAnswerPercentage = styled.div`
@@ -132,4 +167,40 @@ const CorrectAnswerPercentage = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+`;
+
+const RankListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const RankItemContainer = styled.div<{ $isCurrentUser: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const University = styled.div<{ $university: number }>`
+  font-family: 'Spoqa Han Sans Neo';
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.52px;
+  color: ${(props) => (props.$university === 0 ? 'var(--Light-Red, #F95B6E)' : 'var(--Light-Blue, #5988FF)')};
+`;
+
+const Details = styled(Link)`
+  color: var(--white-medium-emphasis-60, rgba(255, 255, 255, 0.6));
+  text-align: right;
+
+  /* Label2_r */
+  font-family: 'Spoqa Han Sans Neo';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%; /* 22.4px */
+  letter-spacing: -0.56px;
 `;

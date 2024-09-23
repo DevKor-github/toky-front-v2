@@ -13,7 +13,7 @@ import { useShareModal } from '@/components/ShareModal';
 export default function Rank() {
   const { data: myRank } = useGetMyRank();
 
-  const { data, fetchNextPage, isFetchingNextPage } = useGetRankInfiniteScroll();
+  const { data, fetchNextPage, isFetchingNextPage } = useGetRankInfiniteScroll(15, 'rank');
 
   const { openShareModal } = useShareModal();
 
@@ -35,7 +35,7 @@ export default function Rank() {
     if (isIntersecting) {
       fetchNextPage();
     }
-  }, [isIntersecting]);
+  }, [isIntersecting, fetchNextPage]);
 
   const [{ x, y }, scrollTo] = useWindowScroll();
 
