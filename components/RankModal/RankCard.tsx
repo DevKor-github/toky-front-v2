@@ -124,7 +124,11 @@ const RankCardWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.background};
+  background: var(
+    --Background-5,
+    linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%),
+    #121212
+  );
 `;
 
 const RankContainer = styled.div`

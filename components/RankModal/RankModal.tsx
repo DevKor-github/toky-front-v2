@@ -40,7 +40,12 @@ export function RankModal({ isModalOpen = true, onClose }: ShareModalProps) {
               </Flex>
             </Flex>
           </Content>
-          <Backdrop $isModalOpen={isModalOpen} onClick={onClose} $backgroundColor="transparent" $backdropBlur={false} />
+          <Backdrop
+            $isModalOpen={isModalOpen}
+            onClick={onClose}
+            $backgroundColor=" var(--Background-5,linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%),#121212);"
+            $backdropBlur={false}
+          />
         </Wrapper>
       )}
     </>
