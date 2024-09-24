@@ -26,6 +26,13 @@ interface PostBetResponse {
   percentage: number[];
 }
 
+export interface RankInfo {
+  name: string;
+  rankPercentage: number;
+  rank: number;
+  participants: number;
+}
+
 // Axios Async Func
 const getShareScore = async () => {
   const response = await client.get<ShareScore>('/bets/share/prediction');
@@ -55,10 +62,29 @@ const postShareBenefit = async () => {
   return response;
 };
 
+const postRankShareBenefit = async () => {
+  const response = await client.post<number>('/bets/share/rank');
+  return response;
+};
+
+const getRankInfo = async () => {
+  const response = await client.get<RankInfo>('/bets/share/rank');
+  return response.data;
+};
+
 export const useGetShareScore = () => {
   return useQuery({
     queryKey: ['bets-share'],
     queryFn: getShareScore,
+    enabled: false,
+    retry: false,
+  });
+};
+
+export const useGetRankInfo = () => {
+  return useQuery({
+    queryKey: ['bets-rank-share'],
+    queryFn: getRankInfo,
     enabled: false,
     retry: false,
   });
@@ -131,4 +157,8 @@ export const usePostBet = () => {
 
 export const usePostShare = (onSuccessFunction: (ticket: number) => void) => {
   return useMutation({ mutationFn: postShareBenefit, onSuccess: (data) => onSuccessFunction(data.data) });
+};
+
+export const usePostRankShare = (onSuccessFunction: (ticket: number) => void) => {
+  return useMutation({ mutationFn: postRankShareBenefit, onSuccess: (data) => onSuccessFunction(data.data) });
 };
