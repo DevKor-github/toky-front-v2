@@ -8,18 +8,18 @@ import { useCallback, useEffect } from 'react';
 import { useGetRankInfiniteScroll, useGetMyRank } from '@/libs/apis/rank';
 import RankList from './__components/rankList';
 import MyRank from './__components/myRank';
-import { useShareModal } from '@/components/ShareModal';
+import { useRankModal } from '@/components/RankModal/useRankModal';
 
 export default function Rank() {
   const { data: myRank } = useGetMyRank();
 
   const { data, fetchNextPage, isFetchingNextPage } = useGetRankInfiniteScroll(15, 'rank');
 
-  const { openShareModal } = useShareModal();
+  const { openRankModal } = useRankModal();
 
   const openModal = useCallback(async () => {
-    await openShareModal();
-  }, [openShareModal]);
+    await openRankModal();
+  }, [openRankModal]);
 
   const currentUser = myRank?.name ?? '';
 

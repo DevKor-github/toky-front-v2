@@ -9,7 +9,7 @@ export function useRankModal() {
   const isLogin = useAuthStore((state) => state.isLogin);
   const { openLoginModal } = useLoginModal();
 
-  const openShareModal = () => {
+  const openRankModal = () => {
     if (!isLogin) {
       openLoginModal();
       return new Promise<boolean>((resolve) => resolve(false));
@@ -19,5 +19,5 @@ export function useRankModal() {
     });
   };
 
-  return { openShareModal };
+  return { openRankModal };
 }
