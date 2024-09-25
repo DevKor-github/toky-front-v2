@@ -9,6 +9,7 @@ import ActionCard from '@/components/ActionCard';
 import IconButton from '@/components/IconButton';
 import FreeModeCarousel from '@/components/FreeModeCarousel';
 import ScheduleCard from '@/components/ScheduleCard';
+import MainRankList from '@/components/MainRankList';
 import { ICON_INFO_LIST, SCHEDULE_INFO, MESSAGE_INFO, AD_BANNER_LIST } from './constants';
 import { CopyInviteCode } from '@/components/CopyInviteCode/CopyInviteCode';
 import { KakaoLogin } from '@/components/KakaoLogin';
@@ -96,6 +97,7 @@ export default function Home() {
             ))}
           </Swiper>
         </AdWrapper>
+        <MainRankList />
       </Wrapper>
     </div>
   );
