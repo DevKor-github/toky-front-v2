@@ -37,7 +37,7 @@ export function MainRankList() {
           </RankInfo>
           <CorrectAnswerPercentage>{myRank ? Math.round(myRank.correctAnswerPercentage) : ''}%</CorrectAnswerPercentage>
         </MyRankContainer>
-        <Icon.MainRankListStroke />
+        <Icon.MainRankListStroke $width={(window.innerWidth - 80).toString()} />
         <RankListContainer>
           {flattenRankList?.map((item, index) => (
             <RankItemContainer key={item.rank} $isCurrentUser={item.name === myRank?.name}>
