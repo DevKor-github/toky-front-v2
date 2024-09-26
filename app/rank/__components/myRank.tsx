@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Link from 'next/link';
 import ActionButton from '@/components/ActionButton';
+import { KakaoLogin } from '@/components/KakaoLogin';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
 import type { RankItem } from '@/libs/apis/rank';
@@ -11,42 +13,55 @@ interface MyRankProps {
 }
 
 export default function MyRank({ shareHandler, myRank }: MyRankProps) {
+  const isLogin = useAuthStore((state) => state.isLogin);
+
+  const loginMessage = '내 승부예측 결과를 확인하려면\n로그인이 필요해요';
+
   return (
     <Wrapper>
-      <MyRankContainer>
-        <MyRankText>{myRank?.name}님의 랭킹</MyRankText>
-        <MyRankDetail>
-          <MyRankInfo>
-            <MyRankNumber>{myRank?.rank}</MyRankNumber>
-            <MyRankText>등</MyRankText>
-          </MyRankInfo>
-          <Icon.RankStroke />
-          <MyCorrectAnswerPercentageInfo>
-            <MyCorrectAnswerPercentageNumber>
-              {myRank ? Math.round(myRank.correctAnswerPercentage) : ''}
-            </MyCorrectAnswerPercentageNumber>
-            <MyCorrectAnswerPercentageText>% 적중</MyCorrectAnswerPercentageText>
-          </MyCorrectAnswerPercentageInfo>
-        </MyRankDetail>
-        <Flex $gap="6px">
-          <Link href="/bets">
-            <ActionButton color="white" bgColor="#FFFFFF26" fontSize="14px" padding="8px 16px" borderRadius="99px">
-              예측 결과보기
+      {isLogin ? (
+        <MyRankContainer>
+          <MyRankText>{myRank?.name}님의 랭킹</MyRankText>
+          <MyRankDetail>
+            <MyRankInfo>
+              <MyRankNumber>{myRank?.rank}</MyRankNumber>
+              <MyRankText>등</MyRankText>
+            </MyRankInfo>
+            <Icon.RankStroke />
+            <MyCorrectAnswerPercentageInfo>
+              <MyCorrectAnswerPercentageNumber>
+                {myRank ? Math.round(myRank.correctAnswerPercentage) : ''}
+              </MyCorrectAnswerPercentageNumber>
+              <MyCorrectAnswerPercentageText>% 적중</MyCorrectAnswerPercentageText>
+            </MyCorrectAnswerPercentageInfo>
+          </MyRankDetail>
+          <Flex $gap="6px">
+            <Link href="/bets">
+              <ActionButton color="white" bgColor="#FFFFFF26" fontSize="14px" padding="8px 16px" borderRadius="99px">
+                예측 결과보기
+              </ActionButton>
+            </Link>
+            <ActionButton
+              color="white"
+              bgColor="linear-gradient(90deg, rgba(134, 0, 240, 0.80) -12.75%, rgba(70, 0, 183, 0.80) 113.73%)"
+              fontSize="14px"
+              padding="8px 16px"
+              borderRadius="99px"
+              fontWeight="700"
+              onClick={shareHandler}
+            >
+              내 랭킹 공유하기
             </ActionButton>
-          </Link>
-          <ActionButton
-            color="white"
-            bgColor="linear-gradient(90deg, rgba(134, 0, 240, 0.80) -12.75%, rgba(70, 0, 183, 0.80) 113.73%)"
-            fontSize="14px"
-            padding="8px 16px"
-            borderRadius="99px"
-            fontWeight="700"
-            onClick={shareHandler}
-          >
-            내 랭킹 공유하기
-          </ActionButton>
-        </Flex>
-      </MyRankContainer>
+          </Flex>
+        </MyRankContainer>
+      ) : (
+        <LoginWrapper>
+          <LoginText>{loginMessage}</LoginText>
+          <ButtonWrapper>
+            <KakaoLogin />
+          </ButtonWrapper>
+        </LoginWrapper>
+      )}
     </Wrapper>
   );
 }
@@ -140,4 +155,38 @@ const MyCorrectAnswerPercentageText = styled.div`
   font-weight: 500;
   line-height: normal;
   letter-spacing: -0.64px;
+`;
+
+const LoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0px;
+  margin: 0 20px;
+  border-radius: 10px;
+  background: var(
+    --Background-5,
+    linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%),
+    #121212
+  );
+`;
+
+const LoginText = styled.div`
+  color: var(--white-high-emphasis-87, rgba(255, 255, 255, 0.87));
+  text-align: center;
+
+  /* Label1_m */
+  font-family: 'Spoqa Han Sans Neo';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.64px;
+  white-space: pre-line;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 90px;
 `;
