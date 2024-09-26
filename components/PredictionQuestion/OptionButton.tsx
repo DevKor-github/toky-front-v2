@@ -44,13 +44,13 @@ export function OptionButton({
           }
         }}
         $position={position}
-        $isAnswered={isAnswered}
+        $isAnswered={isAnswered || hasRealAnswer}
         $isMyAnswer={isMyAnswer}
       >
         {!isCorrect && (
           <>
             {option}
-            {isAnswered && (
+            {(isAnswered || hasRealAnswer) && (
               <Percentage $isMyAnswer={isMyAnswer}>
                 <span>{percentage}</span>
                 <span>%</span>
@@ -63,7 +63,7 @@ export function OptionButton({
         <Gradient
           initial={'visible'}
           variants={motionVariant}
-          animate={isAnswered ? 'hidden' : 'visible'}
+          animate={isAnswered || hasRealAnswer ? 'hidden' : 'visible'}
           $type={'default'}
           $position={position}
         />
