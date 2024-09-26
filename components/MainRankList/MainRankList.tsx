@@ -4,6 +4,7 @@ import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
 import Link from 'next/link';
 import { useGetRankInfiniteScroll } from '@/libs/apis/rank';
+import { useAuthStore } from '@/libs/store/Providers/AuthStoreProvider';
 
 import styled from 'styled-components';
 
@@ -12,6 +13,10 @@ export function MainRankList() {
   const { data: rankList } = useGetRankInfiniteScroll(3, 'top-rank');
 
   const flattenRankList = rankList?.pages.flatMap((page) => page.data) ?? [];
+
+  const isLogin = useAuthStore((state) => state.isLogin);
+
+  const loginText = '내 랭킹을 확인하려면\n로그인이 필요해요';
 
   return (
     <Wrapper>
@@ -27,16 +32,27 @@ export function MainRankList() {
         </ActionButton>
       </RankHeader>
       <RankContainer>
-        <MyRankContainer>
-          <RankInfo>
-            <Rank $digits={myRank ? myRank.rank.toString().length : 0}>{myRank?.rank}</Rank>
-            <UserInfo>
-              <MyRankText>내 랭킹</MyRankText>
-              <Username>{myRank?.name}</Username>
-            </UserInfo>
-          </RankInfo>
-          <CorrectAnswerPercentage>{myRank ? Math.round(myRank.correctAnswerPercentage) : ''}%</CorrectAnswerPercentage>
-        </MyRankContainer>
+        {isLogin ? (
+          <MyRankContainer>
+            <RankInfo>
+              <Rank $digits={myRank ? myRank.rank.toString().length : 0}>{myRank?.rank}</Rank>
+              <UserInfo>
+                <MyRankText>내 랭킹</MyRankText>
+                <Username>{myRank?.name}</Username>
+              </UserInfo>
+            </RankInfo>
+            <CorrectAnswerPercentage>
+              {myRank ? Math.round(myRank.correctAnswerPercentage) : ''}%
+            </CorrectAnswerPercentage>
+          </MyRankContainer>
+        ) : (
+          <MyRankContainer>
+            <LoginInfo>
+              <Rank $digits={4}>-</Rank>
+              <LoginText>{loginText}</LoginText>
+            </LoginInfo>
+          </MyRankContainer>
+        )}
         <Icon.MainRankListStroke $width={(window.innerWidth - 80).toString()} />
         <RankListContainer>
           {flattenRankList?.map((item, index) => (
@@ -203,4 +219,22 @@ const Details = styled(Link)`
   font-weight: 400;
   line-height: 160%; /* 22.4px */
   letter-spacing: -0.56px;
+`;
+
+const LoginInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: left;
+`;
+
+const LoginText = styled.div`
+  color: var(--_87, rgba(255, 255, 255, 0.87));
+  font-family: 'Spoqa Han Sans Neo';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 19.6px */
+  letter-spacing: -0.56px;
+  white-space: pre-line;
 `;
