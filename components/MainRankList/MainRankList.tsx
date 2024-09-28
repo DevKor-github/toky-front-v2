@@ -78,7 +78,7 @@ export function MainRankList() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 32px 0;
+  margin-top: 32px;
   padding: 0 14px 0 20px;
   gap: 12px;
 `;
