@@ -27,6 +27,7 @@ export const useGetRankInfiniteScroll = (pageSize: number, queryKey: string) => 
     queryFn: fetchRank,
     initialPageParam: '' as string,
     getNextPageParam: ({ meta: { hasNextData, nextCursor } }) => (hasNextData ? nextCursor : undefined),
+    retry: 1,
   });
 
   return {

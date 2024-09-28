@@ -46,7 +46,7 @@ export default function Rank() {
       <Header title="적중률 랭킹" withSideBar={true} />
       <MyRank shareHandler={openModal} myRank={myRank} />
       <RankList data={rankItems} currentUser={currentUser}>
-        {!isFetchingNextPage && <div ref={ref} />}
+        {!isFetchingNextPage && <InfiniteFetchDiv ref={ref} />}
       </RankList>
       <ScrollToTopButton onClick={() => scrollTo({ left: 0, top: 0, behavior: 'smooth' })}>
         <Icon.VerticalAlignTop />
@@ -71,4 +71,8 @@ const ScrollToTopButton = styled.button`
     #121212
   );
   box-shadow: 0px 4px 10px 0px rgba(18, 18, 18, 0.15);
+`;
+
+const InfiniteFetchDiv = styled.div`
+  height: 5px;
 `;
