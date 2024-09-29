@@ -1,7 +1,9 @@
 'use client';
+import { useEffect } from 'react';
+import styled from 'styled-components';
+
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
-import styled from 'styled-components';
 import Backdrop from '../Backdrop';
 import { useRankShare } from './useRankShare';
 import RankCard from './RankCard';
@@ -13,6 +15,14 @@ interface ShareModalProps {
 
 export function RankModal({ isModalOpen = true, onClose }: ShareModalProps) {
   const { imgSrc, rankInfo, isFetchLoading, imageRef, shareRef, shareImage } = useRankShare();
+
+  useEffect(() => {
+    document.body.style.cssText = `overflow: hidden;`;
+    return () => {
+      document.body.style.cssText = `overflow: auto;`;
+    };
+  }, []);
+
   return (
     <>
       {isModalOpen && !isFetchLoading && rankInfo && imgSrc && (
