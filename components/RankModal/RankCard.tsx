@@ -20,7 +20,7 @@ export function PredictionCardFC({ rankInfo, src }: PredictionCardProps, ref: Fo
             <PercentContainer>적중률 상위 {rankInfo?.rankPercentage ?? 5}%</PercentContainer>
 
             <RankContainer>
-              <TotalRank>{rankInfo.participants} 중</TotalRank>
+              <TotalRank>{rankInfo.participants}명 중</TotalRank>
               <Rank>{rankInfo.rank}등</Rank>
             </RankContainer>
             <ShareFooter>
