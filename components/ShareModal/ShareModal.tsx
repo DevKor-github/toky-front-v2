@@ -1,8 +1,10 @@
 'use client';
+import { useEffect } from 'react';
+import styled from 'styled-components';
+
 import { Flex } from '@/libs/design-system/flex';
 import { Icon } from '@/libs/design-system/icons';
 import PredictionCard from './PredictionCard';
-import styled from 'styled-components';
 import Backdrop from '../Backdrop';
 import { useCardShare } from './useCardShare';
 
@@ -14,6 +16,13 @@ interface ShareModalProps {
 export function ShareModal({ isModalOpen = true, onClose }: ShareModalProps) {
   const { shareImage, shareRef, imageRef, profile, scoreData, isLoading, isFetchLoading, imgSrc, predictionResult } =
     useCardShare();
+
+  useEffect(() => {
+    document.body.style.cssText = `overflow: hidden;`;
+    return () => {
+      document.body.style.cssText = `overflow: auto;`;
+    };
+  }, []);
 
   return (
     <>
