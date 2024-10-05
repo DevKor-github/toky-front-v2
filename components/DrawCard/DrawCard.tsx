@@ -9,6 +9,7 @@ import { useDrawOneGift } from '@/libs/apis/tickets';
 import { useLoginModal } from '../LoginModal/useLoginModal';
 import { useNeedTicketModal } from '../NeedTicketModal/useNeedTicketModal';
 import { sendGAEvent } from '@next/third-parties/google';
+import { useEndModal } from '@/components/useEndModal/useEndModal';
 
 interface DrawCardProps {
   totalDraw: number;
@@ -17,13 +18,15 @@ interface DrawCardProps {
   id: number;
   canDraw: boolean;
   imgUrl: string;
+  isDone: boolean;
 }
 
-export function DrawCard({ totalDraw, productName, productAlias, id, canDraw, imgUrl }: DrawCardProps) {
+export function DrawCard({ totalDraw, productName, productAlias, id, canDraw, imgUrl, isDone = false }: DrawCardProps) {
   const [isClicked, setIsClicked] = useState(false);
   const { openToast } = useToast();
   const { openLoginModal } = useLoginModal();
   const { openNeedTikcetModal } = useNeedTicketModal();
+  const { openEndModal } = useEndModal();
   const ticketControls = useAnimation();
 
   async function ticketAnimation() {
@@ -52,6 +55,10 @@ export function DrawCard({ totalDraw, productName, productAlias, id, canDraw, im
   const { mutate: onDraw } = useDrawOneGift(drawSuccess, id);
 
   const handleClick = async () => {
+    if (isDone) {
+      openEndModal();
+      return;
+    }
     if (openLoginModal() !== false) return;
     if (!canDraw) {
       openNeedTikcetModal();
@@ -74,6 +81,7 @@ export function DrawCard({ totalDraw, productName, productAlias, id, canDraw, im
         initial={{ width: '100%' }}
         animate={{ width: isClicked ? '93%' : '100%' }}
         transition={{ duration: 0.2 }}
+        isDone={isDone}
       >
         <AnimatePresence>
           {isClicked && (
@@ -159,7 +167,7 @@ const ProductName = styled.h5`
   z-index: 1;
 `;
 
-const DrawButton = styled(motion.button)`
+const DrawButton = styled(motion.button)<{ isDone: boolean }>`
   display: flex;
   height: 46px;
   padding: 12px 0px;
@@ -177,6 +185,8 @@ const DrawButton = styled(motion.button)`
   line-height: 24px;
   letter-spacing: -0.64px;
   position: relative;
+
+  opacity: ${({ isDone }) => (isDone ? 0.7 : 1)};
 `;
 
 const TicketIconWrapper = styled(motion.div)`

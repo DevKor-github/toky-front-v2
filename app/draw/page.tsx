@@ -92,6 +92,7 @@ export default function Draw() {
                   productName={gift.name}
                   imgUrl={gift.photoUrl}
                   productAlias={gift.alias}
+                  isDone={true}
                 />
               ))}
           </Flex>
