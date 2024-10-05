@@ -44,14 +44,14 @@ export default function Attendance() {
               attendanceHistory={attendanceInfo?.attendanceHistory ?? []}
               today={todayQuizInfo.today ?? ''}
             />
-            <DailyAttendanceQuiz
+            {/* <DailyAttendanceQuiz
               question={todayQuizInfo.question ?? ''}
               quizId={todayQuizInfo.quizId ?? 0}
               todayAttendance={attendanceInfo?.todayAttendance ?? false}
               isMyAnswerCorrect={attendanceInfo?.isMyAnswerCorrect ?? null}
               todayAnswer={attendanceInfo?.todayAnswer ?? null}
               refetchAttendance={refetchAttendance}
-            />
+            /> */}
           </>
         )}
         <AttendancePolicy />
